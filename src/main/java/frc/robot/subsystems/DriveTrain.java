@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.Utilities;
@@ -25,6 +26,9 @@ public class DriveTrain extends Subsystem {
   private final TalonSRX rightMotor1 = new TalonSRX(RobotMap.RIGHT_MOTOR_1);
   private final TalonSRX rightMotor2 = new TalonSRX(RobotMap.RIGHT_MOTOR_2);
 
+  private final Solenoid drive_gear = new Solenoid(RobotMap.DRIVE_GEAR);
+	public boolean isInHighGear = false;
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public DriveTrain() {
@@ -33,6 +37,8 @@ public class DriveTrain extends Subsystem {
     this.leftMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
     this.rightMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
     this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
+    
+    this.drive_gear.set(!this.isInHighGear);
   }
 
   public void initDefaultCommand() {
@@ -69,5 +75,15 @@ public class DriveTrain extends Subsystem {
       this.rightMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
       this.rightMotor2.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
     }
+  }
+
+  public void changeGears() {
+    this.isInHighGear = !this.isInHighGear;
+    this.drive_gear.set(!this.isInHighGear);
+  }
+  
+  public void setGear(boolean set) {
+    this.isInHighGear = set;
+    this.drive_gear.set(!this.isInHighGear);
   }
 }

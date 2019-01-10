@@ -40,11 +40,13 @@ public class RobotMap {
   //end of remote values
 
   //motors
-  public static final int LEFT_MOTOR_1 = 0; //motor PDP values
-  public static final int LEFT_MOTOR_2 = 1;
+  public static final int LEFT_MOTOR_1 = 6; //motor PDP values
+  public static final int LEFT_MOTOR_2 = 7;
   public static final int RIGHT_MOTOR_1 = 2;
-  public static final int RIGHT_MOTOR_2 = 3;
+  public static final int RIGHT_MOTOR_2 = 5;
 
+  //solenoids and pnumantics 
+  public static final int DRIVE_GEAR = 0;
 
   //driver limitations and values
   public static final double MAX_SPEED = 0.95; // 0-1, max speed
