@@ -49,6 +49,7 @@ public class RobotMap {
   //driver limitations and values
   public static final double MAX_SPEED = 0.95; // 0-1, max speed
   public static final double RAMP_RATE = 0; //time in seconds for the motor to reach max speed
+  public static final double TURNING_RATE = 0.7;
   public static final int CURRENT_LIMIT = 27;
 
 }
