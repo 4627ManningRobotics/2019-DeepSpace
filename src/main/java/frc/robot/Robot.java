@@ -23,6 +23,7 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   public static DriveTrain driveTrain = new DriveTrain();
+  public static Claw claw = new Claw();
   public static OI oi;
 
   Command autonomousCommand;
