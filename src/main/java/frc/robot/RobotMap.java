@@ -37,13 +37,19 @@ public class RobotMap {
 	
 	public static final int LEFT_TRIGGER = 2;
 	public static final int RIGHT_TRIGGER = 3;
-  //end of remote values
+  	//end of remote values
 
   //motors
-  public static final int LEFT_MOTOR_1 = 6; //motor PDP values
-  public static final int LEFT_MOTOR_2 = 7;
-  public static final int RIGHT_MOTOR_1 = 2;
-  public static final int RIGHT_MOTOR_2 = 5;
+  public static final int LEFT_MOTOR_1 = 5; //motor PDP values
+  public static final int LEFT_MOTOR_2 = 2;
+  public static final int RIGHT_MOTOR_1 = 4;
+  public static final int RIGHT_MOTOR_2 = 3;
+
+  public static final int LEFT_INTAKE = 0;
+  public static final int RIGHT_INTAKE = 1;
+
+  public static final int FRONT_CLIMBER = 6;
+  public static final int BACK_CLIMBER = 7;
 
   //solenoids and pnumantics 
   public static final int DRIVE_GEAR = 0;
@@ -54,4 +60,9 @@ public class RobotMap {
   public static final double TURNING_RATE = 0.7;
   public static final int CURRENT_LIMIT = 27;
 
+  //operator limitations and values
+  public static final double MAX_INTAKE_SPEED = 1; // 0 - 1
+
+  //climber values
+  public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
 }

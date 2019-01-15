@@ -34,11 +34,11 @@ public class OI {
   Button oButtonRightStick = new JoystickButton(this.operatorController, RobotMap.RIGHT_STICK_BUTTON);
   
   public boolean getOperatorButton(int axis) {
-		return this.operatorController.getRawButtonPressed(axis);
+		return this.operatorController.getRawButton(axis);
 	}
 	
 	public boolean getDriverButton(int axis) {
-		return this.driverController.getRawButtonPressed(axis);
+		return this.driverController.getRawButton(axis);
 	}
 	
 	public double getOperatorRawAxis(int axis) {
