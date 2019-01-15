@@ -44,6 +44,8 @@ public class RobotMap {
   public static final int LEFT_MOTOR_2 = 7;
   public static final int RIGHT_MOTOR_1 = 2;
   public static final int RIGHT_MOTOR_2 = 5;
+  public static final int LEFT_INTAKE = 0;
+  public static final int RIGHT_INTAKE = 1;
 
   //solenoids and pnumantics 
   public static final int DRIVE_GEAR = 0;
@@ -53,5 +55,8 @@ public class RobotMap {
   public static final double RAMP_RATE = 0; //time in seconds for the motor to reach max speed
   public static final double TURNING_RATE = 0.7;
   public static final int CURRENT_LIMIT = 27;
+
+  //intake values
+  public static final int MAX_INTAKE_SPEED = 1;
 
 }
