@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.SetElevator;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -50,6 +51,8 @@ public class OI {
 	}
 
 	public OI () {
+		this.oButtonX.whenPressed(new SetElevator(50));
+		this.oButtonB.whenPressed(new SetElevator(0));
 		//this.oButtonRightStick.whenPressed(new WristControls());
 	}
 }
