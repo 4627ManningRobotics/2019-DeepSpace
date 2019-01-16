@@ -65,4 +65,15 @@ public class RobotMap {
 
   //climber values
   public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
+
+  //elevator values
+  public static final double ELEVATOR_WINCH_RAD = 0.5;
+  public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD*ELEVATOR_WINCH_RAD*Math.PI;
+  public static final double ELEVATOR_GEARING = 21;
+  public static final double ELEVATOR_MIN_POWER = -1;
+  public static final double ELEVATOR_MAX_POWER = 1;
+  public static final double ELEVATOR_P = 0;
+  public static final double ELEVATOR_I = 0;
+  public static final double ELEVATOR_D = 0;
+  public static final double ELEVATOR_IZONE = 0;
 }
