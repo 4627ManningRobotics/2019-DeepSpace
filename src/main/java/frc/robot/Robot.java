@@ -24,6 +24,7 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   public static DriveTrain driveTrain = new DriveTrain();
+  public static Claw claw = new Claw();
   public static Climber climber = new Climber();
   public static Elevator elevator = new Elevator();
   public static OI oi;
