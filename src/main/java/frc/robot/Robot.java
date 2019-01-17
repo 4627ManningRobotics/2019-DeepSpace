@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.io.Console;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -58,6 +60,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("pos",elevator.getPosition());
+    SmartDashboard.putNumber("set",elevator.getCurrentSetpoint());
+    SmartDashboard.putData("elevator", elevator);
+
   }
 
   /**

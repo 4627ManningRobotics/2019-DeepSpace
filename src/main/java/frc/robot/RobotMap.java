@@ -72,7 +72,7 @@ public class RobotMap {
   public static final double ELEVATOR_GEARING = 21;
   public static final double ELEVATOR_MIN_POWER = -1;
   public static final double ELEVATOR_MAX_POWER = 1;
-  public static final double ELEVATOR_P = 0.0002;
+  public static final double ELEVATOR_P = 0.01;
   public static final double ELEVATOR_I = 0;
   public static final double ELEVATOR_D = 0;
   public static final double ELEVATOR_IZONE = 0;

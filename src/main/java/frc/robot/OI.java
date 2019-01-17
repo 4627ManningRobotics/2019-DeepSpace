@@ -51,7 +51,7 @@ public class OI {
 	}
 
 	public OI () {
-		this.oButtonX.whenPressed(new SetElevator(50));
+		this.oButtonX.whenPressed(new SetElevator(5));
 		this.oButtonB.whenPressed(new SetElevator(0));
 		//this.oButtonRightStick.whenPressed(new WristControls());
 	}

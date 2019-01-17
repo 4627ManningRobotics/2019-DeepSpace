@@ -39,13 +39,13 @@ public class SetElevator extends Command {
   protected boolean isFinished() {
     
     double m_setpoint=Robot.elevator.getCurrentSetpoint();
-    if(Utilities.within(Robot.elevator.getPosition(), m_setpoint-1, m_setpoint+1)){
+    if(Utilities.within(Robot.elevator.getPosition(), m_setpoint-0.5, m_setpoint+0.5)){
       counter+=1;
     } else {
       counter = 0;
     }
     
-    return (counter>5);
+    return (counter>15);
   }
 
   // Called once after isFinished returns true

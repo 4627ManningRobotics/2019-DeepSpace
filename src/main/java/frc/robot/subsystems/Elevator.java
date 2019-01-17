@@ -47,7 +47,7 @@ public class Elevator extends Subsystem {
   }
 
   public void setElevator(double height){
-    double rotations = (height/RobotMap.ELEVATOR_WINCH_CIRC)/RobotMap.ELEVATOR_GEARING;
+    double rotations = (height/RobotMap.ELEVATOR_WINCH_CIRC)*RobotMap.ELEVATOR_GEARING;
     pidController.setReference(rotations, ControlType.kPosition);
     currentSetpoint = rotations;
   }
