@@ -68,7 +68,7 @@ public class RobotMap {
 
   //elevator values
   public static final double ELEVATOR_WINCH_RAD = 0.5;
-  public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD*ELEVATOR_WINCH_RAD*Math.PI;
+  public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD * ELEVATOR_WINCH_RAD * Math.PI;
   public static final double ELEVATOR_GEARING = 21;
   public static final double ELEVATOR_MIN_POWER = -1;
   public static final double ELEVATOR_MAX_POWER = 1;

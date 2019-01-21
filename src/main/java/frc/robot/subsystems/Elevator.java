@@ -39,14 +39,18 @@ public class Elevator extends Subsystem {
     this.pidController.setI(RobotMap.ELEVATOR_I);
     this.pidController.setD(RobotMap.ELEVATOR_D);
     this.pidController.setIZone(RobotMap.ELEVATOR_IZONE);
+    this.motor.setSmartCurrentLimit(RobotMap.CURRENT_LIMIT);
+
     SmartDashboard.putNumber("P", this.pidController.getP());
     SmartDashboard.putNumber("I", this.pidController.getI());
     SmartDashboard.putNumber("D", this.pidController.getD());
     SmartDashboard.putNumber("I Zone", this.pidController.getIZone());
     SmartDashboard.putNumber("Output Min", this.pidController.getOutputMin());
     SmartDashboard.putNumber("Output Max", this.pidController.getOutputMax());
-    
     SmartDashboard.putNumber("set point", 0);
+    SmartDashboard.putNumber("pos", this.getPosition());
+    SmartDashboard.putNumber("set", this.getCurrentSetpoint());
+    SmartDashboard.putNumber("out", this.getAppliedOutput());
   }
 
   public double getCurrentSetpoint(){
