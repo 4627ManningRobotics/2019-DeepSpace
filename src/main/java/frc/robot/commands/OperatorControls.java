@@ -25,15 +25,13 @@ public class OperatorControls extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.claw.setSpeed(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
-    /*
+    //Robot.claw.setSpeed(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
     Robot.climber.set_front(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
     if(Robot.oi.getOperatorButton(RobotMap.BUTTON_Y)){
       Robot.climber.set_back(1);
     }else if(Robot.oi.getOperatorButton(RobotMap.BUTTON_A)){
       Robot.climber.set_back(-1);
     }
-    */
   }
 
   // Make this return true when this Command no longer needs to run execute()
