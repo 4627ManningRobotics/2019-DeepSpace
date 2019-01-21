@@ -76,4 +76,5 @@ public class RobotMap {
   public static final double ELEVATOR_I = 0;
   public static final double ELEVATOR_D = 0;
   public static final double ELEVATOR_IZONE = 0;
+  public static final double ELEVATOR_DEAD_ZONE = 0.5;
 }

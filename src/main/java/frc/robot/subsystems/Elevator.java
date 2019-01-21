@@ -7,12 +7,15 @@
 
 package frc.robot.subsystems;
 
+import java.sql.Time;
+
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
@@ -31,25 +34,43 @@ public class Elevator extends Subsystem {
   }
 
   public void initPID(){
-    pidController.setOutputRange(RobotMap.ELEVATOR_MIN_POWER, RobotMap.ELEVATOR_MAX_POWER);
-    pidController.setP(RobotMap.ELEVATOR_P);
-    pidController.setI(RobotMap.ELEVATOR_I);
-    pidController.setD(RobotMap.ELEVATOR_D);
-    pidController.setIZone(RobotMap.ELEVATOR_IZONE);
+    this.pidController.setOutputRange(RobotMap.ELEVATOR_MIN_POWER, RobotMap.ELEVATOR_MAX_POWER);
+    this.pidController.setP(RobotMap.ELEVATOR_P);
+    this.pidController.setI(RobotMap.ELEVATOR_I);
+    this.pidController.setD(RobotMap.ELEVATOR_D);
+    this.pidController.setIZone(RobotMap.ELEVATOR_IZONE);
+    SmartDashboard.putNumber("P", this.pidController.getP());
+    SmartDashboard.putNumber("I", this.pidController.getI());
+    SmartDashboard.putNumber("D", this.pidController.getD());
+    SmartDashboard.putNumber("I Zone", this.pidController.getIZone());
+    SmartDashboard.putNumber("Output Min", this.pidController.getOutputMin());
+    SmartDashboard.putNumber("Output Max", this.pidController.getOutputMax());
+    
+    SmartDashboard.putNumber("set point", 0);
   }
 
   public double getCurrentSetpoint(){
-    return currentSetpoint;
+    return this.currentSetpoint;
+  }
+
+  public double getAppliedOutput(){
+    return this.motor.getAppliedOutput();
   }
 
   public double getPosition(){
-    return motor.getEncoder().getPosition();
+    return this.motor.getEncoder().getPosition();
+  }
+
+  public void setPID(double P, double I, double D){
+    this.pidController.setP(P);
+    this.pidController.setI(I);
+    this.pidController.setD(D);
   }
 
   public void setElevator(double height){
     double rotations = (height/RobotMap.ELEVATOR_WINCH_CIRC)*RobotMap.ELEVATOR_GEARING;
-    pidController.setReference(rotations, ControlType.kPosition);
-    currentSetpoint = rotations;
+    this.pidController.setReference(rotations, ControlType.kPosition);
+    this.currentSetpoint = rotations;
   }
 
 }

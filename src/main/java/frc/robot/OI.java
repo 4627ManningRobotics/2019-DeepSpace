@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SetElevator;
 
 /**
@@ -51,6 +52,7 @@ public class OI {
 	}
 
 	public OI () {
+		//this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
 		this.oButtonX.whenPressed(new SetElevator(5));
 		this.oButtonB.whenPressed(new SetElevator(0));
 		//this.oButtonRightStick.whenPressed(new WristControls());

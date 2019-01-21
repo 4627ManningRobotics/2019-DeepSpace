@@ -8,7 +8,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.Utilities;
 
 
@@ -32,6 +34,15 @@ public class SetElevator extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double P = SmartDashboard.getNumber("P", 0);
+    double I = SmartDashboard.getNumber("I", 0);
+    double D = SmartDashboard.getNumber("D", 0);
+    Robot.elevator.setPID(P, I, D);
+
+    SmartDashboard.putNumber("pos", Robot.elevator.getPosition());
+    SmartDashboard.putNumber("set", Robot.elevator.getCurrentSetpoint());
+    SmartDashboard.putNumber("out", Robot.elevator.getAppliedOutput());
+    SmartDashboard.putData("elevator", Robot.elevator);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -39,7 +50,7 @@ public class SetElevator extends Command {
   protected boolean isFinished() {
     
     double m_setpoint=Robot.elevator.getCurrentSetpoint();
-    if(Utilities.within(Robot.elevator.getPosition(), m_setpoint-0.5, m_setpoint+0.5)){
+    if(Utilities.within(Robot.elevator.getPosition(), m_setpoint - RobotMap.ELEVATOR_DEAD_ZONE, m_setpoint + RobotMap.ELEVATOR_DEAD_ZONE)){
       counter+=1;
     } else {
       counter = 0;

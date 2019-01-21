@@ -60,9 +60,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("pos",elevator.getPosition());
-    SmartDashboard.putNumber("set",elevator.getCurrentSetpoint());
-    SmartDashboard.putData("elevator", elevator);
 
   }
 
