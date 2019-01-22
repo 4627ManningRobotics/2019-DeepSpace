@@ -47,7 +47,7 @@ public class Elevator extends Subsystem {
     SmartDashboard.putNumber("I Zone", this.pidController.getIZone());
     SmartDashboard.putNumber("Output Min", this.pidController.getOutputMin());
     SmartDashboard.putNumber("Output Max", this.pidController.getOutputMax());
-    SmartDashboard.putNumber("set point", 0);
+    //SmartDashboard.putNumber("set point", 0);
     SmartDashboard.putNumber("pos", this.getPosition());
     SmartDashboard.putNumber("set", this.getCurrentSetpoint());
     SmartDashboard.putNumber("out", this.getAppliedOutput());

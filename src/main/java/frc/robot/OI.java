@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SetElevator;
+import frc.robot.commands.SetVacuumAngle;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -53,8 +54,8 @@ public class OI {
 
 	public OI () {
 		//this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
-		this.oButtonX.whenPressed(new SetElevator(5));
-		this.oButtonB.whenPressed(new SetElevator(0));
+		this.oButtonX.whenPressed(new SetVacuumAngle(20));
+		this.oButtonB.whenPressed(new SetVacuumAngle(0));
 		//this.oButtonRightStick.whenPressed(new WristControls());
 	}
 }

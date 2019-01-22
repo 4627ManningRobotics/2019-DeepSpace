@@ -45,11 +45,13 @@ public class RobotMap {
   public static final int RIGHT_MOTOR_1 = 4;
   public static final int RIGHT_MOTOR_2 = 3;
 
-  public static final int LEFT_INTAKE = 0;
+  public static final int LEFT_INTAKE = 8;
   public static final int RIGHT_INTAKE = 1;
 
   public static final int FRONT_CLIMBER = 6;
   public static final int BACK_CLIMBER = 7;
+
+  public static final int VACCUM_MOTOR = 0;
 
   //solenoids and pnumantics 
   public static final int DRIVE_GEAR = 0;
@@ -77,4 +79,11 @@ public class RobotMap {
   public static final double ELEVATOR_D = 0;
   public static final double ELEVATOR_IZONE = 0;
   public static final double ELEVATOR_DEAD_ZONE = 0.5;
+
+  //Vacuum values
+  public static final double VACUUM_P = 0.01;
+  public static final double VACUUM_I = 0;
+  public static final double VACUUM_D = 0;
+  public static final double VACUUM_TOLLERANCE = 5; //degrees
+
 }
