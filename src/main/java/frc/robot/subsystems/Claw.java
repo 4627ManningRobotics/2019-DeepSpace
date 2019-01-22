@@ -19,8 +19,7 @@ import frc.robot.Utilities;
  */
 public class Claw extends Subsystem {
   
-  private final TalonSRX left_intake = new TalonSRX(RobotMap.LEFT_INTAKE); // drive train motors
-  private final TalonSRX right_intake = new TalonSRX(RobotMap.RIGHT_INTAKE);
+  private final TalonSRX intake = new TalonSRX(RobotMap.INTAKE);
   
   @Override
   public void initDefaultCommand() {
@@ -28,7 +27,6 @@ public class Claw extends Subsystem {
 
   public void setSpeed(double speed){
     speed = Utilities.constrain(speed, -RobotMap.MAX_INTAKE_SPEED, RobotMap.MAX_INTAKE_SPEED);
-    this.left_intake.set(ControlMode.PercentOutput, speed);
-    this.right_intake.set(ControlMode.PercentOutput, -speed); // reverse direction to intake object 
+    this.intake.set(ControlMode.PercentOutput, speed);
   }
 }
