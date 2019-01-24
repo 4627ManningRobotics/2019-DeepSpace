@@ -19,6 +19,7 @@ import frc.robot.RobotMap;
 public class Vacuum extends PIDSubsystem {
 
   private final TalonSRX VacMotor = new TalonSRX(RobotMap.VACCUM_MOTOR);
+  private final double GEAR_RATIO = 45d / 56d;
 
   /**
    * Add your docs here.
@@ -38,7 +39,7 @@ public class Vacuum extends PIDSubsystem {
 
   @Override
   protected double returnPIDInput() {
-    return this.VacMotor.getSensorCollection().getPulseWidthPosition() / 10d;
+    return this.VacMotor.getSensorCollection().getPulseWidthPosition() * this.GEAR_RATIO / 10d;
   }
 
   @Override
