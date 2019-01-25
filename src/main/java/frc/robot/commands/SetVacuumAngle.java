@@ -34,6 +34,7 @@ public class SetVacuumAngle extends Command {
   @Override
   protected void execute() {
     SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
+    SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
   }
 
   // Make this return true when this Command no longer needs to run execute()

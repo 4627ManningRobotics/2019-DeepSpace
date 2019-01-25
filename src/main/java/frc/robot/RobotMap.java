@@ -81,9 +81,10 @@ public class RobotMap {
   public static final double ELEVATOR_DEAD_ZONE = 0.5;
 
   //Vacuum values
-  public static final double VACUUM_P = 0.01;
+  public static final double VACUUM_P = 0.0005;
   public static final double VACUUM_I = 0;
   public static final double VACUUM_D = 0;
-  public static final double VACUUM_TOLLERANCE = 5; //degrees
+  public static final double VACUUM_TOLLERANCE = 3; //degrees
+  public static final double MAX_WRIST_SPEED = 0.5;
 
 }

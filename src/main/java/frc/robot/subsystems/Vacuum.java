@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
@@ -20,15 +21,16 @@ public class Vacuum extends PIDSubsystem {
 
   private final TalonSRX VacMotor = new TalonSRX(RobotMap.VACCUM_MOTOR);
   private final double GEAR_RATIO = 45d / 56d;
+  private final double DEGREES_PER_TICK = 360d / 1024d; //360 degrees divided by ticks per revolution
 
   /**
    * Add your docs here.
    */
   public Vacuum() {
     super("Vacuum", RobotMap.VACUUM_P, RobotMap.VACUUM_I, RobotMap.VACUUM_D);
-    super.getPIDController().setOutputRange(-1, 1);
+    super.getPIDController().setOutputRange(-RobotMap.MAX_WRIST_SPEED, RobotMap.MAX_WRIST_SPEED);
     super.getPIDController().setAbsoluteTolerance(RobotMap.VACUUM_TOLLERANCE);
-    this.VacMotor.getSensorCollection().setAnalogPosition(0, 0);
+    //this.VacMotor.getSensorCollection().setPulseWidthPosition(0, 0);
   }
 
   @Override
@@ -37,9 +39,13 @@ public class Vacuum extends PIDSubsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
+  public double getTicks(){
+    return this.VacMotor.getSensorCollection().getPulseWidthPosition();
+  }
+
   @Override
   protected double returnPIDInput() {
-    return this.VacMotor.getSensorCollection().getPulseWidthPosition() * this.GEAR_RATIO / 10d;
+    return this.VacMotor.getSensorCollection().getPulseWidthPosition() * this.DEGREES_PER_TICK; //* this.GEAR_RATIO;
   }
 
   @Override
