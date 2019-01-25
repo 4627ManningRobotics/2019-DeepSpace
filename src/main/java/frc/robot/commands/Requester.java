@@ -28,6 +28,10 @@ public abstract class Requester{
         this.is_requesting = false;
     }
 
+    public boolean isRequesting(){
+        return this.is_requesting;
+    }
+
     protected abstract void filterData(String data);
 
 }
