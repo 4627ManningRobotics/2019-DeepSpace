@@ -27,7 +27,7 @@ public class Sensors extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private final SerialPort RaspberryPi = new SerialPort(9600, Port.kUSB);
+  private final SerialPort RaspberryPi = null;//new SerialPort(9600, Port.kUSB);
   protected final PiSerialGetter getter = new PiSerialGetter(this.RaspberryPi);
   protected final PiSerialGetter sender = new PiSerialGetter(this.RaspberryPi);
   protected final Thread serial_in = new Thread(this.getter, "Pi get"); 

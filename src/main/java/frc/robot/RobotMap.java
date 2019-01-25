@@ -42,14 +42,14 @@ public class RobotMap {
   //motors
   public static final int LEFT_MOTOR_1 = 5; //motor PDP values
   public static final int LEFT_MOTOR_2 = 2;
-  public static final int RIGHT_MOTOR_1 = 4;
-  public static final int RIGHT_MOTOR_2 = 3;
+  public static final int RIGHT_MOTOR_1 = 6;
+  public static final int RIGHT_MOTOR_2 = 7;
 
   public static final int LEFT_INTAKE = 0;
   public static final int RIGHT_INTAKE = 1;
 
-  public static final int FRONT_CLIMBER = 6;
-  public static final int BACK_CLIMBER = 7;
+  public static final int FRONT_CLIMBER = 3;
+  public static final int BACK_CLIMBER = 4;
 
   //solenoids and pnumantics 
   public static final int DRIVE_GEAR = 0;
