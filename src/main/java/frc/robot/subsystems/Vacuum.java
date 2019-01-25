@@ -21,7 +21,7 @@ public class Vacuum extends PIDSubsystem {
 
   private final TalonSRX VacMotor = new TalonSRX(RobotMap.VACCUM_MOTOR);
   private final double GEAR_RATIO = 45d / 56d;
-  private final double DEGREES_PER_TICK = 360d / 1024d; //360 degrees divided by ticks per revolution
+  private final double DEGREES_PER_TICK = 360d / 4096d; //360 degrees divided by ticks per revolution
 
   /**
    * Add your docs here.
