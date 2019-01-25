@@ -16,8 +16,8 @@ import frc.robot.Utilities;
 
 
 public class SetElevator extends Command {
-  double m_height;
-  int counter;
+  private double m_height;
+  private int counter;
 
   public SetElevator(double height) {
     m_height=height;
