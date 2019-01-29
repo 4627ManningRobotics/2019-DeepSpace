@@ -34,15 +34,6 @@ public class SetElevator extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double P = SmartDashboard.getNumber("P", 0);
-    double I = SmartDashboard.getNumber("I", 0);
-    double D = SmartDashboard.getNumber("D", 0);
-    Robot.elevator.setPID(P, I, D);
-
-    SmartDashboard.putNumber("pos", Robot.elevator.getPosition());
-    SmartDashboard.putNumber("set", Robot.elevator.getCurrentSetpoint());
-    SmartDashboard.putNumber("out", Robot.elevator.getAppliedOutput());
-    SmartDashboard.putData("elevator", Robot.elevator);
   }
 
   // Make this return true when this Command no longer needs to run execute()

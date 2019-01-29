@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.DashboardData;
 import frc.robot.subsystems.*;
 
 /**
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
   public static Elevator elevator = new Elevator();
   public static Sensors sensors = new Sensors();
   public static OI oi;
+  private Command dash = new DashboardData();
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -41,10 +43,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     Robot.oi = new OI();
-    Robot.elevator.initPID();
     //this.chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", this.chooser);
+    SmartDashboard.putData("Auto mode", this.chooser); // this is the ONLY smart dashboard put that isn't a part of Dashboard Data
+
+    this.dash.start();
 
     CameraServer.getInstance().startAutomaticCapture();
     CameraServer.getInstance().startAutomaticCapture();

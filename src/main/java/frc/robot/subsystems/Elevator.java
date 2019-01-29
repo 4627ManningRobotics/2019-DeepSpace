@@ -27,30 +27,19 @@ public class Elevator extends Subsystem {
 
   private double currentSetpoint;
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
-
-  public void initPID(){
+  public Elevator(){
     this.pidController.setOutputRange(RobotMap.ELEVATOR_MIN_POWER, RobotMap.ELEVATOR_MAX_POWER);
     this.pidController.setP(RobotMap.ELEVATOR_P);
     this.pidController.setI(RobotMap.ELEVATOR_I);
     this.pidController.setD(RobotMap.ELEVATOR_D);
     this.pidController.setIZone(RobotMap.ELEVATOR_IZONE);
     this.motor.setSmartCurrentLimit(RobotMap.CURRENT_LIMIT);
+  }
 
-    SmartDashboard.putNumber("P", this.pidController.getP());
-    SmartDashboard.putNumber("I", this.pidController.getI());
-    SmartDashboard.putNumber("D", this.pidController.getD());
-    SmartDashboard.putNumber("I Zone", this.pidController.getIZone());
-    SmartDashboard.putNumber("Output Min", this.pidController.getOutputMin());
-    SmartDashboard.putNumber("Output Max", this.pidController.getOutputMax());
-    SmartDashboard.putNumber("set point", 0);
-    SmartDashboard.putNumber("pos", this.getPosition());
-    SmartDashboard.putNumber("set", this.getCurrentSetpoint());
-    SmartDashboard.putNumber("out", this.getAppliedOutput());
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
   }
 
   public double getCurrentSetpoint(){
@@ -69,6 +58,18 @@ public class Elevator extends Subsystem {
     this.pidController.setP(P);
     this.pidController.setI(I);
     this.pidController.setD(D);
+  }
+
+  public double getP(){
+    return this.pidController.getP();
+  }
+
+  public double getI(){
+    return this.pidController.getI();
+  }
+
+  public double getD(){
+    return this.pidController.getD();
   }
 
   public void setElevator(double height){
