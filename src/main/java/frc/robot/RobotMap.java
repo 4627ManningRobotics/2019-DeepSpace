@@ -45,9 +45,6 @@ public class RobotMap {
   public static final int RIGHT_MOTOR_1 = 2; //Talon
   public static final int RIGHT_MOTOR_2 = 1; //Victor
 
-  public static final int LEFT_INTAKE = 0;
-  public static final int RIGHT_INTAKE = 1;
-
   public static final int FRONT_CLIMBER = 3;
   public static final int BACK_CLIMBER = 4;
 
