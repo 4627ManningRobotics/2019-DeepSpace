@@ -40,10 +40,10 @@ public class RobotMap {
   	//end of remote values
 
   //motors
-  public static final int LEFT_MOTOR_1 = 5; //motor PDP values
-  public static final int LEFT_MOTOR_2 = 2;
-  public static final int RIGHT_MOTOR_1 = 6;
-  public static final int RIGHT_MOTOR_2 = 7;
+  public static final int LEFT_MOTOR_1 = 3; //Talon
+  public static final int LEFT_MOTOR_2 = 0; //Victor
+  public static final int RIGHT_MOTOR_1 = 1; //Victor
+  public static final int RIGHT_MOTOR_2 = 2; //Talon
 
   public static final int LEFT_INTAKE = 0;
   public static final int RIGHT_INTAKE = 1;
