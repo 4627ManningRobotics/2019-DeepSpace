@@ -30,7 +30,8 @@ public class Vacuum extends PIDSubsystem {
     super("Vacuum", RobotMap.VACUUM_P, RobotMap.VACUUM_I, RobotMap.VACUUM_D);
     super.getPIDController().setOutputRange(-RobotMap.MAX_WRIST_SPEED, RobotMap.MAX_WRIST_SPEED);
     super.getPIDController().setAbsoluteTolerance(RobotMap.VACUUM_TOLLERANCE);
-    //this.VacMotor.getSensorCollection().setPulseWidthPosition(0, 0);
+    
+    this.VacMotor.getSensorCollection().setPulseWidthPosition(0, 0);
   }
 
   @Override
@@ -40,12 +41,13 @@ public class Vacuum extends PIDSubsystem {
   }
 
   public double getTicks(){
-    return this.VacMotor.getSensorCollection().getPulseWidthPosition();
+    return this.VacMotor.getSelectedSensorPosition();
+    //return this.VacMotor.getSensorCollection().getPulseWidthPosition();
   }
 
   @Override
   protected double returnPIDInput() {
-    return this.VacMotor.getSensorCollection().getPulseWidthPosition() * this.DEGREES_PER_TICK * this.GEAR_RATIO;
+    return this.VacMotor.getSelectedSensorPosition() * this.DEGREES_PER_TICK * this.GEAR_RATIO;
   }
 
   @Override

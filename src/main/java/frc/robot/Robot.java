@@ -47,7 +47,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto mode", this.chooser);
 
     CameraServer.getInstance().startAutomaticCapture();
-    CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
@@ -60,7 +59,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
+    SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
+    SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
   }
 
   /**
