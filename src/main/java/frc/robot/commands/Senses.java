@@ -7,13 +7,25 @@
 
 package frc.robot.commands;
 
+import java.util.Queue;
+import java.util.concurrent.SynchronousQueue;
+import java.util.Scanner;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class Senses extends Command {
- public Senses() {
+
+  private Queue<String> inQueue = new SynchronousQueue<String>();
+  public static String recent;
+
+  private Requester ballReqester = new BallRequester();
+
+ public Senses(Queue<String> q) {
     // Use requires() here to declare subsystem dependencies
     super.requires(Robot.sensors);
+    this.inQueue = q;
+    Senses.recent = "";
   }
 
   // Called just before this Command runs the first time
@@ -24,6 +36,18 @@ public class Senses extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    while(!this.inQueue.isEmpty()){
+      String s = this.inQueue.remove();
+      Senses.recent = s;
+
+      switch(s){
+        case Requester.BALL:
+          this.ballReqester.setData(s);
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -29,7 +29,7 @@ public class Sensors extends Subsystem {
 
   private final SerialPort RaspberryPi = null;//new SerialPort(9600, Port.kUSB);
   protected final PiSerialGetter getter = new PiSerialGetter(this.RaspberryPi);
-  protected final PiSerialGetter sender = new PiSerialGetter(this.RaspberryPi);
+  protected final PiSerialSender sender = new PiSerialSender(this.RaspberryPi);
   protected final Thread serial_in = new Thread(this.getter, "Pi get"); 
   protected final Thread serial_out = new Thread(this.sender, "Pi get"); 
 
@@ -46,7 +46,7 @@ public class Sensors extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    super.setDefaultCommand(new Senses());
+    super.setDefaultCommand(new Senses(this.getter.inQueue));
   }
 
   public void addRequester(Requester req){
@@ -59,7 +59,7 @@ class PiSerialGetter implements Runnable{
 
   private final byte BN[] = "\n".getBytes();
   private final SerialPort serial_in;
-  final Queue<String> inQueue = new SynchronousQueue<String>();
+  protected final Queue<String> inQueue = new SynchronousQueue<String>();
 
   public PiSerialGetter(SerialPort s){
     this.serial_in = s;
