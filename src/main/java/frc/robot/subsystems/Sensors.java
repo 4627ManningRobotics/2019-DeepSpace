@@ -11,13 +11,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.concurrent.SynchronousQueue;
 
@@ -34,31 +27,20 @@ public class Sensors extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private final BufferedReader RaspPi_in;
-  private final BufferedWriter RaspPi_out;
-  protected final PiGetter getter = new PiGetter(this.RaspPi_in);
-  protected final PiSender sender = new PiSender(this.RaspPi_out);
-  protected final Thread in = new Thread(this.getter, "Pi get"); 
-  protected final Thread out = new Thread(this.sender, "Pi get"); 
+  private final SerialPort RaspberryPi = null;//new SerialPort(9600, Port.kUSB);
+  protected final PiSerialGetter getter = new PiSerialGetter(this.RaspberryPi);
+  protected final PiSerialSender sender = new PiSerialSender(this.RaspberryPi);
+  protected final Thread serial_in = new Thread(this.getter, "Pi get"); 
+  protected final Thread serial_out = new Thread(this.sender, "Pi get"); 
 
   ArrayList<Requester> requests = new ArrayList<Requester>();
   
   public Sensors(){
-     this.in.setDaemon(true); // ENSURES THE THREAD CLOSES
-     this.out.setDaemon(true);
+     this.serial_in.setDaemon(true); // ENSURES THE THREAD CLOSES
+     this.serial_out.setDaemon(true);
 
-     this.in.start();
-     this.out.start();
-
-     try{
-      URL oracle = new URL("http://10.41.91.109/a"); //URL of Raspberry Pi
-      URLConnection yc = oracle.openConnection();
-      this.RaspPi_in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-      this.RaspPi_out = new BufferedWriter(new OutputStreamWriter(yc.getOutputStream()));
-      
-     } catch(Exception e) {
-       e.printStackTrace();
-     }
+     this.serial_in.start();
+     this.serial_out.start();
    }
   
   @Override
@@ -73,37 +55,42 @@ public class Sensors extends Subsystem {
 
 }
 
-class PiGetter implements Runnable{
+class PiSerialGetter implements Runnable{
 
-  private final BufferedReader serial_in;
+  private final byte BN[] = "\n".getBytes();
+  private final SerialPort serial_in;
   protected final Queue<String> inQueue = new SynchronousQueue<String>();
 
-  public PiGetter(BufferedReader r){
-    this.serial_in = r;
+  public PiSerialGetter(SerialPort s){
+    this.serial_in = s;
   }
 
   @Override
   public void run() {
-    while (true) {
-      String s = "";
-      try {
-        s = this.serial_in.readLine();
-      } catch (IOException e) {
-        e.printStackTrace();
-  }
-  if(!s.equals("")){
-      this.inQueue.add(s);
+    ArrayList<byte[]> buffer = new ArrayList<byte[]>();
+    while(true){
+      buffer.addAll(Arrays.asList(serial_in.read(1024)));
+      int index = buffer.indexOf(this.BN);
+        if(index != -1){
+          String message = "";
+          for(int i = 0; i < index + 1; i++){
+            message += buffer.remove(0).toString(); //always remove 0 since removing the first will shift the rest
+          }
+          buffer.remove(0); //remove \n
+          this.inQueue.add(message);
+        }
     }
   }
+
 }
 
-class PiSender implements Runnable{
+class PiSerialSender implements Runnable{
 
   private final Queue<String> outQueue = new SynchronousQueue<String>();
-  private final BufferedWriter writer;
+  private final SerialPort serial;
 
-  public PiSender(BufferedWriter w){
-    this.writer = w;
+  public PiSerialSender(SerialPort s){
+    this.serial = s;
   }
 
   @Override
