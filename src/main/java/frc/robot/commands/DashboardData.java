@@ -28,6 +28,7 @@ public class DashboardData extends Command {
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
+    SmartDashboard.putString("Serial String", Senses.recent);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -41,6 +42,8 @@ public class DashboardData extends Command {
     SmartDashboard.putNumber("elevator set point", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
+
+    SmartDashboard.putString("Serial String", Senses.recent);
   }
 
   // Make this return true when this Command no longer needs to run execute()
