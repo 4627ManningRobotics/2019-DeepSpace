@@ -42,8 +42,8 @@ public class RobotMap {
   //motors
   public static final int LEFT_MOTOR_1 = 3; //Talon
   public static final int LEFT_MOTOR_2 = 0; //Victor
-  public static final int RIGHT_MOTOR_1 = 1; //Victor
-  public static final int RIGHT_MOTOR_2 = 2; //Talon
+  public static final int RIGHT_MOTOR_1 = 2; //Talon
+  public static final int RIGHT_MOTOR_2 = 1; //Victor
 
   public static final int LEFT_INTAKE = 0;
   public static final int RIGHT_INTAKE = 1;
@@ -51,14 +51,13 @@ public class RobotMap {
   public static final int FRONT_CLIMBER = 3;
   public static final int BACK_CLIMBER = 4;
 
-  //solenoids and pnumantics 
-  public static final int DRIVE_GEAR = 0;
-
   //driver limitations and values
   public static final double MAX_SPEED = 0.95; // 0-1, max speed
   public static final double RAMP_RATE = 0; //time in seconds for the motor to reach max speed
   public static final double TURNING_RATE = 0.7;
-  public static final int CURRENT_LIMIT = 27;
+  public static final int CURRENT_LIMIT = 35;
+  public static final int CONTINUOUS_CURRENT_LIMIT = 30;
+  public static final int CURRENT_LIMIT_DURATION = 50; // 50 milliseconds
 
   //operator limitations and values
   public static final double MAX_INTAKE_SPEED = 1; // 0 - 1

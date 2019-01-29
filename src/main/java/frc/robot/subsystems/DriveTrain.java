@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,12 +23,9 @@ import frc.robot.commands.DriverControls;
 public class DriveTrain extends Subsystem {
 
   private final TalonSRX leftMotor1 = new TalonSRX(RobotMap.LEFT_MOTOR_1); // drive train motors
-  private final TalonSRX leftMotor2 = new TalonSRX(RobotMap.LEFT_MOTOR_2);
+  private final VictorSPX leftMotor2 = new VictorSPX(RobotMap.LEFT_MOTOR_2);
   private final TalonSRX rightMotor1 = new TalonSRX(RobotMap.RIGHT_MOTOR_1);
-  private final TalonSRX rightMotor2 = new TalonSRX(RobotMap.RIGHT_MOTOR_2);
-
-  private final Solenoid drive_gear = new Solenoid(RobotMap.DRIVE_GEAR);
-	public boolean isInHighGear = false;
+  private final VictorSPX rightMotor2 = new VictorSPX(RobotMap.RIGHT_MOTOR_2);
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -37,8 +35,26 @@ public class DriveTrain extends Subsystem {
     this.leftMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
     this.rightMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
     this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
+
+    this.leftMotor2.follow(this.leftMotor1); 
+    this.rightMotor2.follow(this.rightMotor1);
+
+    this.leftMotor1.setInverted(false);
+    this.leftMotor2.setInverted(false);
+    this.rightMotor1.setInverted(true);
+    this.rightMotor2.setInverted(true);
+
+    //current limiting 
+    this.leftMotor1.configPeakCurrentLimit(RobotMap.CURRENT_LIMIT, 0); 
+    this.leftMotor1.configPeakCurrentDuration(RobotMap.CURRENT_LIMIT_DURATION, 0);
+    this.leftMotor1.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT_LIMIT, 0); 
+    this.leftMotor1.enableCurrentLimit(true);
+
+    this.rightMotor1.configPeakCurrentLimit(RobotMap.CURRENT_LIMIT, 0); 
+    this.rightMotor1.configPeakCurrentDuration(RobotMap.CURRENT_LIMIT_DURATION, 0);
+    this.rightMotor1.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT_LIMIT, 0); 
+    this.rightMotor1.enableCurrentLimit(true);
     
-    this.drive_gear.set(!this.isInHighGear);
   }
 
   public void initDefaultCommand() {
@@ -47,43 +63,21 @@ public class DriveTrain extends Subsystem {
 
   public void setLeftMotor(double motorSetting) {
     motorSetting = Utilities.scale(motorSetting, RobotMap.MAX_SPEED);
-    this.leftMotor1.set(ControlMode.PercentOutput, motorSetting);
-    this.leftMotor2.set(ControlMode.PercentOutput, motorSetting);
+    this.leftMotor1.set(ControlMode.PercentOutput, motorSetting); // 2 is following 1
 
     // check current and ensure safe limits
-    if (this.leftMotor1.getOutputCurrent() > RobotMap.CURRENT_LIMIT) {
-      this.leftMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
-      this.leftMotor2.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
-    }
-    if (this.leftMotor2.getOutputCurrent() > RobotMap.CURRENT_LIMIT) {
-      this.leftMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
-      this.leftMotor2.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
-    }
+    //if (this.leftMotor1.getOutputCurrent() > RobotMap.CURRENT_LIMIT) {
+      //this.leftMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
+    //}
   }
 
   public void setRightMotor(double motorSetting) {
     motorSetting = Utilities.scale(motorSetting, RobotMap.MAX_SPEED);
-    this.rightMotor1.set(ControlMode.PercentOutput, -motorSetting); // reverse setting
-    this.rightMotor2.set(ControlMode.PercentOutput, -motorSetting);
+    this.rightMotor1.set(ControlMode.PercentOutput, motorSetting); //2 is following 1
 
     // check current and ensure safe limits
-    if (this.rightMotor1.getOutputCurrent() > RobotMap.CURRENT_LIMIT) {
-      this.rightMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
-      this.rightMotor2.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
-    }
-    if (this.rightMotor2.getOutputCurrent() > RobotMap.CURRENT_LIMIT) {
-      this.rightMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
-      this.rightMotor2.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
-    }
-  }
-
-  public void changeGears() {
-    this.isInHighGear = !this.isInHighGear;
-    this.drive_gear.set(!this.isInHighGear);
-  }
-  
-  public void setGear(boolean set) {
-    this.isInHighGear = set;
-    this.drive_gear.set(!this.isInHighGear);
+    //if (this.rightMotor1.getOutputCurrent() > RobotMap.CURRENT_LIMIT) {
+      //this.rightMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
+    //}
   }
 }
