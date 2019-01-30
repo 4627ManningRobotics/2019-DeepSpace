@@ -45,7 +45,7 @@ public class RobotMap {
   public static final int RIGHT_MOTOR_1 = 2; //Talon
   public static final int RIGHT_MOTOR_2 = 1; //Victor
 
-  public static final int FRONT_CLIMBER = 3;
+  public static final int FRONT_CLIMBER = 9;  // change from 3 by CBW, jan 29 - troubleshooting drive train
   public static final int BACK_CLIMBER = 4;
 
   //driver limitations and values

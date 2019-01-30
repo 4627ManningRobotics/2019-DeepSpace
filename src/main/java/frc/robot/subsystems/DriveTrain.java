@@ -36,6 +36,16 @@ public class DriveTrain extends Subsystem {
     this.rightMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
     this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
 
+    this.leftMotor1.configPeakOutputForward(1.0);
+    this.leftMotor2.configPeakOutputForward(1.0);
+    this.rightMotor1.configPeakOutputForward(1.0);
+    this.rightMotor2.configPeakOutputForward(1.0);
+
+    this.leftMotor1.configPeakOutputReverse(-1.0);
+    this.leftMotor2.configPeakOutputReverse(-1.0);
+    this.rightMotor1.configPeakOutputReverse(-1.0);
+    this.rightMotor2.configPeakOutputReverse(-1.0);
+
     this.leftMotor2.follow(this.leftMotor1); 
     this.rightMotor2.follow(this.rightMotor1);
 
@@ -48,12 +58,12 @@ public class DriveTrain extends Subsystem {
     this.leftMotor1.configPeakCurrentLimit(RobotMap.CURRENT_LIMIT, 0); 
     this.leftMotor1.configPeakCurrentDuration(RobotMap.CURRENT_LIMIT_DURATION, 0);
     this.leftMotor1.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT_LIMIT, 0); 
-    this.leftMotor1.enableCurrentLimit(true);
+    this.leftMotor1.enableCurrentLimit(false);
 
     this.rightMotor1.configPeakCurrentLimit(RobotMap.CURRENT_LIMIT, 0); 
     this.rightMotor1.configPeakCurrentDuration(RobotMap.CURRENT_LIMIT_DURATION, 0);
     this.rightMotor1.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT_LIMIT, 0); 
-    this.rightMotor1.enableCurrentLimit(true);
+    this.rightMotor1.enableCurrentLimit(false);
     
   }
 
