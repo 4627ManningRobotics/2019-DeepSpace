@@ -19,6 +19,7 @@ import frc.robot.RobotMap;
  */
 public class Vacuum extends PIDSubsystem {
 
+  private final TalonSRX WristMotor = new TalonSRX(RobotMap.WRIST_MOTOR);
   private final TalonSRX VacMotor = new TalonSRX(RobotMap.VACCUM_MOTOR);
   private final double GEAR_RATIO = 45d / 56d;
   private final double DEGREES_PER_TICK = 360d / 4096d; //360 degrees divided by ticks per revolution
@@ -31,7 +32,7 @@ public class Vacuum extends PIDSubsystem {
     super.getPIDController().setOutputRange(-RobotMap.MAX_WRIST_SPEED, RobotMap.MAX_WRIST_SPEED);
     super.getPIDController().setAbsoluteTolerance(RobotMap.VACUUM_TOLLERANCE);
     
-    this.VacMotor.getSensorCollection().setPulseWidthPosition(0, 0);
+    this.WristMotor.getSensorCollection().setPulseWidthPosition(0, 0);
   }
 
   @Override
@@ -41,19 +42,27 @@ public class Vacuum extends PIDSubsystem {
   }
 
   public double getTicks(){
-    return this.VacMotor.getSelectedSensorPosition();
+    return this.WristMotor.getSelectedSensorPosition();
     //return this.VacMotor.getSensorCollection().getPulseWidthPosition();
   }
 
   @Override
   protected double returnPIDInput() {
-    return this.VacMotor.getSelectedSensorPosition() * this.DEGREES_PER_TICK * this.GEAR_RATIO;
+    return this.WristMotor.getSelectedSensorPosition() * this.DEGREES_PER_TICK * this.GEAR_RATIO;
   }
 
   @Override
   protected void usePIDOutput(double output) {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
-    this.VacMotor.set(ControlMode.PercentOutput, output);
+    this.WristMotor.set(ControlMode.PercentOutput, output);
+  }
+
+  public void ActivateVacuum(){
+    this.VacMotor.set(ControlMode.PercentOutput, RobotMap.VAC_MOTOR_SPEED);
+  }
+  
+  public void DeactivateVacuum(){
+    this.VacMotor.set(ControlMode.PercentOutput, 0);
   }
 }
