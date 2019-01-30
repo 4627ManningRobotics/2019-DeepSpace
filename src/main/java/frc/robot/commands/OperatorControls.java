@@ -26,11 +26,18 @@ public class OperatorControls extends Command {
   @Override
   protected void execute() {
     //Robot.claw.setSpeed(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
+    /*
     Robot.climber.set_front(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
     if(Robot.oi.getOperatorButton(RobotMap.BUTTON_Y)){
       Robot.climber.set_back(1);
     }else if(Robot.oi.getOperatorButton(RobotMap.BUTTON_A)){
       Robot.climber.set_back(-1);
+    }
+    */
+    if(Robot.oi.getOperatorButton(RobotMap.BUTTON_Y)){
+      Robot.vacuum.activateVacuum();
+    }else if(Robot.oi.getOperatorButton(RobotMap.BUTTON_A)){
+      Robot.vacuum.deactivateVacuum();
     }
   }
 
@@ -43,11 +50,13 @@ public class OperatorControls extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.vacuum.deactivateVacuum();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

@@ -84,6 +84,6 @@ public class RobotMap {
   public static final double VACUUM_D = 0.001;
   public static final double VACUUM_TOLLERANCE = 3; //degrees
   public static final double MAX_WRIST_SPEED = 1.0;
-  public static final double VAC_MOTOR_SPEED = 1.0;
+  public static final double VAC_MOTOR_SPEED = 0.75;
 
 }
