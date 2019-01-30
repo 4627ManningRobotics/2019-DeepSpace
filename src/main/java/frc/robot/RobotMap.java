@@ -63,14 +63,14 @@ public class RobotMap {
   public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
 
   //elevator values
-  public static final double ELEVATOR_WINCH_RAD = 0.492;
-  public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD * ELEVATOR_WINCH_RAD * Math.PI;
+  public static final double ELEVATOR_WINCH_RAD = 0.625;
+  public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD * 2 * Math.PI;
   public static final double ELEVATOR_GEARING = 21;
-  public static final double ELEVATOR_MIN_POWER = -1;
-  public static final double ELEVATOR_MAX_POWER = 1;
-  public static final double ELEVATOR_P = 0.01;
-  public static final double ELEVATOR_I = 0;
+  public static final double ELEVATOR_MIN_POWER = -0.35;
+  public static final double ELEVATOR_MAX_POWER = 0.35;
+  public static final double ELEVATOR_P = 0.035;
+  public static final double ELEVATOR_I = 0.0006;
   public static final double ELEVATOR_D = 0;
-  public static final double ELEVATOR_IZONE = 0;
-  public static final double ELEVATOR_DEAD_ZONE = 0.5;
+  public static final double ELEVATOR_IZONE = 0.5;
+  public static final double ELEVATOR_DEAD_ZONE = 0.0005;
 }

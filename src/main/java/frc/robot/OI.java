@@ -53,8 +53,8 @@ public class OI {
 
 	public OI () {
 		//this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
-		this.oButtonX.whenPressed(new SetElevator(5));
-		this.oButtonB.whenPressed(new SetElevator(0));
+		this.oButtonX.whenPressed(new SetElevator(-20));
+		this.oButtonB.whenPressed(new SetElevator(-5));
 		//this.oButtonRightStick.whenPressed(new WristControls());
 	}
 }

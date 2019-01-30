@@ -47,10 +47,18 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", this.chooser); // this is the ONLY smart dashboard put that isn't a part of Dashboard Data
 
-    this.dash.start();
+    //this.dash.start();
+    //Scheduler.getInstance().add(new DashboardData());
+    CameraServer.getInstance().startAutomaticCapture();
+    
 
-    CameraServer.getInstance().startAutomaticCapture();
-    CameraServer.getInstance().startAutomaticCapture();
+    SmartDashboard.putNumber("P", Robot.elevator.getP());
+    SmartDashboard.putNumber("I", Robot.elevator.getI());
+    SmartDashboard.putNumber("D", Robot.elevator.getD());
+    
+    SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
+    SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
+    SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
   }
 
   /**
