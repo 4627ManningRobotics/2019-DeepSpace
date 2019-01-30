@@ -8,14 +8,11 @@
 package frc.robot.subsystems;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.Queue;
 import java.util.ArrayList;
 import java.util.concurrent.SynchronousQueue;
 
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.Requester;
 import frc.robot.commands.Senses;

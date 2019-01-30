@@ -7,15 +7,12 @@
 
 package frc.robot;
 
-import java.io.Console;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.DashboardData;
 import frc.robot.subsystems.*;
 
 /**
@@ -31,7 +28,7 @@ public class Robot extends TimedRobot {
   public static Elevator elevator = new Elevator();
   public static Sensors sensors = new Sensors();
   public static OI oi;
-  private Command dash = new DashboardData();
+  //private Command dash = new DashboardData();
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();

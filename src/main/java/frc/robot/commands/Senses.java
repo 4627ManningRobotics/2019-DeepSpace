@@ -9,8 +9,6 @@ package frc.robot.commands;
 
 import java.util.Queue;
 import java.util.concurrent.SynchronousQueue;
-import java.util.Scanner;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
