@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
   public static Climber climber = new Climber();
   public static Elevator elevator = new Elevator();
   public static Sensors sensors = new Sensors();
+  public static Vacuum vacuum = new Vacuum();
   public static OI oi;
   //private Command dash = new DashboardData();
 
@@ -68,7 +69,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
+    SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
+    SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
   }
 
   /**

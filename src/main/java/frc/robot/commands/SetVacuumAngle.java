@@ -8,37 +8,41 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class OperatorControls extends Command {
-  public OperatorControls() {
+public class SetVacuumAngle extends Command {
+
+  private double angle;
+
+  public SetVacuumAngle(double angle) {
     // Use requires() here to declare subsystem dependencies
-    super.requires(Robot.climber);
+    // eg. requires(chassis);
+    this.angle = angle;
+    super.requires(Robot.vacuum);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.vacuum.resetI();
+    if(this.angle > Robot.vacuum.getPosition()){
+      Robot.vacuum.setPID(RobotMap.VACUUM_P_DOWN, RobotMap.VACUUM_I_DOWN, RobotMap.VACUUM_D_DOWN);
+    }else{
+      Robot.vacuum.setPID(RobotMap.VACUUM_P_UP, RobotMap.VACUUM_I_UP, RobotMap.VACUUM_D_UP);
+    }
+    Robot.vacuum.setSetpoint(this.angle);
+
+    SmartDashboard.putNumber("wrist setpoint", this.angle);
+    Robot.vacuum.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Robot.claw.setSpeed(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
-    /*
-    Robot.climber.set_front(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
-    if(Robot.oi.getOperatorButton(RobotMap.BUTTON_Y)){
-      Robot.climber.set_back(1);
-    }else if(Robot.oi.getOperatorButton(RobotMap.BUTTON_A)){
-      Robot.climber.set_back(-1);
-    }
-    */
-    if(Robot.oi.getOperatorButton(RobotMap.BUTTON_Y)){
-      Robot.vacuum.activateVacuum();
-    }else if(Robot.oi.getOperatorButton(RobotMap.BUTTON_A)){
-      Robot.vacuum.deactivateVacuum();
-    }
+    SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
+    SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -50,13 +54,13 @@ public class OperatorControls extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.vacuum.deactivateVacuum();
+    Robot.vacuum.disable();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    this.end();
+    Robot.vacuum.disable();
   }
 }

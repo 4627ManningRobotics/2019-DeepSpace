@@ -45,8 +45,11 @@ public class RobotMap {
   public static final int RIGHT_MOTOR_1 = 2; //Talon
   public static final int RIGHT_MOTOR_2 = 1; //Victor
 
-  public static final int FRONT_CLIMBER = 9;  // change from 3 by CBW, jan 29 - troubleshooting drive train
-  public static final int BACK_CLIMBER = 4;
+  public static final int FRONT_CLIMBER = 9;
+  public static final int BACK_CLIMBER = 8;
+
+  public static final int VACCUM_MOTOR = 10; 
+  public static final int WRIST_MOTOR = 11;
 
   //driver limitations and values
   public static final double MAX_SPEED = 0.95; // 0-1, max speed
@@ -73,4 +76,15 @@ public class RobotMap {
   public static final double ELEVATOR_D = 0;
   public static final double ELEVATOR_IZONE = 0.5;
   public static final double ELEVATOR_DEAD_ZONE = 0.0005;
+
+  //Vacuum values
+  public static final double VACUUM_P_DOWN = 0.015;
+  public static final double VACUUM_I_DOWN = 0.00;
+  public static final double VACUUM_D_DOWN = 0.01;
+  public static final double VACUUM_P_UP = 0.02;
+  public static final double VACUUM_I_UP = 0.0001;
+  public static final double VACUUM_D_UP = 0.00;
+  public static final double VACUUM_TOLLERANCE = 3; //degrees
+  public static final double MAX_WRIST_SPEED = 0.5;
+  public static final double VAC_MOTOR_SPEED = 0.75;
 }

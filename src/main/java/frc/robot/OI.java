@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.SetElevator;
+import frc.robot.commands.SetVacuumAngle;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -55,5 +56,8 @@ public class OI {
 		this.oButtonX.whenPressed(new SetElevator(-20));
 		this.oButtonB.whenPressed(new SetElevator(-5));
 		//this.oButtonRightStick.whenPressed(new WristControls());
+		this.oButtonX.whenPressed(new SetVacuumAngle(90)); //135
+		this.oButtonB.whenPressed(new SetVacuumAngle(0));
+		//this.oButtonRightStick.whenPresssed(new WristControls());
 	}
 }
