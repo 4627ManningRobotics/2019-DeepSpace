@@ -49,14 +49,8 @@ public class Robot extends TimedRobot {
     //Scheduler.getInstance().add(new DashboardData());
     CameraServer.getInstance().startAutomaticCapture();
     
-
-    SmartDashboard.putNumber("P", Robot.elevator.getP());
-    SmartDashboard.putNumber("I", Robot.elevator.getI());
-    SmartDashboard.putNumber("D", Robot.elevator.getD());
+    initSmartDashboard();
     
-    SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
-    SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
-    SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
   }
 
   /**
@@ -69,8 +63,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
-    SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
+    updateSmartDashboard();
   }
 
   /**
@@ -147,5 +140,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  public void initSmartDashboard(){
+    SmartDashboard.putNumber("P", Robot.elevator.getP());
+    SmartDashboard.putNumber("I", Robot.elevator.getI());
+    SmartDashboard.putNumber("D", Robot.elevator.getD());
+    
+    SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
+    SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
+    SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
+  }
+
+  public void updateSmartDashboard(){
+    SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
+    SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
   }
 }

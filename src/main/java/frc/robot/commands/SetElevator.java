@@ -39,7 +39,7 @@ public class SetElevator extends Command {
     double D = SmartDashboard.getNumber("D", 0);
     Robot.elevator.setPID(P, I, D);
 
-    SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
+    
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
   }
@@ -55,7 +55,7 @@ public class SetElevator extends Command {
       counter = 0;
     }
     
-    return (counter>30);
+    return (counter>RobotMap.ELEVATOR_PID_TIMEOUT);
   }
 
   // Called once after isFinished returns true

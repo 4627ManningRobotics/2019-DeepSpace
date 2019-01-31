@@ -13,13 +13,14 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
 public class Elevator extends Subsystem {
-  private final CANSparkMax motor = new CANSparkMax(0, MotorType.kBrushless);
+  private final CANSparkMax motor = new CANSparkMax(RobotMap.ELEVATOR_MOTOR, MotorType.kBrushless);
   private final CANPIDController pidController = new CANPIDController(motor);
 
   private double currentSetpoint;
@@ -73,6 +74,8 @@ public class Elevator extends Subsystem {
     double rotations = ((height/RobotMap.ELEVATOR_WINCH_CIRC)*RobotMap.ELEVATOR_GEARING)/2;
     this.pidController.setReference(rotations, ControlType.kPosition);
     this.currentSetpoint = rotations;
+
+    SmartDashboard.putNumber("elevator setpoint", this.getCurrentSetpoint());
   }
 
 }

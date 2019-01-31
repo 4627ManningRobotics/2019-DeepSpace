@@ -51,6 +51,8 @@ public class RobotMap {
   public static final int VACCUM_MOTOR = 10; 
   public static final int WRIST_MOTOR = 11;
 
+  public static final int ELEVATOR_MOTOR = 0;
+
   //driver limitations and values
   public static final double MAX_SPEED = 0.95; // 0-1, max speed
   public static final double RAMP_RATE = 0; //time in seconds for the motor to reach max speed
@@ -66,6 +68,7 @@ public class RobotMap {
   public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
 
   //elevator values
+  
   public static final double ELEVATOR_WINCH_RAD = 0.625;
   public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD * 2 * Math.PI;
   public static final double ELEVATOR_GEARING = 21;
@@ -76,6 +79,7 @@ public class RobotMap {
   public static final double ELEVATOR_D = 0;
   public static final double ELEVATOR_IZONE = 0.5;
   public static final double ELEVATOR_DEAD_ZONE = 0.0005;
+  public static final int ELEVATOR_PID_TIMEOUT = 30; //# of control loops
 
   //Vacuum values
   public static final double VACUUM_P_DOWN = 0.015;
@@ -87,4 +91,6 @@ public class RobotMap {
   public static final double VACUUM_TOLLERANCE = 3; //degrees
   public static final double MAX_WRIST_SPEED = 0.5;
   public static final double VAC_MOTOR_SPEED = 0.75;
+
+
 }
