@@ -48,10 +48,10 @@ public class RobotMap {
   public static final int FRONT_CLIMBER = 9;
   public static final int BACK_CLIMBER = 8;
 
+  public static final int ELEVATOR_MOTOR = 12;
+
   public static final int VACCUM_MOTOR = 10; 
   public static final int WRIST_MOTOR = 11;
-
-  public static final int ELEVATOR_MOTOR = 0;
 
   //driver limitations and values
   public static final double MAX_SPEED = 0.95; // 0-1, max speed
@@ -61,14 +61,10 @@ public class RobotMap {
   public static final int CONTINUOUS_CURRENT_LIMIT = 30;
   public static final int CURRENT_LIMIT_DURATION = 50; // 50 milliseconds
 
-  //operator limitations and values
-  public static final double MAX_INTAKE_SPEED = 1; // 0 - 1
-
   //climber values
   public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
 
   //elevator values
-  
   public static final double ELEVATOR_WINCH_RAD = 0.625;
   public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD * 2 * Math.PI;
   public static final double ELEVATOR_GEARING = 21;
@@ -91,6 +87,4 @@ public class RobotMap {
   public static final double VACUUM_TOLLERANCE = 3; //degrees
   public static final double MAX_WRIST_SPEED = 0.5;
   public static final double VAC_MOTOR_SPEED = 0.75;
-
-
 }

@@ -147,6 +147,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("I", Robot.elevator.getI());
     SmartDashboard.putNumber("D", Robot.elevator.getD());
     
+    SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
+    SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
+    SmartDashboard.putNumber("wrist setpoint", Robot.vacuum.getSetpoint());
+    
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
@@ -155,5 +159,10 @@ public class Robot extends TimedRobot {
   public void updateSmartDashboard(){
     SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
     SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
+    SmartDashboard.putNumber("wrist setpoint", Robot.vacuum.getSetpoint());
+    
+    SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
+    SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
+    SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
   }
 }

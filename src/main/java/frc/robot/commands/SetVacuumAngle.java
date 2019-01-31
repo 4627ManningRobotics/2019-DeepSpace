@@ -33,8 +33,6 @@ public class SetVacuumAngle extends Command {
       Robot.vacuum.setPID(RobotMap.VACUUM_P_UP, RobotMap.VACUUM_I_UP, RobotMap.VACUUM_D_UP);
     }
     Robot.vacuum.setSetpoint(this.angle);
-
-    SmartDashboard.putNumber("wrist setpoint", this.angle);
     Robot.vacuum.enable();
   }
 

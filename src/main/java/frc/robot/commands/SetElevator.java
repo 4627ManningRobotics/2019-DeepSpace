@@ -38,10 +38,6 @@ public class SetElevator extends Command {
     double I = SmartDashboard.getNumber("I", 0);
     double D = SmartDashboard.getNumber("D", 0);
     Robot.elevator.setPID(P, I, D);
-
-    
-    SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
-    SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
   }
 
   // Make this return true when this Command no longer needs to run execute()
