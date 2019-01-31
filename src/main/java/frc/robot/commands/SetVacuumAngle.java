@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class SetVacuumAngle extends Command {
 
@@ -25,7 +26,14 @@ public class SetVacuumAngle extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.vacuum.resetI();
+    if(this.angle > Robot.vacuum.getPosition()){
+      Robot.vacuum.setPID(RobotMap.VACUUM_P_DOWN, RobotMap.VACUUM_I_DOWN, RobotMap.VACUUM_D_DOWN);
+    }else{
+      Robot.vacuum.setPID(RobotMap.VACUUM_P_UP, RobotMap.VACUUM_I_UP, RobotMap.VACUUM_D_UP);
+    }
     Robot.vacuum.setSetpoint(this.angle);
+
     SmartDashboard.putNumber("wrist setpoint", this.angle);
     Robot.vacuum.enable();
   }

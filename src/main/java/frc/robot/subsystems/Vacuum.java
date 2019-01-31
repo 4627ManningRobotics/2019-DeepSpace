@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
@@ -28,12 +27,12 @@ public class Vacuum extends PIDSubsystem {
    * Add your docs here.
    */
   public Vacuum() {
-    super("Vacuum", RobotMap.VACUUM_P, RobotMap.VACUUM_I, RobotMap.VACUUM_D);
+    super("Vacuum", RobotMap.VACUUM_P_DOWN, RobotMap.VACUUM_I_DOWN, RobotMap.VACUUM_D_DOWN);
     super.getPIDController().setOutputRange(-RobotMap.MAX_WRIST_SPEED, RobotMap.MAX_WRIST_SPEED);
     super.getPIDController().setAbsoluteTolerance(RobotMap.VACUUM_TOLLERANCE);
 
     this.WristMotor.setInverted(true);
-    this.WristMotor.getSensorCollection().setPulseWidthPosition(0, 0);
+    this.WristMotor.setSelectedSensorPosition(0);//.getSensorCollection().setPulseWidthPosition(0, 0);
   }
 
   @Override
@@ -59,11 +58,24 @@ public class Vacuum extends PIDSubsystem {
     this.WristMotor.set(ControlMode.PercentOutput, output);
   }
 
+  public void setPID(double P, double I, double D){
+    this.getPIDController().setPID(P, I, D);
+  }
+
   public void activateVacuum(){
     this.VacMotor.set(ControlMode.PercentOutput, RobotMap.VAC_MOTOR_SPEED);
   }
   
   public void deactivateVacuum(){
     this.VacMotor.set(ControlMode.PercentOutput, 0);
+  }
+
+  public void resetSensors(){
+    this.WristMotor.setSelectedSensorPosition(0);
+  }
+
+  public void resetI(){
+    this.getPIDController().reset();
+    this.getPIDController().enable(); // reste() disables the controller
   }
 }
