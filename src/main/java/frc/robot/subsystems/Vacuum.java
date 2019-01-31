@@ -76,6 +76,5 @@ public class Vacuum extends PIDSubsystem {
 
   public void resetI(){
     this.getPIDController().reset();
-    this.getPIDController().enable(); // reste() disables the controller
   }
 }
