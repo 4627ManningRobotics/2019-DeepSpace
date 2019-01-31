@@ -8,18 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.Utilities;
 
 public class SetVacuumAngle extends Command {
 
   private double angle;
+  private final Utilities.counter counter;
 
   public SetVacuumAngle(double angle) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     this.angle = angle;
+    this.counter = new Utilities.counter(RobotMap.VACUUM_PID_TIMEOUT);
     super.requires(Robot.vacuum);
   }
 
@@ -44,6 +46,11 @@ public class SetVacuumAngle extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    if(Robot.vacuum.isOnTarget()){
+      this.counter.count();
+    }else{
+      this.counter.reset();
+    }
     return false;
   }
 

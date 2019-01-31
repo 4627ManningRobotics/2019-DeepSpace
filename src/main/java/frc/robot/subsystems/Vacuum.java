@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import frc.robot.RobotMap;
+import frc.robot.Utilities;
 
 /**
  * Add your docs here.
@@ -76,5 +77,9 @@ public class Vacuum extends PIDSubsystem {
 
   public void resetI(){
     this.getPIDController().reset();
+  }
+
+  public boolean isOnTarget(){
+    return Utilities.within(this.getPosition(), this.getSetpoint() - RobotMap.VACUUM_TOLLERANCE, this.getSetpoint() + RobotMap.VACUUM_TOLLERANCE);
   }
 }

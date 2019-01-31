@@ -58,4 +58,27 @@ public class Utilities {
 			return valueA - valueB;
 		}
 	}
+
+	public static class counter{
+		
+		private final int limit;
+		private int counts = 0;
+
+		public counter(int limit){
+			this.limit = limit;
+		}
+
+		public void count(){
+			this.counts += 1;
+		}
+
+		public void reset(){
+			this.counts = 0;
+		}
+
+		public boolean isDoneCounting(){
+			return this.counts > this.limit;
+		}
+
+	}
 }

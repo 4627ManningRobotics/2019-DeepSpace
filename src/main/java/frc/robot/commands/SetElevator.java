@@ -17,11 +17,11 @@ import frc.robot.Utilities;
 
 public class SetElevator extends Command {
   private double m_height;
-  private int counter;
+  private Utilities.counter counter;
 
   public SetElevator(double height) {
     m_height=height;
-    counter=0;
+    counter = new Utilities.counter(RobotMap.ELEVATOR_PID_TIMEOUT);
     requires(Robot.elevator);
   }
 
@@ -46,12 +46,12 @@ public class SetElevator extends Command {
     
     double m_setpoint=Robot.elevator.getCurrentSetpoint();
     if(Utilities.within(Robot.elevator.getPosition(), m_setpoint - RobotMap.ELEVATOR_DEAD_ZONE, m_setpoint + RobotMap.ELEVATOR_DEAD_ZONE)){
-      counter+=1;
+      this.counter.count();
     } else {
-      counter = 0;
+      this.counter.reset();
     }
     
-    return (counter>RobotMap.ELEVATOR_PID_TIMEOUT);
+    return this.counter.isDoneCounting();
   }
 
   // Called once after isFinished returns true
