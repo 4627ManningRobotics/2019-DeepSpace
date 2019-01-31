@@ -9,11 +9,16 @@ package frc.robot.subsystems;
 
 import java.util.Arrays;
 import java.util.Queue;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.concurrent.SynchronousQueue;
 
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Parity;
+import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Requester;
 import frc.robot.commands.Senses;
 
@@ -24,7 +29,7 @@ public class Sensors extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private final SerialPort RaspberryPi = null;//new SerialPort(9600, Port.kUSB);
+  private final SerialPort RaspberryPi = new SerialPort(9600, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
   protected final PiSerialGetter getter = new PiSerialGetter(this.RaspberryPi);
   protected final PiSerialSender sender = new PiSerialSender(this.RaspberryPi);
   protected final Thread serial_in = new Thread(this.getter, "Pi get"); 
@@ -33,11 +38,18 @@ public class Sensors extends Subsystem {
   ArrayList<Requester> requests = new ArrayList<Requester>();
   
   public Sensors(){
-     this.serial_in.setDaemon(true); // ENSURES THE THREAD CLOSES
-     this.serial_out.setDaemon(true);
+    this.serial_in.setDaemon(true); // ENSURES THE THREAD CLOSES
+    this.serial_out.setDaemon(true);
 
-     this.serial_in.start();
-     this.serial_out.start();
+    this.serial_in.start();
+    this.serial_out.start();
+    //this.serial_in.run();
+    //this.serial_out.run();
+   }
+
+   public void run(){
+    this.serial_in.run();
+    this.serial_out.run();
    }
   
   @Override
@@ -54,7 +66,7 @@ public class Sensors extends Subsystem {
 
 class PiSerialGetter implements Runnable{
 
-  private final byte BN[] = "\n".getBytes();
+  private final byte DELIMITER[] = "@".getBytes();
   private final SerialPort serial_in;
   protected final Queue<String> inQueue = new SynchronousQueue<String>();
 
@@ -66,16 +78,23 @@ class PiSerialGetter implements Runnable{
   public void run() {
     ArrayList<byte[]> buffer = new ArrayList<byte[]>();
     while(true){
-      buffer.addAll(Arrays.asList(serial_in.read(1024)));
-      int index = buffer.indexOf(this.BN);
-        if(index != -1){
-          String message = "";
-          for(int i = 0; i < index + 1; i++){
-            message += buffer.remove(0).toString(); //always remove 0 since removing the first will shift the rest
-          }
-          buffer.remove(0); //remove \n
-          this.inQueue.add(message);
+      try{
+        byte[] in = serial_in.read(1024);
+        SmartDashboard.putString("Serial In", new String(in, "UTF-8"));
+        buffer.addAll(Arrays.asList(in));
+        int index = buffer.indexOf(this.DELIMITER);
+          if(index != -1){
+            String message = "";
+            for(int i = 0; i < index + 1; i++){
+              message += buffer.remove(0).toString(); //always remove 0 since removing the first will shift the rest
+            }
+            buffer.remove(0); //remove \n
+            this.inQueue.add(message);
         }
+      }catch(Exception e){
+        e.printStackTrace();
+      }
+
     }
   }
 
