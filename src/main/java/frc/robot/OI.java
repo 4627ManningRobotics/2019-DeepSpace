@@ -34,7 +34,7 @@ public class OI {
 	Button oButtonX = new JoystickButton(this.operatorController, RobotMap.BUTTON_X);
 	Button oButtonBack = new JoystickButton(this.operatorController, RobotMap.BACK_BUTTON);
 	Button oButtonStart = new JoystickButton(this.operatorController, RobotMap.START_BUTTON);
-  Button oButtonRightStick = new JoystickButton(this.operatorController, RobotMap.RIGHT_STICK_BUTTON);
+  	Button oButtonRightStick = new JoystickButton(this.operatorController, RobotMap.RIGHT_STICK_BUTTON);
   
   public boolean getOperatorButton(int axis) {
 		return this.operatorController.getRawButton(axis);
@@ -54,8 +54,9 @@ public class OI {
 
 	public OI () {
 		//this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
-		this.oButtonX.whenPressed(new SetVacuumAngle(90)); //135
-		this.oButtonB.whenPressed(new SetVacuumAngle(0));
+		this.oButtonX.whenPressed(new SetVacuumAngle(RobotMap.WRIST_ZERO));
+		this.oButtonStart.whenPressed(new SetVacuumAngle(RobotMap.WRIST_HATCH));
+		this.oButtonB.whenPressed(new SetVacuumAngle(RobotMap.WRIST_GROUND));
 		//this.oButtonRightStick.whenPresssed(new WristControls());
 	}
 }

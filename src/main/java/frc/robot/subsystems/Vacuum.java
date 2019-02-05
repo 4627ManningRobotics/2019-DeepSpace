@@ -31,7 +31,7 @@ public class Vacuum extends PIDSubsystem {
     super.getPIDController().setOutputRange(-RobotMap.MAX_WRIST_SPEED, RobotMap.MAX_WRIST_SPEED);
     super.getPIDController().setAbsoluteTolerance(RobotMap.VACUUM_TOLLERANCE);
 
-    this.WristMotor.setInverted(true);
+    this.WristMotor.setInverted(false);
     this.WristMotor.setSelectedSensorPosition(0);//.getSensorCollection().setPulseWidthPosition(0, 0);
   }
 

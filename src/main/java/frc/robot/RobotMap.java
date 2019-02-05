@@ -89,4 +89,9 @@ public class RobotMap {
   public static final double MAX_WRIST_SPEED = 0.5;
   public static final double VAC_MOTOR_SPEED = 1.00;
 
+  //Wrist Angles
+  public static final double WRIST_ZERO = 15;
+  public static final double WRIST_HATCH = 30;
+  public static final double WRIST_GROUND = 75;
+
 }
