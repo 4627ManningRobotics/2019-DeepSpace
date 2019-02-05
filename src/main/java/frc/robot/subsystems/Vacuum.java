@@ -82,9 +82,9 @@ public class Vacuum extends PIDSubsystem {
   public boolean isOnTarget(){
     return Utilities.within(this.getPosition(), this.getSetpoint() - RobotMap.VACUUM_TOLLERANCE, this.getSetpoint() + RobotMap.VACUUM_TOLLERANCE);
   }
-  /*
+  
   public double getVacCurrent(){
     return this.VacMotor.getOutputCurrent();
   }
-  */
+  
 }
