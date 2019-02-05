@@ -66,7 +66,7 @@ public class Sensors extends Subsystem {
 
 class PiSerialGetter implements Runnable{
 
-  private final byte DELIMITER[] = "@".getBytes();
+  private final String DELIMITER = "@";
   private final SerialPort serial_in;
   protected final Queue<String> inQueue = new SynchronousQueue<String>();
 
@@ -76,20 +76,19 @@ class PiSerialGetter implements Runnable{
 
   @Override
   public void run() {
-    ArrayList<byte[]> buffer = new ArrayList<byte[]>();
+    String buffer = "";
     while(true){
       try{
         byte[] in = serial_in.read(1024);
-        SmartDashboard.putString("Serial In", new String(in, "UTF-8"));
-        buffer.addAll(Arrays.asList(in));
-        int index = buffer.indexOf(this.DELIMITER);
-          if(index != -1){
-            String message = "";
-            for(int i = 0; i < index + 1; i++){
-              message += buffer.remove(0).toString(); //always remove 0 since removing the first will shift the rest
-            }
-            buffer.remove(0); //remove \n
+        buffer += new String(in, "UTF-8"); // convert serial data to string
+        int index = buffer.indexOf(this.DELIMITER); //find delimiter
+          while(index != -1){
+            String newBuff = buffer.substring(index + 1);
+            String message = buffer.substring(0, index);
+            SmartDashboard.putString("Serial Message", message);
+            buffer = newBuff;
             this.inQueue.add(message);
+            index = buffer.indexOf(this.DELIMITER); //find delimiter
         }
       }catch(Exception e){
         e.printStackTrace();
