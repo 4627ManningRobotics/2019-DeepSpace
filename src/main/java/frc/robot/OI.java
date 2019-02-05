@@ -56,8 +56,8 @@ public class OI {
 		//this.oButtonX.whenPressed(new SetElevator(-20));
 		//this.oButtonB.whenPressed(new SetElevator(-5));
 		//this.oButtonRightStick.whenPressed(new WristControls());
-		//this.oButtonX.whenPressed(new SetVacuumAngle(90)); //135
-		//this.oButtonB.whenPressed(new SetVacuumAngle(0));
+		this.oButtonX.whenPressed(new SetVacuumAngle(90)); //135
+		this.oButtonB.whenPressed(new SetVacuumAngle(0));
 		//this.oButtonRightStick.whenPresssed(new WristControls());
 	}
 }

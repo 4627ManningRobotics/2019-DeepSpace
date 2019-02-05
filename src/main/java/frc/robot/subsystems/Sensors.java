@@ -29,7 +29,7 @@ public class Sensors extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private final SerialPort RaspberryPi = new SerialPort(9600, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
+  private final SerialPort RaspberryPi = null;//new SerialPort(9600, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
   protected final PiSerialGetter getter = new PiSerialGetter(this.RaspberryPi);
   protected final PiSerialSender sender = new PiSerialSender(this.RaspberryPi);
   protected final Thread serial_in = new Thread(this.getter, "Pi get"); 
@@ -41,8 +41,8 @@ public class Sensors extends Subsystem {
     this.serial_in.setDaemon(true); // ENSURES THE THREAD CLOSES
     this.serial_out.setDaemon(true);
 
-    this.serial_in.start();
-    this.serial_out.start();
+    //this.serial_in.start();
+    //this.serial_out.start();
     //this.serial_in.run();
     //this.serial_out.run();
    }

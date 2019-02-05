@@ -8,8 +8,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.Utilities;
@@ -20,8 +22,22 @@ import frc.robot.commands.OperatorControls;
  */
 public class Climber extends Subsystem {
 
-  private final TalonSRX front_climber = new TalonSRX(RobotMap.FRONT_CLIMBER); // drive train motors
-  private final TalonSRX back_climber = new TalonSRX(RobotMap.BACK_CLIMBER);
+  private final CANSparkMax front_climber = new CANSparkMax(RobotMap.FRONT_CLIMBER, MotorType.kBrushless); // drive train motors
+  private final CANSparkMax back_climber = new CANSparkMax(RobotMap.BACK_CLIMBER, MotorType.kBrushless);/*
+  private final DigitalInput FRONT_MAX = new DigitalInput(RobotMap.DIO.CLIMBER_FRONT_MAX);
+  private final DigitalInput FRONT_MIN = new DigitalInput();
+  private final DigitalInput BACK_MAX = new DigitalInput();
+  private final DigitalInput BACK_MIN = new DigitalInput();
+  */
+  public Climber(){
+    this.front_climber.getPIDController().setP(RobotMap.FRONT_CLIMBER_P);
+    this.front_climber.getPIDController().setI(RobotMap.FRONT_CLIMBER_I);
+    this.front_climber.getPIDController().setD(RobotMap.FRONT_CLIMBER_D);
+    
+    this.back_climber.getPIDController().setP(RobotMap.BACK_CLIMBER_P);
+    this.back_climber.getPIDController().setI(RobotMap.BACK_CLIMBER_I);
+    this.back_climber.getPIDController().setD(RobotMap.BACK_CLIMBER_D);
+  }
 
   @Override
   public void initDefaultCommand() {
@@ -32,12 +48,12 @@ public class Climber extends Subsystem {
 
   public void set_front(double motorSetting){
     motorSetting = Utilities.scale(motorSetting, RobotMap.CLIMBER_MAX_SPEED);
-    this.front_climber.set(ControlMode.PercentOutput, motorSetting);
+    this.front_climber.set(motorSetting);
   }
 
   public void set_back(double motorSetting){
     motorSetting = Utilities.scale(motorSetting, RobotMap.CLIMBER_MAX_SPEED);
-    this.back_climber.set(ControlMode.PercentOutput, motorSetting);
+    this.back_climber.set(motorSetting);
   }
 
 }
