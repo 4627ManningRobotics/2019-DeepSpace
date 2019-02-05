@@ -78,4 +78,8 @@ public class Vacuum extends PIDSubsystem {
     this.getPIDController().reset();
     this.getPIDController().enable(); // reste() disables the controller
   }
+  
+  public double getVacCurrent(){
+    return this.VacMotor.getOutputCurrent();
+  }
 }
