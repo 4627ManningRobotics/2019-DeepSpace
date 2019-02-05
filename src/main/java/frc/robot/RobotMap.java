@@ -43,12 +43,12 @@ public class RobotMap {
   public static final int LEFT_MOTOR_1 = 5; //motor PDP values
   public static final int LEFT_MOTOR_2 = 2;
   public static final int RIGHT_MOTOR_1 = 6;
-  public static final int RIGHT_MOTOR_2 = 7;
+  public static final int RIGHT_MOTOR_2 = 0;
 
   public static final int FRONT_CLIMBER = 3;
   public static final int BACK_CLIMBER = 4;
 
-  public static final int VACCUM_MOTOR = 0;
+  public static final int VACCUM_MOTOR = 7;
   public static final int WRIST_MOTOR = 1;
 
   //solenoids and pnumantics 
@@ -87,6 +87,6 @@ public class RobotMap {
   public static final double VACUUM_D_UP = 0.00;
   public static final double VACUUM_TOLLERANCE = 3; //degrees
   public static final double MAX_WRIST_SPEED = 0.5;
-  public static final double VAC_MOTOR_SPEED = 0.75;
+  public static final double VAC_MOTOR_SPEED = 1.00;
 
 }
