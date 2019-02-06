@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ResetWrist;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetVacuumAngle;
 
@@ -58,6 +59,7 @@ public class OI {
 		//this.oButtonRightStick.whenPressed(new WristControls());
 		this.oButtonX.whenPressed(new SetVacuumAngle(90)); //135
 		this.oButtonB.whenPressed(new SetVacuumAngle(0));
+		this.oButtonStart.whenPressed(new ResetWrist());
 		//this.oButtonRightStick.whenPresssed(new WristControls());
 	}
 }

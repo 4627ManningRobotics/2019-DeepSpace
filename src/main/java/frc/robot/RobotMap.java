@@ -98,4 +98,9 @@ public class RobotMap {
   public static final double MAX_WRIST_SPEED = 0.5;
   public static final double VAC_MOTOR_SPEED = 1.0;
   public static final int VACUUM_PID_TIMEOUT = 30; //# of control loops
+
+  //Wrist Angles
+  public static final double WRIST_ZERO = -17.5;
+  public static final double WRIST_HATCH = 0;
+  public static final double WRIST_GROUND = 90;
 }
