@@ -73,6 +73,9 @@ public class RobotMap {
   public static final double BACK_CLIMBER_P = 0.001;
   public static final double BACK_CLIMBER_I = 0.0;
   public static final double BACK_CLIMBER_D = 0.0; 
+  public static final double CLIMBER_ZERO = 0.5; //inches
+  public static final double CLIMBER_GROUND = 1.0;
+  public static final double CLIMBER_LIFT = 5.0;
 
   //elevator values
   public static final double ELEVATOR_WINCH_RAD = 0.625;
