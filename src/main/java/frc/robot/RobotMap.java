@@ -39,7 +39,7 @@ public class RobotMap {
 	public static final int RIGHT_TRIGGER = 3;
   	//end of remote values
 
-  //motors
+  //motors, solenoids and other
   public static final int LEFT_MOTOR_1 = 3; //Talon
   public static final int LEFT_MOTOR_2 = 0; //Victor
   public static final int RIGHT_MOTOR_1 = 2; //Talon
@@ -57,7 +57,8 @@ public class RobotMap {
     CLIMBER_FRONT_MAX,
     CLIMBER_FRONT_MIN,
     CLIMBER_BACK_MAX, 
-    CLIMBER_BACK_MIN
+    CLIMBER_BACK_MIN,
+    VACUUM_RELEASE
   }
 
   //driver limitations and values
