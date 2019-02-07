@@ -5,6 +5,7 @@ import java.util.Scanner;
 public abstract class Requester{
   
     public static final String BALL = "BALL";
+    public static final String STRIP = "STRIP";
 
     public final String request;
     private boolean is_requesting = false;
@@ -38,8 +39,7 @@ public abstract class Requester{
 
 class BallRequester extends Requester{
 
-    private double X;
-    private double Y;
+    private double X,Y;
 
     public BallRequester(){
         super(Requester.BALL);
@@ -58,8 +58,47 @@ class BallRequester extends Requester{
                 this.Y = sc.nextDouble();
             }
         }
+        sc.close();
     }
 
+    public double getX(){
+        return this.X;
+    }
+    
+    public double getY(){
+        return this.Y;
+    }
+}
 
+class StripRequester extends Requester{
 
+    private double delta, angle;
+
+    public StripRequester(){
+        super(Requester.STRIP);
+    }
+
+    @Override
+    protected void filterData(String data) {
+        Scanner sc = new Scanner(data);
+        for(int i = 0; i < 2; i++){ // repeat for both x and y
+            sc.useDelimiter("[^XY]"); //find only the charecters x and y 
+            String s = sc.next();
+            sc.useDelimiter("123..."); //find only the double value
+            if(s.equals("Delta")){
+                this.delta = sc.nextDouble();
+            }else if(s.equals("Angle")){
+                this.angle = sc.nextDouble();
+            }
+        }
+        sc.close();
+    }
+
+    public double getDelta(){
+        return this.delta;
+    }
+
+    public double getAngle(){
+        return this.angle;
+    }
 }

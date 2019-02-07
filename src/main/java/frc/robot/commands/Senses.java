@@ -10,14 +10,17 @@ package frc.robot.commands;
 import java.util.Queue;
 import java.util.concurrent.SynchronousQueue;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class Senses extends Command {
 
   private Queue<String> inQueue = new SynchronousQueue<String>();
   public static String recent;
 
-  private Requester ballReqester = new BallRequester();
+  public static BallRequester ballReqester = new BallRequester();
+  public static StripRequester stripReqester = new StripRequester();
 
  public Senses(Queue<String> q) {
     // Use requires() here to declare subsystem dependencies
@@ -34,16 +37,15 @@ public class Senses extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    while(!this.inQueue.isEmpty()){
+    if(!this.inQueue.isEmpty()){
       String s = this.inQueue.remove();
       Senses.recent = s;
+      SmartDashboard.putString("Senses recent", s);
 
-      switch(s){
-        case Requester.BALL:
-          this.ballReqester.setData(s);
-          break;
-        default:
-          break;
+      if(s.contains(Requester.BALL)){
+        Senses.ballReqester.setData(s);
+      }else if(s.contains(Requester.STRIP)){
+        Senses.stripReqester.setData(s);
       }
     }
   }
