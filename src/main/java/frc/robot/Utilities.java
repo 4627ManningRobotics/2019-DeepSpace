@@ -51,7 +51,7 @@ public class Utilities {
 		return value * scalar;
 	}
 
-	public static double AddSub(double valueA, double valueB) { // add B to A if A is positive, subtract B from A if a is negative
+	public static double addSub(double valueA, double valueB) { // add B to A if A is positive, subtract B from A if a is negative
 		if(valueA >= 0) {
 			return valueA + valueB;
 		}else{

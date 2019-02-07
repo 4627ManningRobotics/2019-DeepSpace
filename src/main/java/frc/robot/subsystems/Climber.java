@@ -13,6 +13,7 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.Utilities;
@@ -26,10 +27,10 @@ public class Climber extends Subsystem {
   private final CANSparkMax back_climber = new CANSparkMax(RobotMap.MOTORS.BACK_CLIMBER.ordinal(), MotorType.kBrushless);
   private final CANPIDController frontController = new CANPIDController(this.front_climber);
   private final CANPIDController backController = new CANPIDController(this.back_climber);
-  private final DigitalInput FRONT_MAX = new DigitalInput(RobotMap.DIO.CLIMBER_FRONT_MAX.ordinal());
-  private final DigitalInput FRONT_MIN = new DigitalInput(RobotMap.DIO.CLIMBER_FRONT_MIN.ordinal());
-  private final DigitalInput BACK_MAX = new DigitalInput(RobotMap.DIO.CLIMBER_BACK_MAX.ordinal());
-  private final DigitalInput BACK_MIN = new DigitalInput(RobotMap.DIO.CLIMBER_BACK_MIN.ordinal());
+  private final Counter FRONT_MAX = new Counter(new DigitalInput(RobotMap.DIO.CLIMBER_FRONT_MAX.ordinal()));
+  private final Counter FRONT_MIN = new Counter(new DigitalInput(RobotMap.DIO.CLIMBER_FRONT_MIN.ordinal()));
+  private final Counter BACK_MAX = new Counter(new DigitalInput(RobotMap.DIO.CLIMBER_BACK_MAX.ordinal()));
+  private final Counter BACK_MIN = new Counter(new DigitalInput(RobotMap.DIO.CLIMBER_BACK_MIN.ordinal()));
 
   private double target = 0;
   
@@ -78,19 +79,27 @@ public class Climber extends Subsystem {
   }
 
   public boolean frontIsMaximized(){
-    return this.FRONT_MAX.get();
+    boolean state = this.FRONT_MAX.get() > 0;
+    this.FRONT_MAX.reset();
+    return state;
   }
 
   public boolean frontIsMinimized(){
-    return this.FRONT_MIN.get();
+    boolean state = this.FRONT_MIN.get() > 0;
+    this.FRONT_MIN.reset();
+    return state;
   }
   
   public boolean backIsMaximized(){
-    return this.BACK_MAX.get();
+    boolean state = this.BACK_MAX.get() > 0;
+    this.BACK_MAX.reset();
+    return state;
   }
 
   public boolean backIsMinimized(){
-    return this.BACK_MIN.get();
+    boolean state = this.BACK_MIN.get() > 0;
+    this.BACK_MIN.reset();
+    return state;
   }
 
   private void initPID(){
