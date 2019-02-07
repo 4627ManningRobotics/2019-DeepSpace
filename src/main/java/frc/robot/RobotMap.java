@@ -40,18 +40,17 @@ public class RobotMap {
   	//end of remote values
 
   //motors, solenoids and other
-  public static final int LEFT_MOTOR_1 = 3; //Talon
-  public static final int LEFT_MOTOR_2 = 0; //Victor
-  public static final int RIGHT_MOTOR_1 = 2; //Talon
-  public static final int RIGHT_MOTOR_2 = 1; //Victor
-
-  public static final int FRONT_CLIMBER = 9;
-  public static final int BACK_CLIMBER = 8;
-
-  public static final int ELEVATOR_MOTOR = 12;
-
-  public static final int VACCUM_MOTOR = 10; 
-  public static final int WRIST_MOTOR = 7;
+  public static enum MOTORS{
+    LEFT_MOTOR_1, //Talon
+    LEFT_MOTOR_2, //Victor 
+    RIGHT_MOTOR_1, //Talon
+    RIGHT_MOTOR_2, //Victor
+    WRIST_MOTOR,
+    VACCUM_MOTOR,
+    ELEVATOR_MOTOR,
+    FRONT_CLIMBER, 
+    BACK_CLIMBER
+  }
 
   public static enum DIO{
     CLIMBER_FRONT_MAX,

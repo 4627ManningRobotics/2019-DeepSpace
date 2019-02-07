@@ -21,7 +21,7 @@ import frc.robot.commands.OperatorControls;
  * Add your docs here.
  */
 public class Elevator extends Subsystem {
-  private final CANSparkMax motor = new CANSparkMax(RobotMap.ELEVATOR_MOTOR, MotorType.kBrushless);
+  private final CANSparkMax motor = new CANSparkMax(RobotMap.MOTORS.ELEVATOR_MOTOR.ordinal(), MotorType.kBrushless);
   private final CANPIDController pidController = new CANPIDController(motor);
 
   private double currentSetpoint;

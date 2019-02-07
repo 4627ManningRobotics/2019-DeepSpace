@@ -21,10 +21,10 @@ import frc.robot.commands.DriverControls;
  */
 public class DriveTrain extends Subsystem {
 
-  private final TalonSRX leftMotor1 = new TalonSRX(RobotMap.LEFT_MOTOR_1); // drive train motors
-  private final VictorSPX leftMotor2 = new VictorSPX(RobotMap.LEFT_MOTOR_2);
-  private final TalonSRX rightMotor1 = new TalonSRX(RobotMap.RIGHT_MOTOR_1);
-  private final VictorSPX rightMotor2 = new VictorSPX(RobotMap.RIGHT_MOTOR_2);
+  private final TalonSRX leftMotor1 = new TalonSRX(RobotMap.MOTORS.LEFT_MOTOR_1.ordinal()); // drive train motors
+  private final VictorSPX leftMotor2 = new VictorSPX(RobotMap.MOTORS.LEFT_MOTOR_2.ordinal());
+  private final TalonSRX rightMotor1 = new TalonSRX(RobotMap.MOTORS.RIGHT_MOTOR_1.ordinal());
+  private final VictorSPX rightMotor2 = new VictorSPX(RobotMap.MOTORS.RIGHT_MOTOR_2.ordinal());
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.

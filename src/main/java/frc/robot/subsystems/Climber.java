@@ -22,8 +22,8 @@ import frc.robot.Utilities;
  */
 public class Climber extends Subsystem {
 
-  private final CANSparkMax front_climber = new CANSparkMax(RobotMap.FRONT_CLIMBER, MotorType.kBrushless); // drive train motors
-  private final CANSparkMax back_climber = new CANSparkMax(RobotMap.BACK_CLIMBER, MotorType.kBrushless);
+  private final CANSparkMax front_climber = new CANSparkMax(RobotMap.MOTORS.FRONT_CLIMBER.ordinal(), MotorType.kBrushless); // drive train motors
+  private final CANSparkMax back_climber = new CANSparkMax(RobotMap.MOTORS.BACK_CLIMBER.ordinal(), MotorType.kBrushless);
   private final CANPIDController frontController = new CANPIDController(this.front_climber);
   private final CANPIDController backController = new CANPIDController(this.back_climber);
   private final DigitalInput FRONT_MAX = new DigitalInput(RobotMap.DIO.CLIMBER_FRONT_MAX.ordinal());

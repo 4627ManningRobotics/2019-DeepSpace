@@ -20,8 +20,8 @@ import frc.robot.Utilities;
  */
 public class Vacuum extends PIDSubsystem {
 
-  private final TalonSRX wristMotor = new TalonSRX(RobotMap.WRIST_MOTOR);
-  private final TalonSRX vacMotor = new TalonSRX(RobotMap.VACCUM_MOTOR);
+  private final TalonSRX wristMotor = new TalonSRX(RobotMap.MOTORS.WRIST_MOTOR.ordinal());
+  private final TalonSRX vacMotor = new TalonSRX(RobotMap.MOTORS.VACCUM_MOTOR.ordinal());
   private final Solenoid releaseValve = new Solenoid(RobotMap.DIO.VACUUM_RELEASE.ordinal());
   private final double GEAR_RATIO = 45d / 56d;
   private final double DEGREES_PER_TICK = 360d / 4096d; //360 degrees divided by ticks per revolution

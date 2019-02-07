@@ -91,7 +91,11 @@ class PiSerialGetter implements Runnable{
       }catch(Exception e){
         e.printStackTrace();
       }
-
+      try {
+        super.wait(1);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -111,6 +115,11 @@ class PiSerialSender implements Runnable{
     while(true){ 
       if(!this.outQueue.isEmpty()){ //if there is something
           this.serial.writeString(this.outQueue.remove());
+      }
+      try {
+        super.wait(1);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
       }
     }
   }
