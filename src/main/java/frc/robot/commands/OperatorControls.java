@@ -14,7 +14,7 @@ import frc.robot.RobotMap;
 public class OperatorControls extends Command {
   public OperatorControls() {
     // Use requires() here to declare subsystem dependencies
-    super.requires(Robot.climber);
+    super.requires(Robot.elevator);
   }
 
   // Called just before this Command runs the first time
