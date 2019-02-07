@@ -54,7 +54,10 @@ public class RobotMap {
   public static final int WRIST_MOTOR = 7;
 
   public static enum DIO{
-    CLIMBER_FRONT_MAX, CLIMBER_FRONT_MIN, CLIMBER_BACK_MAX, CLIMBER_BACK_MIN
+    CLIMBER_FRONT_MAX,
+    CLIMBER_FRONT_MIN,
+    CLIMBER_BACK_MAX, 
+    CLIMBER_BACK_MIN
   }
 
   //driver limitations and values
@@ -67,15 +70,18 @@ public class RobotMap {
 
   //climber values
   public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
-  public static final double FRONT_CLIMBER_P = 0.001;
-  public static final double FRONT_CLIMBER_I = 0.0;
-  public static final double FRONT_CLIMBER_D = 0.0;
-  public static final double BACK_CLIMBER_P = 0.001;
-  public static final double BACK_CLIMBER_I = 0.0;
-  public static final double BACK_CLIMBER_D = 0.0; 
+  public static final int CLIMBER_GROUND_SLOT = 0;
+  public static final int CLIMBER_LIFT_SLOT = 1;
+  public static final double CLIMBER_GROUND_P = 0.001;
+  public static final double CLIMBER_GROUND_I = 0.0;
+  public static final double CLIMBER_GROUND_D = 0.0;
+  public static final double CLIMBER_LIFT_P = 0.001;
+  public static final double CLIMBER_LIFT_I = 0.0;
+  public static final double CLIMBER_LIFT_D = 0.0; 
   public static final double CLIMBER_ZERO = 0.5; //inches
   public static final double CLIMBER_GROUND = 1.0;
   public static final double CLIMBER_LIFT = 5.0;
+  public static final double CLIMBER_INCHES_PER_ROTATON = 4.373 / 55.0;
 
   //elevator values
   public static final double ELEVATOR_WINCH_RAD = 0.625;
