@@ -37,30 +37,6 @@ public class Climber extends Subsystem {
     this.initPID();
   }
 
-  public void frontUseGroundPID(){
-    this.front_climber.getPIDController().setP(this.frontController.getP(RobotMap.CLIMBER_GROUND_SLOT));
-    this.front_climber.getPIDController().setI(this.frontController.getI(RobotMap.CLIMBER_GROUND_SLOT));
-    this.front_climber.getPIDController().setD(this.frontController.getD(RobotMap.CLIMBER_GROUND_SLOT));
-  }
-
-  public void frontUseLiftPID(){
-    this.front_climber.getPIDController().setP(this.frontController.getP(RobotMap.CLIMBER_LIFT_SLOT));
-    this.front_climber.getPIDController().setI(this.frontController.getI(RobotMap.CLIMBER_LIFT_SLOT));
-    this.front_climber.getPIDController().setD(this.frontController.getD(RobotMap.CLIMBER_LIFT_SLOT));
-  }
-
-  public void backUseGroundPID(){
-    this.back_climber.getPIDController().setP(this.backController.getP(RobotMap.CLIMBER_GROUND_SLOT));
-    this.back_climber.getPIDController().setI(this.backController.getI(RobotMap.CLIMBER_GROUND_SLOT));
-    this.back_climber.getPIDController().setD(this.backController.getD(RobotMap.CLIMBER_GROUND_SLOT));
-  }
-
-  public void backUseLiftPID(){
-    this.back_climber.getPIDController().setP(this.backController.getP(RobotMap.CLIMBER_LIFT_SLOT));
-    this.back_climber.getPIDController().setI(this.backController.getI(RobotMap.CLIMBER_LIFT_SLOT));
-    this.back_climber.getPIDController().setD(this.backController.getD(RobotMap.CLIMBER_LIFT_SLOT));
-  }
-
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -70,11 +46,10 @@ public class Climber extends Subsystem {
   public void setFront(double position){
     this.target = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
     if(this.target > RobotMap.CLIMBER_GROUND){
-      this.frontUseLiftPID();
+      this.frontController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
     } else {
-      this.frontUseGroundPID();
+      this.frontController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
     }
-    this.frontController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition);
   }
 
   public double getFront(){
@@ -84,11 +59,10 @@ public class Climber extends Subsystem {
   public void setBack(double position){
     this.target = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
     if(this.target > RobotMap.CLIMBER_GROUND){
-      this.frontUseLiftPID();
+      this.backController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
     } else {
-      this.frontUseGroundPID();
+      this.backController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
     }
-    this.backController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition);
   }
 
   public double getBack(){
