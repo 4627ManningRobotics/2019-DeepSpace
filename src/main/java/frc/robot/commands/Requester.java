@@ -72,7 +72,7 @@ class BallRequester extends Requester{
 
 class StripRequester extends Requester{
 
-    private double delta, angle;
+    private double X, Y, angle;
 
     public StripRequester(){
         super(Requester.STRIP);
@@ -81,12 +81,14 @@ class StripRequester extends Requester{
     @Override
     protected void filterData(String data) {
         Scanner sc = new Scanner(data);
-        for(int i = 0; i < 2; i++){ // repeat for both x and y
-            sc.useDelimiter("(Delta | Angle)"); //find only the charecters x and y 
+        for(int i = 0; i < 3; i++){ // repeat for both x and y
+            sc.useDelimiter("(X | Y | Angle)"); //find only the charecters x and y 
             String s = sc.next();
             sc.useDelimiter("123..."); //find only the double value
-            if(s.equals("Delta")){
-                this.delta = sc.nextDouble();
+            if(s.equals("X")){
+                this.X = sc.nextDouble();
+            }else if(s.equals("Y")){
+                this.Y = sc.nextDouble();
             }else if(s.equals("Angle")){
                 this.angle = sc.nextDouble();
             }
@@ -94,8 +96,12 @@ class StripRequester extends Requester{
         sc.close();
     }
 
-    public double getDelta(){
-        return this.delta;
+    public double getX(){
+        return this.X;
+    }
+
+    public double getY(){
+        return this.Y;
     }
 
     public double getAngle(){

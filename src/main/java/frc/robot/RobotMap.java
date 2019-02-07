@@ -78,10 +78,12 @@ public class RobotMap {
   public static final double CLIMBER_GROUND_D = 0.0;
   public static final double CLIMBER_LIFT_P = 0.001;
   public static final double CLIMBER_LIFT_I = 0.0;
-  public static final double CLIMBER_LIFT_D = 0.0; 
+  public static final double CLIMBER_LIFT_D = 0.0;
+  public static final double CLIMBER_SAFE_LIMIT = 0.25;
   public static final double CLIMBER_ZERO = 0.5; //inches
   public static final double CLIMBER_GROUND = 1.0;
   public static final double CLIMBER_LIFT = 5.0;
+  public static final double CLIMBER_TOLLERANCE = 0.25;
   public static final double CLIMBER_INCHES_PER_ROTATON = 4.373 / 55.0;
 
   //elevator values
