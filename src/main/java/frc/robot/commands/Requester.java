@@ -49,7 +49,7 @@ class BallRequester extends Requester{
     protected void filterData(String data) {
         Scanner sc = new Scanner(data);
         for(int i = 0; i < 2; i++){ // repeat for both x and y
-            sc.useDelimiter("[^XY]"); //find only the charecters x and y 
+            sc.useDelimiter("[XY]"); //find only the charecters x and y 
             String s = sc.next();
             sc.useDelimiter("123..."); //find only the double value
             if(s.equals("X")){
@@ -82,7 +82,7 @@ class StripRequester extends Requester{
     protected void filterData(String data) {
         Scanner sc = new Scanner(data);
         for(int i = 0; i < 2; i++){ // repeat for both x and y
-            sc.useDelimiter("[^XY]"); //find only the charecters x and y 
+            sc.useDelimiter("(Delta | Angle)"); //find only the charecters x and y 
             String s = sc.next();
             sc.useDelimiter("123..."); //find only the double value
             if(s.equals("Delta")){
