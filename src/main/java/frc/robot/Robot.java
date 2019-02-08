@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
     //Scheduler.getInstance().add(new DashboardData());
     CameraServer.getInstance().startAutomaticCapture();
     
-    initSmartDashboard();
+    this.initSmartDashboard();
     
   }
 

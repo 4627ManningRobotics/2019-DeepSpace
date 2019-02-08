@@ -27,13 +27,13 @@ import frc.robot.commands.Senses;
  */
 public class Sensors extends Subsystem {
 
+  private ArrayList<Requester> requests = new ArrayList<Requester>();
   private final SerialPort RaspberryPi = new SerialPort(9600, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
   protected final PiSerialGetter getter = new PiSerialGetter(this.RaspberryPi);
-  protected final PiSerialSender sender = new PiSerialSender(this.RaspberryPi);
+  protected final PiSerialSender sender = new PiSerialSender(this.RaspberryPi, this.requests);
   protected final Thread serial_in = new Thread(this.getter, "Pi get"); 
   protected final Thread serial_out = new Thread(this.sender, "Pi get"); 
 
-  ArrayList<Requester> requests = new ArrayList<Requester>();
   
   public Sensors(){
     this.serial_in.setDaemon(true); // ENSURES THE THREAD CLOSES
@@ -113,19 +113,22 @@ class PiSerialGetter implements Runnable{
  * Sends a key to the rasberry pi on a seperate thread
  */
 class PiSerialSender implements Runnable{
-
-  private final Queue<String> outQueue = new SynchronousQueue<String>();
+  
   private final SerialPort serial;
+  private final ArrayList<Requester> requesters;
 
-  public PiSerialSender(SerialPort s){
+  public PiSerialSender(SerialPort s, ArrayList<Requester> r ){
     this.serial = s;
+    this.requesters = r;
   }
 
   @Override
   public void run() {
     while(true){ 
-      if(!this.outQueue.isEmpty()){ //if there is something
-          this.serial.writeString(this.outQueue.remove()); // Send
+      for(Requester r: this.requesters){
+        if(r.isRequesting() && !r.isRequesting()){
+        this.serial.writeString(r.request);
+        }
       }
       try {
         super.wait(1); // Slow down the process to ensure the main process is still a higher priority
@@ -133,10 +136,6 @@ class PiSerialSender implements Runnable{
         e.printStackTrace();
       }
     }
-  }
-
-  void request(String s){
-    this.outQueue.add(s);
   }
 
 }
