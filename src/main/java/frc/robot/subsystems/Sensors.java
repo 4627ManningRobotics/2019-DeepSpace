@@ -21,11 +21,11 @@ import frc.robot.commands.Requester;
 import frc.robot.commands.Senses;
 
 /**
- * Add your docs here.
+ * The collection of all Sensors and information streams that aren't specific to any 
+ * subsystem or command. The main part of which being the serial input from the rasberry pi.
+ * There are a few threads and a lot of code that can break the robot so be careful!!!
  */
 public class Sensors extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
   private final SerialPort RaspberryPi = new SerialPort(9600, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
   protected final PiSerialGetter getter = new PiSerialGetter(this.RaspberryPi);
@@ -39,20 +39,20 @@ public class Sensors extends Subsystem {
     this.serial_in.setDaemon(true); // ENSURES THE THREAD CLOSES
     this.serial_out.setDaemon(true);
 
-    this.serial_in.start();
+    this.serial_in.start(); // creates the threads
     this.serial_out.start();
-    //this.serial_in.run();
-    //this.serial_out.run();
+    //this.serial_in.run(); // We cant run the serial yet because the robot needs
+    //this.serial_out.run();// more time to start up, moved to the default command
    }
 
-   public void run(){
+   // Runs both threads
+   public void run(){ 
     this.serial_in.run();
     this.serial_out.run();
    }
   
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
     super.setDefaultCommand(new Senses(this.getter.inQueue));
   }
 
@@ -62,6 +62,9 @@ public class Sensors extends Subsystem {
 
 }
 
+/*
+ * This runs on the thread with the intention of only receiving and storing incoming information
+ */
 class PiSerialGetter implements Runnable{
 
   private final String DELIMITER = "@";
@@ -72,27 +75,33 @@ class PiSerialGetter implements Runnable{
     this.serial_in = s;
   }
 
+  // This is mostly just pure programming chaos but it works I swear!
   @Override
   public void run() {
+    // Declare variables outside of loop
     String buffer = "";
+    byte[] in;
+    int index;
+    String newBuff;
+    String message;
     while(true){
       try{
-        byte[] in = serial_in.read(1024);
+        in = serial_in.read(1024); //get serial information
         buffer += new String(in, "UTF-8"); // convert serial data to string
-        int index = buffer.indexOf(this.DELIMITER); //find delimiter
-          while(index != -1){
-            String newBuff = buffer.substring(index + 1);
-            String message = buffer.substring(0, index);
+        index = buffer.indexOf(this.DELIMITER); //find delimiter
+          while(index != -1){ // Make sure delimiter is found 
+            newBuff = buffer.substring(index + 1); // Save the rest of the string discluding the delimiter
+            message = buffer.substring(0, index); // Use the information up to the delimiter
             SmartDashboard.putString("Serial Message", message);
-            buffer = newBuff;
-            this.inQueue.add(message);
-            index = buffer.indexOf(this.DELIMITER); //find delimiter
+            buffer = newBuff; // reset the buffer to the new buffer
+            this.inQueue.add(message); // add the chunk of information to the queue
+            index = buffer.indexOf(this.DELIMITER); //find delimiter if one exists
         }
       }catch(Exception e){
         e.printStackTrace();
       }
       try {
-        super.wait(1);
+        super.wait(1); // Slow down the process to ensure the main process is still a higher priority
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -100,7 +109,9 @@ class PiSerialGetter implements Runnable{
   }
 
 }
-
+/*
+ * Sends a key to the rasberry pi on a seperate thread
+ */
 class PiSerialSender implements Runnable{
 
   private final Queue<String> outQueue = new SynchronousQueue<String>();
@@ -114,10 +125,10 @@ class PiSerialSender implements Runnable{
   public void run() {
     while(true){ 
       if(!this.outQueue.isEmpty()){ //if there is something
-          this.serial.writeString(this.outQueue.remove());
+          this.serial.writeString(this.outQueue.remove()); // Send
       }
       try {
-        super.wait(1);
+        super.wait(1); // Slow down the process to ensure the main process is still a higher priority
       } catch (InterruptedException e) {
         e.printStackTrace();
       }

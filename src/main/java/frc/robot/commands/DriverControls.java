@@ -18,7 +18,7 @@ import frc.robot.Utilities;
 public class DriverControls extends Command {
   public DriverControls() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveTrain);
+    super.requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time

@@ -12,14 +12,16 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Utilities;
 
+/*
+ * Sets the vacuum PID to a setposition and adjusts the PID values
+ * based on the direction of rotation.
+ */
 public class SetVacuumAngle extends Command {
 
   private double angle;
   private final Utilities.counter counter;
 
   public SetVacuumAngle(double angle) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     this.angle = angle;
     this.counter = new Utilities.counter(RobotMap.VACUUM_PID_TIMEOUT);
     super.requires(Robot.vacuum);
@@ -28,7 +30,8 @@ public class SetVacuumAngle extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.vacuum.resetI();
+    Robot.vacuum.resetI(); // make sure the continual error does NOT carry through
+    //adjust PID based on direction of rotation
     if(this.angle > Robot.vacuum.getPosition()){
       Robot.vacuum.setPID(RobotMap.VACUUM_P_DOWN, RobotMap.VACUUM_I_DOWN, RobotMap.VACUUM_D_DOWN);
     }else{

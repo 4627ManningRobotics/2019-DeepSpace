@@ -10,6 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
+/*
+ * This one's fairly self explanitory
+ */
 public class ResetWrist extends Command {
   public ResetWrist() {
     super.requires(Robot.vacuum);

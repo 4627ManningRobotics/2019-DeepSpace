@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
+/*
+ * Set the hight of the front linear actuator and constantly check for limits
+ */
 public class SetFrontClimber extends Command {
 
   private double position;
@@ -31,6 +34,7 @@ public class SetFrontClimber extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // Check for if the linear actualor is exceding the hard limits
     if(Robot.climber.frontIsMaximized()){
       this.position -= RobotMap.CLIMBER_SAFE_LIMIT;
       Robot.climber.setFront(this.position);

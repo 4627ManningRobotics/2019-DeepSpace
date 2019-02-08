@@ -17,7 +17,7 @@ import frc.robot.Utilities;
 import frc.robot.commands.DriverControls;
 
 /**
- * An example subsystem. You can replace me with your own Subsystem.
+ * VROOM VROOM
  */
 public class DriveTrain extends Subsystem {
 
@@ -26,8 +26,6 @@ public class DriveTrain extends Subsystem {
   private final TalonSRX rightMotor1 = new TalonSRX(RobotMap.MOTORS.RIGHT_MOTOR_1.ordinal());
   private final VictorSPX rightMotor2 = new VictorSPX(RobotMap.MOTORS.RIGHT_MOTOR_2.ordinal());
 
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
   public DriveTrain() {
     // configure the time it takes for the motors to reach max speed
     this.leftMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
@@ -35,6 +33,7 @@ public class DriveTrain extends Subsystem {
     this.rightMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
     this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
 
+    // configure peak outputs for both the driver and the PID
     this.leftMotor1.configPeakOutputForward(1.0);
     this.leftMotor2.configPeakOutputForward(1.0);
     this.rightMotor1.configPeakOutputForward(1.0);
@@ -44,13 +43,14 @@ public class DriveTrain extends Subsystem {
     this.leftMotor2.configPeakOutputReverse(-1.0);
     this.rightMotor1.configPeakOutputReverse(-1.0);
     this.rightMotor2.configPeakOutputReverse(-1.0);
-
+ 
+    //enslave the second motors (Victors) to the first (Talons)
     this.leftMotor2.follow(this.leftMotor1); 
     this.rightMotor2.follow(this.rightMotor1);
 
     this.leftMotor1.setInverted(false);
     this.leftMotor2.setInverted(false);
-    this.rightMotor1.setInverted(true);
+    this.rightMotor1.setInverted(true); // the right side is mounted backwards
     this.rightMotor2.setInverted(true);
 
     //current limiting 

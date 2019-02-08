@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
+/*
+ * Set the hight of the rear linear actuator and constantly check for limits
+ */
 public class SetBackClimber extends Command {
 
   private double position;
 
   public SetBackClimber(double pos) {
-    // Use requires() here to declare subsystem dependencies
     this.position = pos;
     // no requires(), front and back should both be able to run
   }
@@ -31,6 +33,7 @@ public class SetBackClimber extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // Check for if the linear actualor is exceding the hard limits
     if(Robot.climber.backIsMaximized()){
       this.position -= RobotMap.CLIMBER_SAFE_LIMIT;
       Robot.climber.setBack(this.position);

@@ -19,7 +19,9 @@ import frc.robot.RobotMap;
 import frc.robot.Utilities;
 
 /**
- * Add your docs here.
+ * In charge of the front and back linear actuators that are inteded to 
+ * lift the robot. Also contains limit switches and PID controllers to ensure 
+ * the linear actuators are reaching their intended positions.
  */
 public class Climber extends Subsystem {
 
@@ -46,6 +48,7 @@ public class Climber extends Subsystem {
   
   public void setFront(double position){
     this.target = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
+    //use seperate PID values for lifting vs moving
     if(this.target > RobotMap.CLIMBER_GROUND){
       this.frontController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
     } else {
@@ -59,6 +62,7 @@ public class Climber extends Subsystem {
   
   public void setBack(double position){
     this.target = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
+    //use seperate PID values for lifting vs moving
     if(this.target > RobotMap.CLIMBER_GROUND){
       this.backController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
     } else {
@@ -102,6 +106,7 @@ public class Climber extends Subsystem {
     return state;
   }
 
+  // This is just a mess of PID setup and tweaks
   private void initPID(){
     this.front_climber.getPIDController().setP(RobotMap.CLIMBER_GROUND_P, RobotMap.CLIMBER_GROUND_SLOT);
     this.front_climber.getPIDController().setI(RobotMap.CLIMBER_GROUND_I, RobotMap.CLIMBER_GROUND_SLOT);

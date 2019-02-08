@@ -18,7 +18,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.OperatorControls;
 
 /**
- * Add your docs here.
+ * The slidey thing that does the vertical Vroom
  */
 public class Elevator extends Subsystem {
   private final CANSparkMax motor = new CANSparkMax(RobotMap.MOTORS.ELEVATOR_MOTOR.ordinal(), MotorType.kBrushless);
@@ -37,8 +37,6 @@ public class Elevator extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
     super.setDefaultCommand(new OperatorControls());
   }
 

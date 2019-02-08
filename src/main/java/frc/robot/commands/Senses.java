@@ -14,11 +14,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
+/*
+ * Continuosly runs and loop through all incoming messages to 
+ * be systematicaly sorted through and sent to their respective 
+ * Requester object 
+ */
 public class Senses extends Command {
 
+  // the continual stream of information
   private Queue<String> inQueue = new SynchronousQueue<String>();
   public static String recent;
 
+  // The requester objects to be referenced by other commands
   public static BallRequester ballReqester = new BallRequester();
   public static StripRequester stripReqester = new StripRequester();
 
@@ -37,12 +44,12 @@ public class Senses extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(!this.inQueue.isEmpty()){
-      String s = this.inQueue.remove();
+    if(!this.inQueue.isEmpty()){ // If the queue is not empty
+      String s = this.inQueue.remove(); // Get the least recent string
       Senses.recent = s;
-      SmartDashboard.putString("Senses recent", s);
 
-      if(s.contains(Requester.BALL)){
+      // Check recent for each string
+      if(s.contains(Requester.BALL)){ 
         Senses.ballReqester.setData(s);
       }else if(s.contains(Requester.STRIP)){
         Senses.stripReqester.setData(s);

@@ -2,8 +2,13 @@ package frc.robot.commands;
 
 import java.util.Scanner;
 
+/*
+ * Requester is designed to be used for use in retrieving serial information 
+ * through the Sensors class and is only inteded to be used this way
+ */
 public abstract class Requester{
   
+    // All known keys
     public static final String BALL = "BALL";
     public static final String STRIP = "STRIP";
 
@@ -12,9 +17,8 @@ public abstract class Requester{
     private String data;
 
     /*
-    * Requester is designed to be used for use in retrieving serial information 
-    * through the Sensors class and is only inteded to be used this way
-    */
+     * Store the key for use in retrieving/sending information
+     */
     protected Requester(String RequestType) {
         this.request = RequestType;
     }
@@ -23,6 +27,9 @@ public abstract class Requester{
         this.is_requesting = true;
     }
 
+    /*
+     * Sets the data to be processed
+     */
     public void setData(String d){
         this.data = d;
         this.filterData(this.data);
@@ -33,6 +40,7 @@ public abstract class Requester{
         return this.is_requesting;
     }
 
+    // Filtering decided by extentions
     protected abstract void filterData(String data);
 
 }

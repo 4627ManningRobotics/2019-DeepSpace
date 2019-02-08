@@ -16,7 +16,7 @@ import frc.robot.RobotMap;
 import frc.robot.Utilities;
 
 /**
- * Add your docs here.
+ * The wrist and the mechanism to suck up game pieces
  */
 public class Vacuum extends PIDSubsystem {
 

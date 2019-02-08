@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Senses;
 import frc.robot.subsystems.*;
 
 /**
@@ -155,6 +156,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
+
+    SmartDashboard.putString("Senses recent", Senses.recent);
   }
 
   public void updateSmartDashboard(){
@@ -166,5 +169,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
+
+    SmartDashboard.putString("Senses recent", Senses.recent);
   }
 }

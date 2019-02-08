@@ -13,8 +13,9 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Utilities;
 
-
-
+/*
+ * Set the height of the elevator and check for changes to the PID value 
+ */
 public class SetElevator extends Command {
   private double m_height;
   private Utilities.counter counter;
@@ -43,7 +44,7 @@ public class SetElevator extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    
+    // Check for if the elevator is consistently on its setpoint
     double m_setpoint=Robot.elevator.getCurrentSetpoint();
     if(Utilities.within(Robot.elevator.getPosition(), m_setpoint - RobotMap.ELEVATOR_DEAD_ZONE, m_setpoint + RobotMap.ELEVATOR_DEAD_ZONE)){
       this.counter.count();
