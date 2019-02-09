@@ -29,15 +29,15 @@ public class Climber extends Subsystem {
   private final CANSparkMax back_climber = new CANSparkMax(RobotMap.MOTORS.BACK_CLIMBER.ordinal(), MotorType.kBrushless);
   private final CANPIDController frontController = new CANPIDController(this.front_climber);
   private final CANPIDController backController = new CANPIDController(this.back_climber);
-  private final Counter FRONT_MAX = new Counter(new DigitalInput(RobotMap.DIO.CLIMBER_FRONT_MAX.ordinal()));
-  private final Counter FRONT_MIN = new Counter(new DigitalInput(RobotMap.DIO.CLIMBER_FRONT_MIN.ordinal()));
-  private final Counter BACK_MAX = new Counter(new DigitalInput(RobotMap.DIO.CLIMBER_BACK_MAX.ordinal()));
-  private final Counter BACK_MIN = new Counter(new DigitalInput(RobotMap.DIO.CLIMBER_BACK_MIN.ordinal()));
 
-  private double target = 0;
+  private double frontTarget = 0;
+  private double backTarget = 0;
   
   public Climber(){
     this.initPID();
+
+    this.setFront(RobotMap.CLIMBER_LIFT);
+    this.setBack(RobotMap.CLIMBER_LIFT);
   }
 
   @Override
@@ -47,12 +47,12 @@ public class Climber extends Subsystem {
   }
   
   public void setFront(double position){
-    this.target = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
+    this.frontTarget = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
     //use seperate PID values for lifting vs moving
-    if(this.target > RobotMap.CLIMBER_GROUND){
-      this.frontController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
+    if(this.frontTarget > RobotMap.CLIMBER_GROUND / RobotMap.CLIMBER_INCHES_PER_ROTATON){
+      this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
     } else {
-      this.frontController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
+      this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
     }
   }
 
@@ -61,12 +61,12 @@ public class Climber extends Subsystem {
   }
   
   public void setBack(double position){
-    this.target = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
+    this.backTarget = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
     //use seperate PID values for lifting vs moving
-    if(this.target > RobotMap.CLIMBER_GROUND){
-      this.backController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
+    if(this.backTarget > RobotMap.CLIMBER_GROUND / RobotMap.CLIMBER_INCHES_PER_ROTATON){
+      this.backController.setReference(this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
     } else {
-      this.backController.setReference(this.target / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
+      this.backController.setReference(this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
     }
   }
 
@@ -75,35 +75,35 @@ public class Climber extends Subsystem {
   }
 
   public boolean frontOnTarget(){
-    return Utilities.within(this.getFront(), this.target - RobotMap.CLIMBER_TOLLERANCE, this.target + RobotMap.CLIMBER_TOLLERANCE);
+    return Utilities.within(this.getFront(), this.frontTarget - RobotMap.CLIMBER_TOLLERANCE, this.frontTarget + RobotMap.CLIMBER_TOLLERANCE);
   }
 
   public boolean backOnTarget(){
-    return Utilities.within(this.getBack(), this.target - RobotMap.CLIMBER_TOLLERANCE, this.target + RobotMap.CLIMBER_TOLLERANCE);
+    return Utilities.within(this.getBack(), this.backTarget - RobotMap.CLIMBER_TOLLERANCE, this.backTarget + RobotMap.CLIMBER_TOLLERANCE);
   }
 
-  public boolean frontIsMaximized(){
-    boolean state = this.FRONT_MAX.get() > 0;
-    this.FRONT_MAX.reset();
-    return state;
+  public double getFrontSetpoint(){
+    return this.frontTarget;
   }
 
-  public boolean frontIsMinimized(){
-    boolean state = this.FRONT_MIN.get() > 0;
-    this.FRONT_MIN.reset();
-    return state;
+  public double getBackSetpoint(){
+    return this.backTarget;
+  }
+
+  public double getFrontRaw(){
+    return this.front_climber.getEncoder().getPosition();
+  }
+
+  public double getBackRaw(){
+    return this.back_climber.getEncoder().getPosition();
+  }
+
+  public double getFrontRawSetpoint(){
+    return this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON;
   }
   
-  public boolean backIsMaximized(){
-    boolean state = this.BACK_MAX.get() > 0;
-    this.BACK_MAX.reset();
-    return state;
-  }
-
-  public boolean backIsMinimized(){
-    boolean state = this.BACK_MIN.get() > 0;
-    this.BACK_MIN.reset();
-    return state;
+  public double getBackRawSetpoint(){
+    return this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON;
   }
 
   // This is just a mess of PID setup and tweaks
@@ -124,7 +124,10 @@ public class Climber extends Subsystem {
     this.back_climber.getPIDController().setI(RobotMap.CLIMBER_LIFT_I, RobotMap.CLIMBER_LIFT_SLOT);
     this.back_climber.getPIDController().setD(RobotMap.CLIMBER_LIFT_D, RobotMap.CLIMBER_LIFT_SLOT);
 
-    this.frontController.setOutputRange(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
-    this.backController.setOutputRange(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
+    this.frontController.setOutputRange(-RobotMap.CLIMBER_MAX_SPEED, RobotMap.CLIMBER_MAX_SPEED);
+    this.backController.setOutputRange(-RobotMap.CLIMBER_MAX_SPEED, RobotMap.CLIMBER_MAX_SPEED);
+
+    this.front_climber.setInverted(false);
+    this.back_climber.setInverted(false);
   }
 }

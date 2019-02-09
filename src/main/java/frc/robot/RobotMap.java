@@ -41,15 +41,15 @@ public class RobotMap {
 
   //motors, solenoids and other
   public static enum MOTORS{
-    LEFT_MOTOR_1, //Talon
-    LEFT_MOTOR_2, //Victor 
-    RIGHT_MOTOR_1, //Talon
-    RIGHT_MOTOR_2, //Victor
-    WRIST_MOTOR,
-    VACCUM_MOTOR,
-    ELEVATOR_MOTOR,
-    FRONT_CLIMBER, 
-    BACK_CLIMBER
+    LEFT_MOTOR_1, //Talon 0
+    LEFT_MOTOR_2, //Victor 1
+    RIGHT_MOTOR_1, //Talon 2
+    RIGHT_MOTOR_2, //Victor 3
+    WRIST_MOTOR, // 4
+    VACCUM_MOTOR,// 5
+    ELEVATOR_MOTOR,// 6
+    FRONT_CLIMBER, // 7
+    BACK_CLIMBER// 8
   }
 
   public static enum DIO{
@@ -69,13 +69,13 @@ public class RobotMap {
   public static final int CURRENT_LIMIT_DURATION = 50; // 50 milliseconds
 
   //climber values
-  public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
+  public static final double CLIMBER_MAX_SPEED = 0.1; //0 - 1
   public static final int CLIMBER_GROUND_SLOT = 0;
   public static final int CLIMBER_LIFT_SLOT = 1;
-  public static final double CLIMBER_GROUND_P = 0.001;
+  public static final double CLIMBER_GROUND_P = 0.01;
   public static final double CLIMBER_GROUND_I = 0.0;
   public static final double CLIMBER_GROUND_D = 0.0;
-  public static final double CLIMBER_LIFT_P = 0.001;
+  public static final double CLIMBER_LIFT_P = 0.01;
   public static final double CLIMBER_LIFT_I = 0.0;
   public static final double CLIMBER_LIFT_D = 0.0;
   public static final double CLIMBER_SAFE_LIMIT = 0.25;

@@ -147,6 +147,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("P", Robot.elevator.getP());
     SmartDashboard.putNumber("I", Robot.elevator.getI());
     SmartDashboard.putNumber("D", Robot.elevator.getD());
+
+    SmartDashboard.putNumber("Front climber position", Robot.climber.getFront());
+    SmartDashboard.putNumber("Front climber setpoint", Robot.climber.getFrontSetpoint());
+    SmartDashboard.putNumber("Front raw position", Robot.climber.getFrontRaw());
+    SmartDashboard.putNumber("Front raw setpoint", Robot.climber.getFrontRawSetpoint());
+    SmartDashboard.putNumber("Back climber position", Robot.climber.getBack());
+    SmartDashboard.putNumber("Back climber setpoint", Robot.climber.getBackSetpoint());
+    SmartDashboard.putNumber("Back raw position", Robot.climber.getBackRaw());
+    SmartDashboard.putNumber("Back raw setpoint", Robot.climber.getBackRawSetpoint());
     
     SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
     SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
@@ -156,8 +165,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
-
-    SmartDashboard.putString("Senses recent", Senses.recent);
   }
 
   public void updateSmartDashboard(){
@@ -165,11 +172,18 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
     SmartDashboard.putNumber("wrist setpoint", Robot.vacuum.getSetpoint());
     SmartDashboard.putNumber("Vacuum motor current", Robot.vacuum.getVacCurrent());
+
+    SmartDashboard.putNumber("Front climber position", Robot.climber.getFront());
+    SmartDashboard.putNumber("Front climber setpoint", Robot.climber.getFrontSetpoint());
+    SmartDashboard.putNumber("Front raw position", Robot.climber.getFrontRaw());
+    SmartDashboard.putNumber("Front raw setpoint", Robot.climber.getFrontRawSetpoint());
+    SmartDashboard.putNumber("Back climber position", Robot.climber.getBack());
+    SmartDashboard.putNumber("Back climber setpoint", Robot.climber.getBackSetpoint());
+    SmartDashboard.putNumber("Back raw position", Robot.climber.getBackRaw());
+    SmartDashboard.putNumber("Back raw setpoint", Robot.climber.getBackRawSetpoint());
     
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
-
-    SmartDashboard.putString("Senses recent", Senses.recent);
   }
 }

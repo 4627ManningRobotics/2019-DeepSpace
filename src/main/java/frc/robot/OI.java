@@ -10,8 +10,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Climb;
 import frc.robot.commands.ResetWrist;
 import frc.robot.commands.SetElevator;
+import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.SetVacuumAngle;
 
 /**
@@ -57,5 +60,9 @@ public class OI {
 		this.oButtonX.whenPressed(new SetVacuumAngle(90)); // X --> wrist 90
 		this.oButtonB.whenPressed(new SetVacuumAngle(0)); // X --> wrist 0
 		this.oButtonStart.whenPressed(new ResetWrist());
+
+		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND));
+		//this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_ZERO));
+		//SmartDashboard.putBoolean("A state", this.getDriverButton(RobotMap.BUTTON_A));
 	}
 }

@@ -34,14 +34,6 @@ public class SetFrontClimber extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // Check for if the linear actualor is exceding the hard limits
-    if(Robot.climber.frontIsMaximized()){
-      this.position -= RobotMap.CLIMBER_SAFE_LIMIT;
-      Robot.climber.setFront(this.position);
-    }else if(Robot.climber.frontIsMinimized()){
-      this.position += RobotMap.CLIMBER_SAFE_LIMIT;
-      Robot.climber.setFront(this.position);
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

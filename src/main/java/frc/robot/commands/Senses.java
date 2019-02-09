@@ -50,6 +50,7 @@ public class Senses extends Command {
     if(!this.inQueue.isEmpty()){ // If the queue is not empty
       String s = this.inQueue.remove(); // Get the least recent string
       Senses.recent = s;
+      SmartDashboard.putString("Senses recent", Senses.recent);
 
       // Check recent for each string
       if(s.contains(Requester.BALL)){ 

@@ -21,39 +21,56 @@ import frc.robot.commands.Requester;
 import frc.robot.commands.Senses;
 
 /**
- * The collection of all Sensors and information streams that aren't specific to any 
+ * The collection of all Sensors and information streams that aren't specific to any
  * subsystem or command. The main part of which being the serial input from the rasberry pi.
  * There are a few threads and a lot of code that can break the robot so be careful!!!
  */
 public class Sensors extends Subsystem {
 
+  private  SerialPort RaspberryPi;
   private ArrayList<Requester> requests = new ArrayList<Requester>();
-  private final SerialPort RaspberryPi = new SerialPort(9600, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
-  protected final PiSerialGetter getter = new PiSerialGetter(this.RaspberryPi);
-  protected final PiSerialSender sender = new PiSerialSender(this.RaspberryPi, this.requests);
-  protected final Thread serial_in = new Thread(this.getter, "Pi get"); 
-  protected final Thread serial_out = new Thread(this.sender, "Pi get"); 
+  protected PiSerialGetter getter;
+  protected PiSerialSender sender;
+  protected Thread serial_in;
+  protected Thread serial_out;
 
-  
-  public Sensors(){
-    this.serial_in.setDaemon(true); // ENSURES THE THREAD CLOSES
-    this.serial_out.setDaemon(true);
 
-    this.serial_in.start(); // creates the threads
-    this.serial_out.start();
+  public Sensors(){ 
+    this.RaspberryPi = null;
+    this.getter = null;
+    this.sender = null;
+    this.serial_in = null;
+    this.serial_out = null;
+    try{
+      this.RaspberryPi = new SerialPort(9600, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
+      this.getter = new PiSerialGetter(this.RaspberryPi);
+      this.sender = new PiSerialSender(this.RaspberryPi, this.requests);
+      this.serial_in = new Thread(this.getter, "Pi get");
+      this.serial_out = new Thread(this.sender, "Pi get");
+
+      this.serial_in.setDaemon(true); // ENSURES THE THREAD CLOSES
+      this.serial_out.setDaemon(true);
+
+      this.serial_in.start(); // creates the threads
+      this.serial_out.start();
+    }catch(Exception e){
+      e.printStackTrace();
+    }
     //this.serial_in.run(); // We cant run the serial yet because the robot needs
     //this.serial_out.run();// more time to start up, moved to the default command
    }
 
    // Runs both threads
-   public void run(){ 
+   public void run(){
     this.serial_in.run();
     this.serial_out.run();
    }
-  
+
   @Override
   public void initDefaultCommand() {
-    super.setDefaultCommand(new Senses(this.getter.inQueue));
+    if(this.RaspberryPi != null){
+      super.setDefaultCommand(new Senses(this.getter.inQueue));
+    }
   }
 
   public void addRequester(Requester req){
@@ -89,7 +106,7 @@ class PiSerialGetter implements Runnable{
         in = serial_in.read(1024); //get serial information
         buffer += new String(in, "UTF-8"); // convert serial data to string
         index = buffer.indexOf(this.DELIMITER); //find delimiter
-          while(index != -1){ // Make sure delimiter is found 
+          while(index != -1){ // Make sure delimiter is found
             newBuff = buffer.substring(index + 1); // Save the rest of the string discluding the delimiter
             message = buffer.substring(0, index); // Use the information up to the delimiter
             SmartDashboard.putString("Serial Message", message);
@@ -113,7 +130,7 @@ class PiSerialGetter implements Runnable{
  * Sends a key to the rasberry pi on a seperate thread
  */
 class PiSerialSender implements Runnable{
-  
+
   private final SerialPort serial;
   private final ArrayList<Requester> requesters;
 
@@ -124,7 +141,7 @@ class PiSerialSender implements Runnable{
 
   @Override
   public void run() {
-    while(true){ 
+    while(true){
       for(Requester r: this.requesters){
         if(r.isRequesting() && !r.isRequesting()){
         this.serial.writeString(r.request);
