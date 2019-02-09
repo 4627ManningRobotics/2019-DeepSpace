@@ -61,8 +61,9 @@ public class OI {
 		this.oButtonB.whenPressed(new SetVacuumAngle(0)); // X --> wrist 0
 		this.oButtonStart.whenPressed(new ResetWrist());
 
+		this.dButtonA.whenPressed(new Climb());
 		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND));
 		//this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_ZERO));
-		//SmartDashboard.putBoolean("A state", this.getDriverButton(RobotMap.BUTTON_A));
+		//this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT));
 	}
 }

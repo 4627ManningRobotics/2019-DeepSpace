@@ -15,7 +15,7 @@ public class Climb extends CommandGroup {
    * The sequence for climbing onto the platform
    */
   public Climb() {
-    super.addParallel(new SetFrontClimber(RobotMap.CLIMBER_GROUND)); // Set both actuator to go to the ground position
+    super.addSequential(new SetFrontClimber(RobotMap.CLIMBER_GROUND)); // Set both actuator to go to the ground position
     super.addSequential(new SetBackClimber(RobotMap.CLIMBER_GROUND)); 
     super.addSequential(new SetFrontClimber(RobotMap.CLIMBER_LIFT)); // Front tilt/lift
     super.addSequential(new TimedDriveForward(0.5, 0.2)); // Drive forward to force more of the robot onto the platform
