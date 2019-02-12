@@ -12,7 +12,6 @@ import java.util.concurrent.SynchronousQueue;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 /*
  * Continuosly runs and loop through all incoming messages to 

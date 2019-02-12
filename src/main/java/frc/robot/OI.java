@@ -10,13 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Climb;
 import frc.robot.commands.ResetWrist;
 import frc.robot.commands.SetBackClimber;
-import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.SetVacuumAngle;
+import frc.robot.commands.ZeroClimber;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -30,6 +29,7 @@ public class OI {
 	Button dButtonB = new JoystickButton(this.driverController, RobotMap.BUTTON_B);
 	Button dButtonX = new JoystickButton(this.driverController, RobotMap.BUTTON_X);
 	Button dButtonY = new JoystickButton(this.driverController, RobotMap.BUTTON_Y);
+	Button dButtonBack = new JoystickButton(this.driverController, RobotMap.BACK_BUTTON);
 	Button dStartButton = new JoystickButton(this.driverController, RobotMap.START_BUTTON);
 	
 	Button oButtonA = new JoystickButton(this.operatorController, RobotMap.BUTTON_A);
@@ -65,6 +65,7 @@ public class OI {
 		this.dButtonA.whenPressed(new Climb());
 		this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND));
 		this.dButtonB.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND));
+		this.dButtonBack.whenPressed(new ZeroClimber());
 		//this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT));
 	}
 }
