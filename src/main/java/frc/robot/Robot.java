@@ -189,5 +189,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
+
+    SmartDashboard.putData(climber);
   }
 }

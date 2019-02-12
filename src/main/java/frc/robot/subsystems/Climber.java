@@ -49,7 +49,7 @@ public class Climber extends Subsystem {
   public void setFront(double position){
     this.frontTarget = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
     //use seperate PID values for lifting vs moving
-    if(this.frontTarget > RobotMap.CLIMBER_GROUND / RobotMap.CLIMBER_INCHES_PER_ROTATON){
+    if(this.frontTarget > RobotMap.CLIMBER_GROUND ){
       this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
     } else {
       this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
@@ -63,7 +63,7 @@ public class Climber extends Subsystem {
   public void setBack(double position){
     this.backTarget = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
     //use seperate PID values for lifting vs moving
-    if(this.backTarget > RobotMap.CLIMBER_GROUND / RobotMap.CLIMBER_INCHES_PER_ROTATON){
+    if(this.backTarget > RobotMap.CLIMBER_GROUND ){
       this.backController.setReference(this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
     } else {
       this.backController.setReference(this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);

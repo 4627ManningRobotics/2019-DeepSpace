@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Climb;
 import frc.robot.commands.ResetWrist;
+import frc.robot.commands.SetBackClimber;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.SetVacuumAngle;
@@ -62,8 +63,8 @@ public class OI {
 		this.oButtonStart.whenPressed(new ResetWrist());
 
 		this.dButtonA.whenPressed(new Climb());
-		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND));
-		//this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_ZERO));
+		this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND));
+		this.dButtonB.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND));
 		//this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT));
 	}
 }
