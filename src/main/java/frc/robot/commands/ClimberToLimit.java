@@ -37,7 +37,7 @@ public class ClimberToLimit extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (Robot.climber.getLimitSwitch(Dart.FRONT, m_switch) && Robot.climber.getLimitSwitch(Dart.BACK, m_switch)){
+    if ( (Robot.climber.getBackAppliedOutput()==0) && (Robot.climber.getFrontAppliedOutput() == 0)){
       return true;
     } else {
       return false;

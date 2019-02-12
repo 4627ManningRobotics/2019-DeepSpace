@@ -20,7 +20,7 @@ public class SetFrontClimber extends Command {
   public SetFrontClimber(double pos) {
     // Use requires() here to declare subsystem dependencies
     this.position = pos;
-    // no requires(), front and back should both be able to run
+    requires(Robot.climber);//
   }
 
   // Called just before this Command runs the first time

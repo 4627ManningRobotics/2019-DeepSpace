@@ -19,7 +19,7 @@ public class SetBackClimber extends Command {
 
   public SetBackClimber(double pos) {
     this.position = pos;
-    // no requires(), front and back should both be able to run
+    requires(Robot.climber);
   }
 
   // Called just before this Command runs the first time

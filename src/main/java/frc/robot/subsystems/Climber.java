@@ -11,6 +11,7 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -64,24 +65,11 @@ public class Climber extends Subsystem {
 
   }
 
-  public boolean getLimitSwitch(Dart dart, LimitSwitch limit){
-    if (dart == Dart.FRONT){
-      if(limit == LimitSwitch.BOTTOM){
-        return this.front_climber.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed).get();
-      }else{
-        return this.front_climber.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed).get();
-      }
-    }else{
-      if(limit == LimitSwitch.BOTTOM){
-        return this.back_climber.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed).get();
-      }else{
-        return this.back_climber.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed).get();
-      }
-    }
-  }
+ 
+
 
   public void setFront(double position){
-    this.frontTarget = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
+    this.frontTarget = position;
     //use seperate PID values for lifting vs moving
     if(this.frontTarget > RobotMap.CLIMBER_GROUND ){
       this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
@@ -95,7 +83,7 @@ public class Climber extends Subsystem {
   }
   
   public void setBack(double position){
-    this.backTarget = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
+    this.backTarget = position;
     //use seperate PID values for lifting vs moving
     if(this.backTarget > RobotMap.CLIMBER_GROUND ){
       this.backController.setReference(this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
@@ -171,5 +159,6 @@ public class Climber extends Subsystem {
 
     this.front_climber.setInverted(false);
     this.back_climber.setInverted(false);
+
   }
 }
