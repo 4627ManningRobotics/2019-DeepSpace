@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -46,6 +47,41 @@ public class Climber extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
   
+  public static enum Dart{
+    FRONT,
+    BACK
+  }
+
+  public static enum LimitSwitch{
+    TOP,
+    BOTTOM
+  }
+  
+  public void zeroEncoder(Dart dart){
+    if(dart == Dart.FRONT){
+      front_climber.setEncPosition(0);
+    }else{
+      back_climber.setEncPosition(0);
+    }
+
+  }
+
+  public boolean getLimitSwitch(Dart dart, LimitSwitch limit){
+    if (dart == Dart.FRONT){
+      if(limit == LimitSwitch.BOTTOM){
+        return this.front_climber.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed).get();
+      }else{
+        return this.front_climber.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed).get();
+      }
+    }else{
+      if(limit == LimitSwitch.BOTTOM){
+        return this.back_climber.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed).get();
+      }else{
+        return this.back_climber.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed).get();
+      }
+    }
+  }
+
   public void setFront(double position){
     this.frontTarget = Utilities.constrain(position, RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_LIFT);
     //use seperate PID values for lifting vs moving
