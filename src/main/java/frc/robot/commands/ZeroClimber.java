@@ -8,15 +8,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.subsystems.Climber.Dart;
 import frc.robot.subsystems.Climber.LimitSwitch;
 
 public class ZeroClimber extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public ZeroClimber() {
-    addSequential(new ClimberReadyForZero());
-    addSequential(new ClimberToLimit(LimitSwitch.TOP));
+  public ZeroClimber(Dart dart) {
+    if (dart==Dart.FRONT){
+      addSequential(new ClimberReadyForZero(Dart.FRONT));
+      addSequential(new ClimberToLimit(Dart.FRONT, LimitSwitch.TOP));
+    }else{
+      addSequential(new ClimberReadyForZero(Dart.BACK));
+      addSequential(new ClimberToLimit(Dart.BACK, LimitSwitch.TOP));
+    }
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

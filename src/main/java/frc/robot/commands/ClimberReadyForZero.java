@@ -9,11 +9,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.subsystems.Climber.Dart;
 import frc.robot.subsystems.Climber.LimitSwitch;
 
 public class ClimberReadyForZero extends Command {
-  public ClimberReadyForZero() {
+  Dart m_dart;
+  public ClimberReadyForZero(Dart dart) {
+    m_dart=dart;
     // Use requires() here to declare subsystem dependencies
     requires(Robot.climber);
   }
@@ -21,12 +24,12 @@ public class ClimberReadyForZero extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-   
-      Robot.climber.setFront(1);
+    if(m_dart==Dart.FRONT){
+      Robot.climber.setFront(1, RobotMap.CLIMBER_GROUND_SLOT);
+    }else{
     
-    
-      Robot.climber.setBack(1);
-    
+      Robot.climber.setBack(1, RobotMap.CLIMBER_GROUND_SLOT);
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -37,7 +40,11 @@ public class ClimberReadyForZero extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-      return (Robot.climber.frontOnTarget() && Robot.climber.backOnTarget());
+    if (m_dart==Dart.FRONT){
+      return (Robot.climber.frontOnTarget()); 
+    }else{
+      return (Robot.climber.backOnTarget());
+    }
   }
 
   // Called once after isFinished returns true

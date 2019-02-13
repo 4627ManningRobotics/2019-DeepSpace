@@ -16,17 +16,19 @@ import frc.robot.Robot;
 public class SetFrontClimber extends Command {
 
   private double position;
+  int m_slot;
 
-  public SetFrontClimber(double pos) {
+  public SetFrontClimber(double pos, int slot) {
     // Use requires() here to declare subsystem dependencies
     this.position = pos;
+    m_slot=slot;
     requires(Robot.climber);//
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.climber.setFront(position);
+    Robot.climber.setFront(position, m_slot);
 
   }
 

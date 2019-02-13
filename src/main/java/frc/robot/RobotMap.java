@@ -69,7 +69,7 @@ public class RobotMap {
   public static final int CURRENT_LIMIT_DURATION = 50; // 50 milliseconds
 
   //climber values
-  public static final double CLIMBER_MAX_SPEED = 0.1; //0 - 1
+  public static final double CLIMBER_MAX_SPEED = 0.2; //0 - 1
   public static final int CLIMBER_GROUND_SLOT = 0;
   public static final int CLIMBER_LIFT_SLOT = 1;
   public static final double CLIMBER_FRONT_GROUND_P = 0.05;
@@ -85,9 +85,9 @@ public class RobotMap {
   public static final double CLIMBER_BACK_LIFT_I = 0.0;
   public static final double CLIMBER_BACK_LIFT_D = 0.0;
   public static final double CLIMBER_SAFE_LIMIT = 0.25;
-  public static final double CLIMBER_ZERO = 0.5; //inches
-  public static final double CLIMBER_GROUND = 1.0;
-  public static final double CLIMBER_LIFT = 5.0;
+  public static final double CLIMBER_ZERO = 0.0; //inches
+  public static final double CLIMBER_GROUND = 1.2;
+  public static final double CLIMBER_LIFT = 5.2;
   public static final double CLIMBER_TOLLERANCE = 0.25;
   public static final double CLIMBER_INCHES_PER_ROTATON = 4.373 / 55.0;
 

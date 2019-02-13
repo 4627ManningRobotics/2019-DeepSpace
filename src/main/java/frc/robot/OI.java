@@ -16,6 +16,7 @@ import frc.robot.commands.SetBackClimber;
 import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.SetVacuumAngle;
 import frc.robot.commands.ZeroClimber;
+import frc.robot.subsystems.Climber.Dart;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -62,12 +63,13 @@ public class OI {
 		this.oButtonB.whenPressed(new SetVacuumAngle(0)); // X --> wrist 0
 		this.oButtonStart.whenPressed(new ResetWrist());
 
-		this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND));
-		this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND));
-		this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT));
+		this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonY.whenPressed(new Climb());
 
 
-		this.dButtonBack.whenPressed(new ZeroClimber());
+		this.dButtonBack.whenPressed(new ZeroClimber(Dart.FRONT));
 		//this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT));
 	}
 }

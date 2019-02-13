@@ -16,16 +16,18 @@ import frc.robot.Robot;
 public class SetBackClimber extends Command {
 
   private double position;
+  int m_slot;
 
-  public SetBackClimber(double pos) {
+  public SetBackClimber(double pos, int slot) {
     this.position = pos;
+    m_slot=slot;
     requires(Robot.climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.climber.setBack(position);
+    Robot.climber.setBack(position, m_slot);
 
   }
 

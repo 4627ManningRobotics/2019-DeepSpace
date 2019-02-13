@@ -36,8 +36,8 @@ public class Climber extends Subsystem {
   public Climber(){
     this.initPID();
 
-    this.setFront(RobotMap.CLIMBER_ZERO);
-    this.setBack(RobotMap.CLIMBER_ZERO);
+    this.setFront(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT);
+    this.setBack(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT);
   }
 
   @Override
@@ -68,28 +68,25 @@ public class Climber extends Subsystem {
  
 
 
-  public void setFront(double position){
+  public void setFront(double position, int slot){
+    
     this.frontTarget = position;
     //use seperate PID values for lifting vs moving
-    if(this.frontTarget > RobotMap.CLIMBER_GROUND ){
-      this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
-    } else {
-      this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
-    }
+    //this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, slot);
+    frontController.setReference(position / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, slot);
+   
   }
 
   public double getFront(){
     return this.front_climber.getEncoder().getPosition() * RobotMap.CLIMBER_INCHES_PER_ROTATON;
   }
   
-  public void setBack(double position){
+  public void setBack(double position, int slot){
     this.backTarget = position;
     //use seperate PID values for lifting vs moving
-    if(this.backTarget > RobotMap.CLIMBER_GROUND ){
-      this.backController.setReference(this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_LIFT_SLOT);
-    } else {
-      this.backController.setReference(this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, RobotMap.CLIMBER_GROUND_SLOT);
-    }
+  
+    this.backController.setReference(this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, slot);
+    
   }
 
   public double getBack(){
@@ -128,31 +125,33 @@ public class Climber extends Subsystem {
     return this.backTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON;
   }
 
-  public double getFrontAppliedOutput(){
-    return this.front_climber.getAppliedOutput();
+  public double getAppliedOutput(Dart dart){
+    if(dart==Dart.FRONT){
+      return this.front_climber.getAppliedOutput();
+    }else{
+      return this.back_climber.getAppliedOutput();
+    }
   }
 
-  public double getBackAppliedOutput(){
-    return this.back_climber.getAppliedOutput();
-  }
+ 
 
   // This is just a mess of PID setup and tweaks
   private void initPID(){
-    this.front_climber.getPIDController().setP(RobotMap.CLIMBER_FRONT_GROUND_P, RobotMap.CLIMBER_GROUND_SLOT);
-    this.front_climber.getPIDController().setI(RobotMap.CLIMBER_FRONT_GROUND_I, RobotMap.CLIMBER_GROUND_SLOT);
-    this.front_climber.getPIDController().setD(RobotMap.CLIMBER_FRONT_GROUND_D, RobotMap.CLIMBER_GROUND_SLOT);
+    this.frontController.setP(RobotMap.CLIMBER_FRONT_GROUND_P, RobotMap.CLIMBER_GROUND_SLOT);
+    this.frontController.setI(RobotMap.CLIMBER_FRONT_GROUND_I, RobotMap.CLIMBER_GROUND_SLOT);
+    this.frontController.setD(RobotMap.CLIMBER_FRONT_GROUND_D, RobotMap.CLIMBER_GROUND_SLOT);
     
-    this.back_climber.getPIDController().setP(RobotMap.CLIMBER_BACK_GROUND_P, RobotMap.CLIMBER_GROUND_SLOT);
-    this.back_climber.getPIDController().setI(RobotMap.CLIMBER_BACK_GROUND_I, RobotMap.CLIMBER_GROUND_SLOT);
-    this.back_climber.getPIDController().setD(RobotMap.CLIMBER_BACK_GROUND_D, RobotMap.CLIMBER_GROUND_SLOT);
+    this.backController.setP(RobotMap.CLIMBER_BACK_GROUND_P, RobotMap.CLIMBER_GROUND_SLOT);
+    this.backController.setI(RobotMap.CLIMBER_BACK_GROUND_I, RobotMap.CLIMBER_GROUND_SLOT);
+    this.backController.setD(RobotMap.CLIMBER_BACK_GROUND_D, RobotMap.CLIMBER_GROUND_SLOT);
 
-    this.front_climber.getPIDController().setP(RobotMap.CLIMBER_FRONT_LIFT_P, RobotMap.CLIMBER_LIFT_SLOT);
-    this.front_climber.getPIDController().setI(RobotMap.CLIMBER_FRONT_LIFT_I, RobotMap.CLIMBER_LIFT_SLOT);
-    this.front_climber.getPIDController().setD(RobotMap.CLIMBER_FRONT_LIFT_D, RobotMap.CLIMBER_LIFT_SLOT);
+    this.frontController.setP(RobotMap.CLIMBER_FRONT_LIFT_P, RobotMap.CLIMBER_LIFT_SLOT);
+    this.frontController.setI(RobotMap.CLIMBER_FRONT_LIFT_I, RobotMap.CLIMBER_LIFT_SLOT);
+    this.frontController.setD(RobotMap.CLIMBER_FRONT_LIFT_D, RobotMap.CLIMBER_LIFT_SLOT);
     
-    this.back_climber.getPIDController().setP(RobotMap.CLIMBER_BACK_LIFT_P, RobotMap.CLIMBER_LIFT_SLOT);
-    this.back_climber.getPIDController().setI(RobotMap.CLIMBER_BACK_LIFT_I, RobotMap.CLIMBER_LIFT_SLOT);
-    this.back_climber.getPIDController().setD(RobotMap.CLIMBER_BACK_LIFT_D, RobotMap.CLIMBER_LIFT_SLOT);
+    this.backController.setP(RobotMap.CLIMBER_BACK_LIFT_P, RobotMap.CLIMBER_LIFT_SLOT);
+    this.backController.setI(RobotMap.CLIMBER_BACK_LIFT_I, RobotMap.CLIMBER_LIFT_SLOT);
+    this.backController.setD(RobotMap.CLIMBER_BACK_LIFT_D, RobotMap.CLIMBER_LIFT_SLOT);
 
     this.frontController.setOutputRange(-RobotMap.CLIMBER_MAX_SPEED, RobotMap.CLIMBER_MAX_SPEED);
     this.backController.setOutputRange(-RobotMap.CLIMBER_MAX_SPEED, RobotMap.CLIMBER_MAX_SPEED);
