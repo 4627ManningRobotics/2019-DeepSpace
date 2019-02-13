@@ -37,7 +37,7 @@ public class Elevator extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    super.setDefaultCommand(new OperatorControls());
+    //super.setDefaultCommand();
   }
 
   public double getCurrentSetpoint(){

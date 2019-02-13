@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.Climb;
+import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.ResetWrist;
 import frc.robot.commands.SetBackClimber;
+import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.SetVacuumAngle;
 import frc.robot.commands.ZeroClimber;
@@ -39,10 +41,13 @@ public class OI {
 	Button oButtonX = new JoystickButton(this.operatorController, RobotMap.BUTTON_X);
 	Button oButtonBack = new JoystickButton(this.operatorController, RobotMap.BACK_BUTTON);
 	Button oButtonStart = new JoystickButton(this.operatorController, RobotMap.START_BUTTON);
-  Button oButtonRightStick = new JoystickButton(this.operatorController, RobotMap.RIGHT_STICK_BUTTON);
-  
+  	Button oButtonRightStick = new JoystickButton(this.operatorController, RobotMap.RIGHT_STICK_BUTTON);
+	Button oButtonRightBumper = new JoystickButton(this.operatorController, RobotMap.RIGHT_BUMPER);
+	Button oButtonLeftBumper = new JoystickButton(this.operatorController, RobotMap.LEFT_BUMPER);
+
   public boolean getOperatorButton(int axis) {
 		return this.operatorController.getRawButton(axis);
+		
 	}
 	
 	public boolean getDriverButton(int axis) {
@@ -59,9 +64,11 @@ public class OI {
 
 	public OI () {
 		//this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
-		this.oButtonX.whenPressed(new SetVacuumAngle(90)); // X --> wrist 90
-		this.oButtonB.whenPressed(new SetVacuumAngle(0)); // X --> wrist 0
-		this.oButtonStart.whenPressed(new ResetWrist());
+		this.oButtonA.whenPressed(new SetElevator(0)); // X --> wrist 90
+		this.oButtonB.whenPressed(new SetElevator(12)); // X --> wrist 0
+		this.oButtonY.whenPressed(new SetElevator(40));
+		this.oButtonLeftBumper.whileHeld(new IncrementElevator(-1));
+		this.oButtonRightBumper.whileHeld(new IncrementElevator(1));
 
 		this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
 		this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
