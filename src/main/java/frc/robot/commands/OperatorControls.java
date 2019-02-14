@@ -7,19 +7,28 @@
 
 package frc.robot.commands;
 
+import java.util.Arrays;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.Utilities;
 
 public class OperatorControls extends Command {
+
+  private double[] vacCurrentAvg;
+
   public OperatorControls() {
     // Use requires() here to declare subsystem dependencies
-    super.requires(Robot.elevator);
+    super.requires(Robot.vacuum);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    this.vacCurrentAvg = new double[100];
+    Arrays.fill(this.vacCurrentAvg, 0);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -31,6 +40,8 @@ public class OperatorControls extends Command {
     }else if(Robot.oi.getOperatorButton(RobotMap.BUTTON_A)){
       Robot.vacuum.deactivateVacuum();
     }
+    Utilities.push(Robot.vacuum.getVacCurrent(), this.vacCurrentAvg);
+    SmartDashboard.putNumber("Vacuum motor current average", Utilities.avg(this.vacCurrentAvg));
   }
 
   // Make this return true when this Command no longer needs to run execute()

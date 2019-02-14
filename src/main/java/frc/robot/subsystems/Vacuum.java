@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import frc.robot.RobotMap;
 import frc.robot.Utilities;
+import frc.robot.commands.OperatorControls;
 
 /**
  * The wrist and the mechanism to suck up game pieces
@@ -42,7 +43,7 @@ public class Vacuum extends PIDSubsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    super.setDefaultCommand(new OperatorControls());
   }
 
   public double getTicks(){

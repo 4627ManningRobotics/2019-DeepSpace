@@ -59,6 +59,21 @@ public class Utilities {
 		}
 	}
 
+	public static double avg(double[] valArr){
+		double sum = 0;
+		for(double i: valArr){
+			sum += i; 
+		}
+		return sum / ((double) valArr.length);
+	}
+
+	public static void push(double val, double[] valArr){
+		for(int i = valArr.length - 1; i > 0; i--){
+			valArr[i] = valArr[i - 1];
+		}
+		valArr[0] = val;
+	}
+
 	public static class counter{
 		
 		private final int limit;

@@ -163,6 +163,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
     SmartDashboard.putNumber("wrist setpoint", Robot.vacuum.getSetpoint());
     SmartDashboard.putNumber("Vacuum motor current", Robot.vacuum.getVacCurrent());
+    SmartDashboard.putNumber("Vacuum motor current average", 0);
     
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
