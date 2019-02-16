@@ -29,8 +29,7 @@ public class TurnToAngle extends Command {
     }
     
     public TurnToAngle(double angle) {
-    	
-        super.requires(Robot.driveTrain);
+      super.requires(Robot.driveTrain);
     	this.PID = new PIDController(RobotMap.TURN_P, RobotMap.TURN_I, RobotMap.TURN_D, new gyroPID(), new PIDOut());
     	this.PID.setOutputRange(-RobotMap.MAX_TURN_SPEED, RobotMap.MAX_TURN_SPEED);
       this.PID.setAbsoluteTolerance(RobotMap.GYRO_GAY);
@@ -52,7 +51,7 @@ public class TurnToAngle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(this.PID.onTarget() || System.currentTimeMillis() >= this.startTime + RobotMap.TURN_TIMEOUT){
+    	if(this.PID.onTarget() || System.currentTimeMillis() >= this.startTime + RobotMap.COMMAND_TIMEOUT){
 				this.isfinished = true;
 			}else {
 				this.startTime = System.currentTimeMillis();

@@ -41,7 +41,7 @@ public class Sensors extends Subsystem {
   protected Thread serial_in;
   protected Thread serial_out;
 
-  private PigeonIMU gyro = new PigeonIMU(RobotMap.MOTORS.GYRO.ordinal());
+  private PigeonIMU gyro = new PigeonIMU(0);
   private double[] gyroRotation = new double[3];
 
   public Sensors(){ 
