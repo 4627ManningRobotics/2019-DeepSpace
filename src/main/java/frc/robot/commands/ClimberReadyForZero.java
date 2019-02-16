@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Climber.Dart;
-import frc.robot.subsystems.Climber.LimitSwitch;
 
 public class ClimberReadyForZero extends Command {
   Dart m_dart;

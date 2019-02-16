@@ -10,13 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.Climb;
 import frc.robot.commands.IncrementElevator;
-import frc.robot.commands.ResetWrist;
 import frc.robot.commands.SetBackClimber;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
-import frc.robot.commands.SetVacuumAngle;
 import frc.robot.commands.ZeroClimber;
 import frc.robot.subsystems.Climber.Dart;
 

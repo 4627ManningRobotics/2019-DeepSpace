@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -27,6 +26,7 @@ public class DriveForward extends PIDCommand {
   @Override
   protected void initialize() {
     super.reset();
+    super.setSetpoint(this.distance);
     super.setTimeout(RobotMap.COMMAND_TIMEOUT);
     super.enable();
   }
