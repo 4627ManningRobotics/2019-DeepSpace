@@ -62,12 +62,6 @@ public class Sensors extends Subsystem {
     //this.serial_out.run();// more time to start up, moved to the default command
    }
 
-   // Runs both threads
-   public void run(){
-    this.serial_in.run();
-    this.serial_out.run();
-   }
-
   @Override
   public void initDefaultCommand() {
     if(this.RaspberryPi != null){
