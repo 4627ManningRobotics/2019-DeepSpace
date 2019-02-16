@@ -73,7 +73,7 @@ public class Climber extends Subsystem {
     this.frontTarget = position;
     //use seperate PID values for lifting vs moving
     //this.frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, slot);
-    frontController.setReference(position / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, slot);
+    frontController.setReference(this.frontTarget / RobotMap.CLIMBER_INCHES_PER_ROTATON, ControlType.kPosition, slot);
   }
 
   public double getFront(){

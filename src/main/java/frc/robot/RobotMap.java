@@ -49,7 +49,8 @@ public class RobotMap {
     VACCUM_MOTOR,// 5
     ELEVATOR_MOTOR,// 6
     FRONT_CLIMBER, // 7
-    BACK_CLIMBER// 8
+    BACK_CLIMBER,// 8
+    GYRO// 9
   }
 
   public static enum DIO{

@@ -10,12 +10,15 @@ package frc.robot.subsystems;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
+
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Parity;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
 import frc.robot.commands.Senses;
 
 /**
@@ -35,8 +38,11 @@ public class Sensors extends Subsystem {
   protected Thread serial_in;
   protected Thread serial_out;
 
+  private PigeonIMU gyro = new PigeonIMU(RobotMap.MOTORS.GYRO.ordinal());
+  private double[] gyroRotation = new double[3];
 
   public Sensors(){ 
+
     this.RaspberryPi = null;
     this.getter = null;
     this.sender = null;
@@ -71,6 +77,12 @@ public class Sensors extends Subsystem {
       SmartDashboard.putBoolean("Serial", false);
     }
   }
+
+  public double[] getRotation(){
+    this.gyro.getAccumGyro(this.gyroRotation);
+    return this.gyroRotation;
+  }
+
 }
 /*
  * This runs on the thread with the intention of only receiving and storing incoming information
