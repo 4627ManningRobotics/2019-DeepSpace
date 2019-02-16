@@ -50,7 +50,6 @@ public class RobotMap {
     ELEVATOR_MOTOR,// 6
     FRONT_CLIMBER, // 7
     BACK_CLIMBER,// 8
-    GYRO// 9
   }
 
   public static enum DIO{
@@ -128,6 +127,6 @@ public class RobotMap {
   public static final double TURN_D = 0;
   public static final double GYRO_GAY = 3;
   public static final double MAX_TURN_SPEED = 1;
-  public static final double TURN_TIMEOUT = 5000; //milliseconds
+  public static final double COMMAND_TIMEOUT = 5000; //milliseconds
 
 }

@@ -38,12 +38,13 @@ public class Senses extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Sensors.ballReqester.setRequesting(true);
+    Sensors.stripReqester.setRequesting(true);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Sensors.ballReqester.setRequesting(true);
 
     if(!this.inQueue.isEmpty()){ // If the queue is not empty
       String s = this.inQueue.remove(); // Get the least recent string
