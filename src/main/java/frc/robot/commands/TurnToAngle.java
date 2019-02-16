@@ -7,15 +7,10 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class TurnToAngle extends PIDCommand {
-	private boolean isfinished;
-  private long startTime;
   private final double GLOBAL_ANGLE;
     
     public TurnToAngle(double angle) {
@@ -34,23 +29,17 @@ public class TurnToAngle extends PIDCommand {
     	Robot.driveTrain.setLeftMotor(0);
       Robot.driveTrain.setRightMotor(0);
       
-    	this.isfinished = false;
-		  this.startTime = System.currentTimeMillis();
+      super.setTimeout(RobotMap.COMMAND_TIMEOUT);
     	super.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(super.onTarget() || System.currentTimeMillis() >= this.startTime + RobotMap.COMMAND_TIMEOUT){
-				this.isfinished = true;
-			}else {
-				this.startTime = System.currentTimeMillis();
-			}
 		}
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return this.isfinished;
+        return super.isTimedOut() || super.onTarget();
     }
 
     // Called once after isFinished returns true

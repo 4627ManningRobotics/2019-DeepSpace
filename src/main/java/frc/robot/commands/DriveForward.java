@@ -9,23 +9,26 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class DriveForward extends Command {
+public class DriveForward extends PIDCommand {
 
-  private final double distance, speed;
+  private final double distance;
 
-  public DriveForward(double inches, double speed) {
-    // Use requires() here to declare subsystem dependencies
+  public DriveForward(double inches) {
+    super(RobotMap.DRIVE_P, RobotMap.DRIVE_I, RobotMap.DRIVE_D);
     super.requires(Robot.driveTrain);
+    super.setOutputRange(-RobotMap.MAX_DRIVE_SPEED, RobotMap.MAX_DRIVE_SPEED);
+    super.setAbsoluteTolerance(RobotMap.DRIVE_TOLLERANCE);
     this.distance = inches;
-    this.speed = speed;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveTrain.setLeftMotor(this.speed);
-    Robot.driveTrain.setRightMotor(this.speed);
+    super.reset();
+    super.setTimeout(RobotMap.COMMAND_TIMEOUT);
+    super.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -36,17 +39,31 @@ public class DriveForward extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return super.isTimedOut() || super.onTarget();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.driveTrain.setLeftMotor(0);
+    Robot.driveTrain.setRightMotor(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
+  }
+
+  @Override
+  public void pidWrite(double output) {
+    Robot.driveTrain.setRightMotor(output);
+    Robot.driveTrain.setLeftMotor(output);
+  }
+
+  @Override
+  public double pidGet() {
+    return Robot.driveTrain.getDistance();
   }
 }

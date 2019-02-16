@@ -67,6 +67,9 @@ public class RobotMap {
   public static final int CURRENT_LIMIT = 35;
   public static final int CONTINUOUS_CURRENT_LIMIT = 30;
   public static final int CURRENT_LIMIT_DURATION = 50; // 50 milliseconds
+	public static final int ENCODER_PULSES_PER_REVOLUTION = 1440;
+	public static final int WHEEL_DIAMETER = 6;
+	public static final int ENCODER_GEAR_RATIO = 3;
 
   //climber values
   public static final double CLIMBER_MAX_SPEED = 0.2; //0 - 1
@@ -122,11 +125,19 @@ public class RobotMap {
   public static final double WRIST_GROUND = 90;
 
   //Command specific values
+  
+  //TurnToAngle
 	public static final double TURN_P = 0.01;
 	public static final double TURN_I = 0.0002;
   public static final double TURN_D = 0;
   public static final double GYRO_GAY = 3;
-  public static final double MAX_TURN_SPEED = 1;
-  public static final double COMMAND_TIMEOUT = 5000; //milliseconds
-
+  public static final double MAX_TURN_SPEED = 0.5;
+  //DriveForward
+	public static final double DRIVE_P = 0.01;
+	public static final double DRIVE_I = 0.0002;
+  public static final double DRIVE_D = 0;
+  public static final double DRIVE_TOLLERANCE = 2;
+  public static final double MAX_DRIVE_SPEED = 0.75;
+  //generic
+  public static final double COMMAND_TIMEOUT = 5; //seconds
 }

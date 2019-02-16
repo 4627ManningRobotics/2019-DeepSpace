@@ -26,6 +26,9 @@ public class DriveTrain extends Subsystem {
   private final TalonSRX rightMotor1 = new TalonSRX(RobotMap.MOTORS.RIGHT_MOTOR_1.ordinal());
   private final VictorSPX rightMotor2 = new VictorSPX(RobotMap.MOTORS.RIGHT_MOTOR_2.ordinal());
 
+  private final double distancePerPulse = (2 * RobotMap.WHEEL_DIAMETER) / 
+  (RobotMap.ENCODER_PULSES_PER_REVOLUTION / RobotMap.ENCODER_GEAR_RATIO);
+
   public DriveTrain() {
     // configure the time it takes for the motors to reach max speed
     this.leftMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
@@ -88,5 +91,9 @@ public class DriveTrain extends Subsystem {
     //if (this.rightMotor1.getOutputCurrent() > RobotMap.CURRENT_LIMIT) {
       //this.rightMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
     //}
+  }
+
+  public double getDistance(){
+    return distancePerPulse * (this.leftMotor1.getSelectedSensorPosition() + this.rightMotor1.getSelectedSensorPosition()) / 2d; 
   }
 }
