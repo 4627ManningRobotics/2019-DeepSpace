@@ -58,15 +58,11 @@ public class Climber extends Subsystem {
   
   public void zeroEncoder(Dart dart){
     if(dart == Dart.FRONT){
-      front_climber.setEncPosition(0);
+      this.front_climber.setEncPosition(0);
     }else{
-      back_climber.setEncPosition(0);
+      this.back_climber.setEncPosition(0);
     }
-
   }
-
- 
-
 
   public void setFront(double position, int slot){
     
