@@ -12,12 +12,15 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Parity;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.Senses;
 
@@ -78,12 +81,13 @@ public class Sensors extends Subsystem {
     }
   }
 
-  public double[] getRotation(){
+  public double getRotation(){
     this.gyro.getAccumGyro(this.gyroRotation);
-    return this.gyroRotation;
+    return this.gyroRotation[0];
   }
 
 }
+
 /*
  * This runs on the thread with the intention of only receiving and storing incoming information
  */
