@@ -8,8 +8,7 @@
 package frc.robot.subsystems;
 
 import java.util.Queue;
-import java.util.ArrayList;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Parity;
@@ -17,7 +16,6 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Requester;
 import frc.robot.commands.Senses;
 
 /**
@@ -27,8 +25,11 @@ import frc.robot.commands.Senses;
  */
 public class Sensors extends Subsystem {
 
-  private  SerialPort RaspberryPi;
-  private ArrayList<Requester> requests = new ArrayList<Requester>();
+  public static final Requester ballReqester = new BallRequester();
+  public static final Requester stripReqester = new StripRequester();
+
+  private SerialPort RaspberryPi;
+  public final Requester[] requests = new Requester[]{Sensors.ballReqester, Sensors.stripReqester};
   protected PiSerialGetter getter;
   protected PiSerialSender sender;
   protected Thread serial_in;
@@ -42,7 +43,7 @@ public class Sensors extends Subsystem {
     this.serial_in = null;
     this.serial_out = null;
     try{
-      this.RaspberryPi = new SerialPort(9600, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
+      this.RaspberryPi = new SerialPort(115200, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
       this.getter = new PiSerialGetter(this.RaspberryPi);
       this.sender = new PiSerialSender(this.RaspberryPi, this.requests);
       this.serial_in = new Thread(this.getter, "Pi get");
@@ -53,6 +54,7 @@ public class Sensors extends Subsystem {
 
       this.serial_in.start(); // creates the threads
       this.serial_out.start();
+      
     }catch(Exception e){
       e.printStackTrace();
     }
@@ -69,24 +71,21 @@ public class Sensors extends Subsystem {
   @Override
   public void initDefaultCommand() {
     if(this.RaspberryPi != null){
+      SmartDashboard.putBoolean("Serial", true);
       super.setDefaultCommand(new Senses(this.getter.inQueue));
+    }else{
+      SmartDashboard.putBoolean("Serial", false);
     }
   }
-
-  public void addRequester(Requester req){
-    this.requests.add(req);
-  }
-
 }
-
 /*
  * This runs on the thread with the intention of only receiving and storing incoming information
  */
 class PiSerialGetter implements Runnable{
 
-  private final String DELIMITER = "@";
+  private final String DELIMITER = "\n";
   private final SerialPort serial_in;
-  protected final Queue<String> inQueue = new SynchronousQueue<String>();
+  protected final Queue<String> inQueue = new LinkedBlockingQueue<String>();
 
   public PiSerialGetter(SerialPort s){
     this.serial_in = s;
@@ -102,9 +101,8 @@ class PiSerialGetter implements Runnable{
     String newBuff;
     String message;
     while(true){
-      try{
         in = serial_in.read(1024); //get serial information
-        buffer += new String(in, "UTF-8"); // convert serial data to string
+        buffer += new String(in); // convert serial data to string
         index = buffer.indexOf(this.DELIMITER); //find delimiter
           while(index != -1){ // Make sure delimiter is found
             newBuff = buffer.substring(index + 1); // Save the rest of the string discluding the delimiter
@@ -114,17 +112,8 @@ class PiSerialGetter implements Runnable{
             this.inQueue.add(message); // add the chunk of information to the queue
             index = buffer.indexOf(this.DELIMITER); //find delimiter if one exists
         }
-      }catch(Exception e){
-        e.printStackTrace();
-      }
-      try {
-        super.wait(1); // Slow down the process to ensure the main process is still a higher priority
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
     }
   }
-
 }
 /*
  * Sends a key to the rasberry pi on a seperate thread
@@ -132,27 +121,23 @@ class PiSerialGetter implements Runnable{
 class PiSerialSender implements Runnable{
 
   private final SerialPort serial;
-  private final ArrayList<Requester> requesters;
+  private final Requester[] requesters;
 
-  public PiSerialSender(SerialPort s, ArrayList<Requester> r ){
+  public PiSerialSender(SerialPort s, Requester[] r ){
     this.serial = s;
     this.requesters = r;
   }
 
   @Override
   public void run() {
+    int i;
     while(true){
-      for(Requester r: this.requesters){
-        if(r.isRequesting() && !r.isRequesting()){
-        this.serial.writeString(r.request);
+      SmartDashboard.putBoolean("is requesting", Sensors.ballReqester.isRequesting());
+      for(i = 0; i < this.requesters.length; i++){
+        if(this.requesters[i].isRequesting() && !this.requesters[i].isRequesting()){
+          this.serial.writeString(this.requesters[i].getRequesteType());
         }
-      }
-      try {
-        super.wait(1); // Slow down the process to ensure the main process is still a higher priority
-      } catch (InterruptedException e) {
-        e.printStackTrace();
       }
     }
   }
-
 }

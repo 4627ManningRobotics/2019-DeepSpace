@@ -8,10 +8,12 @@
 package frc.robot.commands;
 
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.subsystems.Requester;
+import frc.robot.subsystems.Sensors;
 
 /*
  * Continuosly runs and loop through all incoming messages to 
@@ -21,12 +23,10 @@ import frc.robot.Robot;
 public class Senses extends Command {
 
   // the continual stream of information
-  private Queue<String> inQueue = new SynchronousQueue<String>();
+  private Queue<String> inQueue = new LinkedBlockingQueue<String>();
   public static String recent;
 
   // The requester objects to be referenced by other commands
-  public static BallRequester ballReqester = new BallRequester();
-  public static StripRequester stripReqester = new StripRequester();
 
  public Senses(Queue<String> q) {
     // Use requires() here to declare subsystem dependencies
@@ -38,14 +38,14 @@ public class Senses extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.sensors.addRequester(Senses.ballReqester);
-    Robot.sensors.addRequester(Senses.stripReqester);
     Robot.sensors.run();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Sensors.ballReqester.setRequesting(true);
+
     if(!this.inQueue.isEmpty()){ // If the queue is not empty
       String s = this.inQueue.remove(); // Get the least recent string
       Senses.recent = s;
@@ -53,9 +53,9 @@ public class Senses extends Command {
 
       // Check recent for each string
       if(s.contains(Requester.BALL)){ 
-        Senses.ballReqester.setData(s);
+        Sensors.ballReqester.setData(s);
       }else if(s.contains(Requester.STRIP)){
-        Senses.stripReqester.setData(s);
+        Sensors.stripReqester.setData(s);
       }
     }
   }
