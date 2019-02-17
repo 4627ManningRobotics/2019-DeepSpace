@@ -50,7 +50,7 @@ public abstract class Requester{
 
 class BallRequester extends Requester{
 
-    private double X,Y;
+    private double X, Y, angle;
 
     public BallRequester(){
         super(Requester.BALL);
@@ -59,16 +59,29 @@ class BallRequester extends Requester{
     @Override
     protected void filterData(String data) {
         Scanner sc = new Scanner(data);
-        for(int i = 0; i < 2; i++){ // repeat for both x and y
-            sc.useDelimiter("[XY]"); //find only the charecters x and y 
+        for(int i = 0; i < 3; i++){ // repeat for both x, y, and angle
+            sc.useDelimiter("\\d");
             String s = sc.next();
-            sc.useDelimiter("123..."); //find only the double value
-            if(s.equals("X")){
+            sc.useDelimiter("[,}]");
+            if(s.contains("X")){
                 this.X = sc.nextDouble();
-            }else if(s.equals("Y")){
+                if(s.contains("-")){
+                    this.X *= -1;
+                }
+            }else if(s.contains("Y")){
                 this.Y = sc.nextDouble();
+                if(s.contains("-")){
+                    this.Y *= -1;
+                }
+            }else if(s.contains("Angle")){
+                this.angle = sc.nextDouble();
+                if(s.contains("-")){
+                    this.angle *= -1;
+                }
             }
-        }
+        } 
+        //SmartDashboard.putString("Strip data", this.X + ":" + this.Y + ":" + this.angle);
+
         sc.close();
     }
 
@@ -78,6 +91,10 @@ class BallRequester extends Requester{
     
     public double getY(){
         return this.Y;
+    }
+
+    public double getAngle(){
+        return this.angle;
     }
 }
 
@@ -92,18 +109,27 @@ class StripRequester extends Requester{
     @Override
     protected void filterData(String data) {
         Scanner sc = new Scanner(data);
-        for(int i = 0; i < 3; i++){ // repeat for both x and y
-            sc.useDelimiter("(X | Y | Angle)"); //find only the charecters x and y 
+        for(int i = 0; i < 3; i++){ // repeat for both x, y, and angle
+            sc.useDelimiter("\\d");
             String s = sc.next();
-            sc.useDelimiter("123..."); //find only the double value
-            if(s.equals("X")){
+            sc.useDelimiter("[,}]");
+            if(s.contains("X")){
                 this.X = sc.nextDouble();
-            }else if(s.equals("Y")){
+                if(s.contains("-")){
+                    this.X *= -1;
+                }
+            }else if(s.contains("Y")){
                 this.Y = sc.nextDouble();
-            }else if(s.equals("Angle")){
+                if(s.contains("-")){
+                    this.Y *= -1;
+                }
+            }else if(s.contains("Angle")){
                 this.angle = sc.nextDouble();
+                if(s.contains("-")){
+                    this.angle *= -1;
+                }
             }
-        }
+        } 
         sc.close();
     }
 
