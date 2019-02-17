@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
   public static Sensors sensors = new Sensors();
   public static Vacuum vacuum = new Vacuum();
   public static OI oi;
+	private static final Compressor comp = new Compressor(0);
   //private Command dash = new DashboardData();
 
   Command autonomousCommand;
@@ -42,6 +44,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     Robot.oi = new OI();
+    Robot.comp.setClosedLoopControl(true);
     //this.chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", this.chooser); // this is the ONLY smart dashboard put that isn't a part of Dashboard Data
@@ -65,6 +68,17 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     updateSmartDashboard();
+    /*
+    if(SmartDashboard.getBoolean("Compressor", false)){
+      if(!Robot.comp.enabled()){
+        Robot.comp.start();
+      }
+    }else{
+      if(Robot.comp.enabled()){
+        Robot.comp.stop();
+      }
+    }
+    */
   }
 
   /**
@@ -169,6 +183,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
+
+    //SmartDashboard.putBoolean("Compressor", false);
+    SmartDashboard.putBoolean("Compressor State", Robot.comp.enabled());
   }
 
   public void updateSmartDashboard(){
@@ -192,6 +209,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
-    SmartDashboard.putData(climber);
+    //SmartDashboard.putData(climber);
+    SmartDashboard.putBoolean("Compressor State", Robot.comp.enabled());
   }
 }
