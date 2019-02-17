@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -23,7 +22,7 @@ import frc.robot.subsystems.Sensors;
 public class Senses extends Command {
 
   // the continual stream of information
-  private Queue<String> inQueue = new LinkedBlockingQueue<String>();
+  private Queue<String> inQueue;
   public static String recent;
 
   // The requester objects to be referenced by other commands
@@ -38,8 +37,8 @@ public class Senses extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Sensors.ballReqester.setRequesting(true);
-    Sensors.stripReqester.setRequesting(true);
+    //Sensors.ballReqester.setRequesting(true);
+    //Sensors.stripReqester.setRequesting(true);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -53,9 +52,9 @@ public class Senses extends Command {
 
       // Check recent for each string
       if(s.contains(Requester.BALL)){ 
-        Sensors.ballReqester.setData(s);
+        //Sensors.ballReqester.setData(s);
       }else if(s.contains(Requester.STRIP)){
-        Sensors.stripReqester.setData(s);
+        //Sensors.stripReqester.setData(s);
       }
     }
   }
