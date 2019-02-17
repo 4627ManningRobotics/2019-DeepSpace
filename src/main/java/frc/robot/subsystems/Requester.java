@@ -23,7 +23,7 @@ public abstract class Requester{
         this.request = RequestType;
     }
 
-    public String getRequesteType(){
+    public String getRequestType(){
         return this.request;
     }
 

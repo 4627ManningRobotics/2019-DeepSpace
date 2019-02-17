@@ -21,9 +21,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Senses;
 
 /**
- * The collection of all Sensors and information streams that aren't specific to any
- * subsystem or command. The main part of which being the serial input from the rasberry pi.
- * There are a few threads and a lot of code that can break the robot so be careful!!!
+ * The collection of all Sensors and information streams that aren't specific to
+ * any subsystem or command. The main part of which being the serial input from
+ * the rasberry pi. There are a few threads and a lot of code that can break the
+ * robot so be careful!!!
  */
 public class Sensors extends Subsystem {
 
@@ -31,7 +32,7 @@ public class Sensors extends Subsystem {
   public static final Requester stripReqester = new StripRequester();
 
   private SerialPort RaspberryPi;
-  public final Requester[] requests = new Requester[]{Sensors.ballReqester, Sensors.stripReqester};
+  public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.stripReqester };
   protected PiSerialGetter getter;
   protected PiSerialSender sender;
   protected Thread serial_in;
@@ -40,14 +41,14 @@ public class Sensors extends Subsystem {
   private PigeonIMU gyro = new PigeonIMU(0);
   private double[] gyroRotation = new double[3];
 
-  public Sensors(){ 
+  public Sensors() {
 
     this.RaspberryPi = null;
     this.getter = null;
     this.sender = null;
     this.serial_in = null;
     this.serial_out = null;
-    try{
+    try {
       this.RaspberryPi = new SerialPort(115200, Port.kOnboard, 8, Parity.kNone, StopBits.kOne);
       this.getter = new PiSerialGetter(this.RaspberryPi);
       this.sender = new PiSerialSender(this.RaspberryPi, this.requests);
@@ -59,41 +60,48 @@ public class Sensors extends Subsystem {
 
       this.serial_in.start(); // creates the threads
       this.serial_out.start();
-      
-    }catch(Exception e){
+
+    } catch (Exception e) {
       e.printStackTrace();
     }
-    //this.serial_in.run(); // We cant run the serial yet because the robot needs
-    //this.serial_out.run();// more time to start up, moved to the default command
-   }
+    // this.serial_in.run(); // We cant run the serial yet because the robot needs
+    // this.serial_out.run();// more time to start up, moved to the default command
+  }
 
   @Override
   public void initDefaultCommand() {
-    if(this.RaspberryPi != null){
+    if (this.RaspberryPi != null) {
       SmartDashboard.putBoolean("Serial", true);
       super.setDefaultCommand(new Senses(this.getter.inQueue));
-    }else{
+    } else {
       SmartDashboard.putBoolean("Serial", false);
     }
   }
 
-  public double getRotation(){
+  public double getRotation() {
     this.gyro.getAccumGyro(this.gyroRotation);
     return this.gyroRotation[0];
+  }
+
+  public void stopAllRequests() {
+    for (Requester r : this.requests) {
+      r.setRequesting(false);
+    }
   }
 
 }
 
 /*
- * This runs on the thread with the intention of only receiving and storing incoming information
+ * This runs on the thread with the intention of only receiving and storing
+ * incoming information
  */
-class PiSerialGetter implements Runnable{
+class PiSerialGetter implements Runnable {
 
   private final String DELIMITER = "\n";
   private final SerialPort serial_in;
   protected final Queue<String> inQueue = new LinkedBlockingQueue<String>();
 
-  public PiSerialGetter(SerialPort s){
+  public PiSerialGetter(SerialPort s) {
     this.serial_in = s;
   }
 
@@ -106,30 +114,31 @@ class PiSerialGetter implements Runnable{
     int index;
     String newBuff;
     String message;
-    while(true){
-        in = serial_in.read(1024); //get serial information
-        buffer += new String(in); // convert serial data to string
-        index = buffer.indexOf(this.DELIMITER); //find delimiter
-          while(index != -1){ // Make sure delimiter is found
-            newBuff = buffer.substring(index + 1); // Save the rest of the string discluding the delimiter
-            message = buffer.substring(0, index); // Use the information up to the delimiter
-            SmartDashboard.putString("Serial Message", message);
-            buffer = newBuff; // reset the buffer to the new buffer
-            this.inQueue.add(message); // add the chunk of information to the queue
-            index = buffer.indexOf(this.DELIMITER); //find delimiter if one exists
-        }
+    while (true) {
+      in = serial_in.read(1024); // get serial information
+      buffer += new String(in); // convert serial data to string
+      index = buffer.indexOf(this.DELIMITER); // find delimiter
+      while (index != -1) { // Make sure delimiter is found
+        newBuff = buffer.substring(index + 1); // Save the rest of the string discluding the delimiter
+        message = buffer.substring(0, index); // Use the information up to the delimiter
+        //SmartDashboard.putString("Serial Message", message);
+        buffer = newBuff; // reset the buffer to the new buffer
+        this.inQueue.add(message); // add the chunk of information to the queue
+        index = buffer.indexOf(this.DELIMITER); // find delimiter if one exists
+      }
     }
   }
 }
+
 /*
  * Sends a key to the rasberry pi on a seperate thread
  */
-class PiSerialSender implements Runnable{
+class PiSerialSender implements Runnable {
 
   private final SerialPort serial;
   private final Requester[] requesters;
 
-  public PiSerialSender(SerialPort s, Requester[] r ){
+  public PiSerialSender(SerialPort s, Requester[] r) {
     this.serial = s;
     this.requesters = r;
   }
@@ -137,11 +146,11 @@ class PiSerialSender implements Runnable{
   @Override
   public void run() {
     int i;
-    while(true){
-      SmartDashboard.putBoolean("is requesting", Sensors.ballReqester.isRequesting());
-      for(i = 0; i < this.requesters.length; i++){
-        if(this.requesters[i].isRequesting() && !this.requesters[i].isRequesting()){
-          this.serial.writeString(this.requesters[i].getRequesteType());
+    while (true) {
+      for (i = 0; i < this.requesters.length; i++) {
+        if (this.requesters[i].isRequesting()) {
+          //SmartDashboard.putString("Serial Out: ", this.requesters[i].getRequestType());
+          this.serial.writeString(this.requesters[i].getRequestType() + "\n");
         }
       }
     }

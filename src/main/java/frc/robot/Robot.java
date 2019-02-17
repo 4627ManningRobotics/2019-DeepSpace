@@ -74,6 +74,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    Robot.sensors.stopAllRequests();
   }
 
   @Override
