@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.SetBackClimber;
+import frc.robot.commands.SetClaw;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
+import frc.robot.commands.ToggleClaw;
 import frc.robot.commands.ZeroClimber;
 import frc.robot.subsystems.Climber.Dart;
 
@@ -66,6 +68,14 @@ public class OI {
 		this.oButtonY.whenPressed(new SetElevator(40));
 		this.oButtonLeftBumper.whileHeld(new IncrementElevator(-1));
 		this.oButtonRightBumper.whileHeld(new IncrementElevator(1));
+
+		if(Robot.vacuumMode){
+
+		}else{
+			this.oButtonLeftBumper.whenPressed(new SetClaw(false));
+			this.oButtonRightBumper.whenPressed(new SetClaw(true));
+			this.oButtonBack.whenPressed(new ToggleClaw());
+		}
 
 		this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
 		this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));

@@ -7,72 +7,40 @@
 
 package frc.robot.commands;
 
-import java.util.Arrays;
-
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
-import frc.robot.Utilities;
 
-public class OperatorControls extends Command {
-
-  private double[] vacCurrentAvg;
-
-  public OperatorControls() {
+public class ToggleClaw extends Command {
+  public ToggleClaw() {
     // Use requires() here to declare subsystem dependencies
-    if(Robot.vacuumMode){
-      super.requires(Robot.vacuum);
-    }else{
-      super.requires(Robot.claw);
-    }
+    requires(Robot.claw);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    this.vacCurrentAvg = new double[100];
-    Arrays.fill(this.vacCurrentAvg, 0);
+    Robot.claw.toggleGrip();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // Y activates the vacuum, A deactivates it
-
-    if(Robot.vacuumMode){
-      if(Robot.oi.getOperatorButton(RobotMap.RIGHT_BUMPER)){
-       Robot.vacuum.activateVacuum();
-      }else if(Robot.oi.getOperatorButton(RobotMap.LEFT_BUMPER)){
-        Robot.vacuum.deactivateVacuum();
-      }
-      Utilities.push(Robot.vacuum.getVacCurrent(), this.vacCurrentAvg);
-      SmartDashboard.putNumber("Vacuum motor current average", Utilities.avg(this.vacCurrentAvg));
-    }else{
-      Robot.claw.setSpeed(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER)-Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
-    }
-
-
   }
+
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    // Make sure the vacuum doesnt stay on 
-    if(Robot.vacuumMode){
-      Robot.vacuum.deactivateVacuum();
-    }
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    this.end();
   }
 }

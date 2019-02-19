@@ -46,7 +46,7 @@ public class RobotMap {
     RIGHT_MOTOR_1, //Talon 2
     RIGHT_MOTOR_2, //Victor 3
     WRIST_MOTOR, // 4
-    VACCUM_MOTOR,// 5
+    INTAKE_MOTOR,// 5
     ELEVATOR_MOTOR,// 6
     FRONT_CLIMBER, // 7
     BACK_CLIMBER,// 8
@@ -140,4 +140,7 @@ public class RobotMap {
   public static final double MAX_DRIVE_SPEED = 0.75;
   //generic
   public static final double COMMAND_TIMEOUT = 5; //seconds
+  public static final double MAX_INTAKE_SPEED = 0.7;
+  public static final int GRIP_SOLENOID = 5;
 }
+
