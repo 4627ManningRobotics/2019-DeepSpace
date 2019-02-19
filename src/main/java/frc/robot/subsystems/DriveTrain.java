@@ -49,29 +49,17 @@ public class DriveTrain extends Subsystem {
     
     // configure the time it takes for the motors to reach max speed
     this.leftMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
-    this.leftMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
     this.rightMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
-    this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0);
 
     // configure peak outputs for both the driver and the PID
     this.leftMotor1.configPeakOutputForward(1.0);
-    this.leftMotor2.configPeakOutputForward(1.0);
     this.rightMotor1.configPeakOutputForward(1.0);
-    this.rightMotor2.configPeakOutputForward(1.0);
 
     this.leftMotor1.configPeakOutputReverse(-1.0);
-    this.leftMotor2.configPeakOutputReverse(-1.0);
     this.rightMotor1.configPeakOutputReverse(-1.0);
-    this.rightMotor2.configPeakOutputReverse(-1.0);
- 
-    //enslave the second motors (Victors) to the first (Talons)
-    this.leftMotor2.follow(this.leftMotor1); 
-    this.rightMotor2.follow(this.rightMotor1);
 
     this.leftMotor1.setInverted(false);
-    this.leftMotor2.setInverted(false);
     this.rightMotor1.setInverted(true); // the right side is mounted backwards
-    this.rightMotor2.setInverted(true);
 
     //current limiting 
     this.leftMotor1.configPeakCurrentLimit(RobotMap.CURRENT_LIMIT, 0); 
