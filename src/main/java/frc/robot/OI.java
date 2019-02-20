@@ -66,8 +66,8 @@ public class OI {
 		this.oButtonA.whenPressed(new SetElevator(0)); // X --> wrist 90
 		this.oButtonB.whenPressed(new SetElevator(12)); // X --> wrist 0
 		this.oButtonY.whenPressed(new SetElevator(40));
-		this.oButtonLeftBumper.whileHeld(new IncrementElevator(-1));
-		this.oButtonRightBumper.whileHeld(new IncrementElevator(1));
+		this.oButtonBack.whileHeld(new IncrementElevator(-1));
+		this.oButtonStart.whileHeld(new IncrementElevator(1));
 
 		if(Robot.vacuumMode){
 
