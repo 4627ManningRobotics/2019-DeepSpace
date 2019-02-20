@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Requesters.*;
 import frc.robot.commands.Senses;
 
 /**
@@ -28,8 +29,8 @@ import frc.robot.commands.Senses;
  */
 public class Sensors extends Subsystem {
 
-  public static final Requester ballReqester = new BallRequester();
-  public static final Requester stripReqester = new StripRequester();
+  public static final BallRequester ballReqester = new BallRequester();
+  public static final StripRequester stripReqester = new StripRequester();
 
   private SerialPort RaspberryPi;
   public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.stripReqester };

@@ -16,6 +16,7 @@ import frc.robot.commands.SetClaw;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.ToggleClaw;
+import frc.robot.commands.TurnDirectVision;
 import frc.robot.commands.ZeroBothClimbers;
 
 
@@ -63,9 +64,10 @@ public class OI {
 
 	public OI () {
 		//this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
-		this.oButtonA.whenPressed(new SetElevator(0)); // X --> wrist 90
-		this.oButtonB.whenPressed(new SetElevator(12)); // X --> wrist 0
+		this.oButtonA.whenPressed(new SetElevator(0)); 
+		this.oButtonB.whenPressed(new SetElevator(12)); 
 		this.oButtonY.whenPressed(new SetElevator(40));
+		this.oButtonX.whenPressed(new TurnDirectVision());
 		this.oButtonBack.whileHeld(new IncrementElevator(-1));
 		this.oButtonStart.whileHeld(new IncrementElevator(1));
 

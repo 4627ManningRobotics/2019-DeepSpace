@@ -27,7 +27,7 @@ import frc.robot.subsystems.Climber.Dart;
 public class Robot extends TimedRobot {
 
   public static boolean vacuumMode = false;
-  public static boolean jankMode = false;
+  public static boolean jankMode = true;
 
   public static DriveTrain driveTrain = new DriveTrain();
   public static Climber climber = new Climber();
@@ -229,7 +229,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
-    //SmartDashboard.putData(climber);
+    SmartDashboard.putData(Robot.driveTrain);
+    SmartDashboard.putNumber("ball Requester", Sensors.ballReqester.getAngle());
     SmartDashboard.putBoolean("Compressor State", Robot.comp.enabled());
   }
 }

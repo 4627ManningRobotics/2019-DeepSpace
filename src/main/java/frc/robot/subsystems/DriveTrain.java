@@ -39,11 +39,13 @@ public class DriveTrain extends Subsystem {
       this.rightMotor3 = new TalonSRX(RobotMap.MOTORS.RIGHT_MOTOR_2.ordinal());
       this.leftMotor3.follow(this.leftMotor1);
       this.rightMotor3.follow(this.rightMotor1);
+      this.rightMotor3.setInverted(true);
     }else{
       this.leftMotor2 = new VictorSPX(RobotMap.MOTORS.LEFT_MOTOR_2.ordinal());
       this.rightMotor2 =new VictorSPX(RobotMap.MOTORS.RIGHT_MOTOR_2.ordinal());
       this.leftMotor2.follow(this.leftMotor1);
       this.rightMotor2.follow(this.rightMotor1);
+      this.rightMotor2.setInverted(true);
     }
 
     

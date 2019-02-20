@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.subsystems.Requester;
+import frc.robot.Requesters.*;
 import frc.robot.subsystems.Sensors;
 
 /*
@@ -52,7 +52,7 @@ public class Senses extends Command {
       SmartDashboard.putString("Senses recent", Senses.recent);
 
       // Check recent for each string
-      if(s.contains(Requester.BALL)){ 
+      if(s.contains(Requester.BALL)) {
         Sensors.ballReqester.setData(s);
       }else if(s.contains(Requester.STRIP)){
         Sensors.stripReqester.setData(s);
