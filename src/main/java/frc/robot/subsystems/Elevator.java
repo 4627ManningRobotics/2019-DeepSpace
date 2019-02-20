@@ -40,7 +40,7 @@ public class Elevator extends Subsystem {
   }
 
   public double getCurrentSetpoint(){
-    return this.currentSetpoint;
+    return ((this.currentSetpoint*2*RobotMap.ELEVATOR_WINCH_CIRC)/RobotMap.ELEVATOR_GEARING);
   }
 
   public double getAppliedOutput(){

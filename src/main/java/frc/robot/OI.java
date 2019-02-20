@@ -16,8 +16,8 @@ import frc.robot.commands.SetClaw;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.ToggleClaw;
-import frc.robot.commands.ZeroClimber;
-import frc.robot.subsystems.Climber.Dart;
+import frc.robot.commands.ZeroBothClimbers;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -83,7 +83,7 @@ public class OI {
 		this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
 
 
-		this.dButtonBack.whenPressed(new ZeroClimber(Dart.FRONT));
-		//this.dButtonBack.whenPressed(new ZeroBothClimbers());
+		//this.dButtonBack.whenPressed(new ZeroClimber(Dart.FRONT));
+		this.dButtonBack.whenPressed(new ZeroBothClimbers());
 	}
 }
