@@ -51,6 +51,7 @@ public class Vacuum extends PIDSubsystem {
     //return this.VacMotor.getSensorCollection().getPulseWidthPosition();
   }
 
+
   @Override
   protected double returnPIDInput() {
     return this.wristMotor.getSelectedSensorPosition() * this.DEGREES_PER_TICK * this.GEAR_RATIO;

@@ -33,6 +33,9 @@ public class OperatorControls extends Command {
   protected void initialize() {
     this.vacCurrentAvg = new double[100];
     Arrays.fill(this.vacCurrentAvg, 0);
+    if(Robot.vacuumMode){
+      Robot.vacuum.enable();
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -48,6 +51,12 @@ public class OperatorControls extends Command {
       }
       Utilities.push(Robot.vacuum.getVacCurrent(), this.vacCurrentAvg);
       SmartDashboard.putNumber("Vacuum motor current average", Utilities.avg(this.vacCurrentAvg));
+
+      double val = Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER);
+      val *= 2;
+      //val = Utilities.constrain(Robot.vacuum.getSetpoint() + val, RobotMap.WRIST_GROUND, RobotMap.WRIST_ZERO);
+      Robot.vacuum.setSetpoint(Robot.vacuum.getSetpoint() + val);
+
     }else{
       Robot.claw.setSpeed(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER)-Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
     }

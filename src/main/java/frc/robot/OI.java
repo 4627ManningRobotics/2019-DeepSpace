@@ -10,11 +10,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.SetBackClimber;
 import frc.robot.commands.SetClaw;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
+import frc.robot.commands.SetVacuumAngle;
 import frc.robot.commands.ToggleClaw;
 import frc.robot.commands.TurnDirectVision;
 import frc.robot.commands.ZeroBothClimbers;
@@ -67,12 +69,13 @@ public class OI {
 		this.oButtonA.whenPressed(new SetElevator(0)); 
 		this.oButtonB.whenPressed(new SetElevator(12)); 
 		this.oButtonY.whenPressed(new SetElevator(40));
-		this.oButtonX.whenPressed(new TurnDirectVision());
+		//this.oButtonX.whenPressed(new TurnDirectVision());
 		this.oButtonBack.whileHeld(new IncrementElevator(-1));
 		this.oButtonStart.whileHeld(new IncrementElevator(1));
 
-		if(Robot.vacuumMode){
-
+		if (Robot.vacuumMode) {
+			//this.oButtonLeftBumper.whenPressed(new SetVacuumAngle(45));
+			//this.oButtonRightBumper.whenPressed(new SetVacuumAngle(0));
 		}else{
 			this.oButtonLeftBumper.whenPressed(new SetClaw(false));
 			this.oButtonRightBumper.whenPressed(new SetClaw(true));

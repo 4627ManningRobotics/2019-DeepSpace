@@ -26,7 +26,7 @@ import frc.robot.subsystems.Climber.Dart;
  */
 public class Robot extends TimedRobot {
 
-  public static boolean vacuumMode = false;
+  public static boolean vacuumMode = true;
   public static boolean jankMode = true;
 
   public static DriveTrain driveTrain = new DriveTrain();
