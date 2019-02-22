@@ -80,8 +80,8 @@ public class Sensors extends Subsystem {
   }
 
   public double getRotation() {
-    this.gyro.getAccumGyro(this.gyroRotation);
-    return this.gyroRotation[0];
+    this.gyro.getYawPitchRoll(this.gyroRotation);
+    return -this.gyroRotation[0];
   }
 
   public void stopAllRequests() {

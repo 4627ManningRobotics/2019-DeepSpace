@@ -201,7 +201,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
     //SmartDashboard.putBoolean("Compressor", false);
-    SmartDashboard.putBoolean("Compressor State", Robot.comp.enabled());
+    SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
   }
 
   public void updateSmartDashboard(){
@@ -231,6 +231,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData(Robot.driveTrain);
     SmartDashboard.putNumber("ball Requester", Sensors.ballReqester.getAngle());
-    SmartDashboard.putBoolean("Compressor State", Robot.comp.enabled());
+    SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
   }
 }
