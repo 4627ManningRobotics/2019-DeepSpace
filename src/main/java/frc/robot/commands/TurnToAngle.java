@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -14,6 +16,7 @@ import frc.robot.RobotMap;
 public class TurnToAngle extends PIDCommand {
   private double m_angle;
   private double setpoint;
+  private PIDController pidController = this.getPIDController();
 
   public TurnToAngle(double angle) {
     super(RobotMap.TURN_P, RobotMap.TURN_I, RobotMap.TURN_D);
@@ -26,31 +29,30 @@ public class TurnToAngle extends PIDCommand {
     this.setpoint = Robot.sensors.getRotation() + m_angle;
 
     SmartDashboard.putNumber("Turn setpoint", this.setpoint);
-    super.reset();
-    super.setInputRange(-360, 360);
-    super.setContinuous(true);
-    super.setOutputRange(-RobotMap.MAX_TURN_SPEED, RobotMap.MAX_TURN_SPEED);
-    super.setAbsoluteTolerance(RobotMap.GYRO_GAY);
+    this.pidController.reset();
+    this.setInputRange(-360, 360);
+    this.pidController.setOutputRange(-RobotMap.MAX_TURN_SPEED, RobotMap.MAX_TURN_SPEED);
+    this.pidController.setAbsoluteTolerance(RobotMap.GYRO_GAY);
     super.setSetpoint(this.setpoint);
 
     Robot.driveTrain.setLeftMotor(0);
     Robot.driveTrain.setRightMotor(0);
 
     super.setTimeout(RobotMap.COMMAND_TIMEOUT);
-    super.enable();
+    this.pidController.enable();
   }
 
   protected void execute(){
-    SmartDashboard.putNumber("PID OUT", super.getPIDOut());
+    SmartDashboard.putNumber("PID OUT", this.pidController.get());
   }
   // Make this return true when this Command no longer needs to run execute()
   protected boolean isFinished() {
-    return super.isTimedOut() || super.onTarget();
+    return super.isTimedOut() || this.pidController.onTarget();
   }
 
   // Called once after isFinished returns true
   protected void end() {
-    super.disable();
+    this.pidController.disable();
   }
 
   // Called when another command which requires one or more of the same
@@ -60,18 +62,13 @@ public class TurnToAngle extends PIDCommand {
   }
 
   @Override
-  public void pidWrite(double output) {
-    Robot.driveTrain.setRightMotor(-output);
-    Robot.driveTrain.setLeftMotor(output);
-  }
-
-  @Override
-  public double pidGet() {
+  protected double returnPIDInput() {
     return Robot.sensors.getRotation();
   }
 
   @Override
-  public void executes() {
-
+  protected void usePIDOutput(double output) {
+    Robot.driveTrain.setRightMotor(-output);
+    Robot.driveTrain.setLeftMotor(output);
   }
 }

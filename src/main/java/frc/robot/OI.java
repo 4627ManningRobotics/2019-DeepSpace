@@ -10,8 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.commands.Dummy;
 import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.SetBackClimber;
 import frc.robot.commands.SetClaw;
@@ -71,7 +69,7 @@ public class OI {
 		this.oButtonB.whenPressed(new SetElevator(12)); 
 		this.oButtonY.whenPressed(new SetElevator(40));
 		//this.oButtonX.whenPressed(new TurnToAngle(-45));
-		this.oButtonX.whenPressed((new Dummy(-25)));
+		this.oButtonX.whenPressed(new TurnToAngle(45));
 		this.oButtonBack.whileHeld(new IncrementElevator(-1));
 		this.oButtonStart.whileHeld(new IncrementElevator(1));
 

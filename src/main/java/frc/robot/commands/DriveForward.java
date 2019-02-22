@@ -7,39 +7,42 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class DriveForward extends PIDCommand {
 
   private final double distance;
+  private PIDController pidController = this.getPIDController();
 
   public DriveForward(double inches) {
     super(RobotMap.DRIVE_P, RobotMap.DRIVE_I, RobotMap.DRIVE_D);
     super.requires(Robot.driveTrain);
-    super.setOutputRange(-RobotMap.MAX_DRIVE_SPEED, RobotMap.MAX_DRIVE_SPEED);
-    super.setAbsoluteTolerance(RobotMap.DRIVE_TOLLERANCE);
+    this.pidController.setOutputRange(-RobotMap.MAX_DRIVE_SPEED, RobotMap.MAX_DRIVE_SPEED);
+    this.pidController.setAbsoluteTolerance(RobotMap.DRIVE_TOLLERANCE);
     this.distance = inches;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    super.reset();
+    this.pidController.reset();
     super.setSetpoint(this.distance);
     super.setTimeout(RobotMap.COMMAND_TIMEOUT);
-    super.enable();
+    this.pidController.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void executes() {
+  protected void execute() {
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return super.isTimedOut() || super.onTarget();
+    return super.isTimedOut() || this.pidController.onTarget();
   }
 
   // Called once after isFinished returns true
@@ -57,13 +60,13 @@ public class DriveForward extends PIDCommand {
   }
 
   @Override
-  public void pidWrite(double output) {
-    Robot.driveTrain.setRightMotor(output);
-    Robot.driveTrain.setLeftMotor(output);
+  protected double returnPIDInput() {
+    return Robot.driveTrain.getDistance();
   }
 
   @Override
-  public double pidGet() {
-    return Robot.driveTrain.getDistance();
+  protected void usePIDOutput(double output) {
+    Robot.driveTrain.setRightMotor(output);
+    Robot.driveTrain.setLeftMotor(output);
   }
 }
