@@ -13,7 +13,7 @@ import frc.robot.Robot;
 public class ToggleClaw extends Command {
   public ToggleClaw() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.claw);
+    super.requires(Robot.claw);
   }
 
   // Called just before this Command runs the first time

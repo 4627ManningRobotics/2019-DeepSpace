@@ -19,6 +19,7 @@ import frc.robot.commands.SetVacuumAngle;
 import frc.robot.commands.ToggleClaw;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.ZeroBothClimbers;
+import frc.robot.subsystems.Sensors;
 
 
 /**
@@ -69,7 +70,7 @@ public class OI {
 		this.oButtonB.whenPressed(new SetElevator(12)); 
 		this.oButtonY.whenPressed(new SetElevator(40));
 		//this.oButtonX.whenPressed(new TurnToAngle(-45));
-		this.oButtonX.whenPressed(new TurnToAngle(45));
+		this.oButtonX.whenPressed(new TurnToAngle(Sensors.ballReqester.getAngle()));
 		this.oButtonBack.whileHeld(new IncrementElevator(-1));
 		this.oButtonStart.whileHeld(new IncrementElevator(1));
 

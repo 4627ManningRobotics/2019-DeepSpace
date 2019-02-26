@@ -34,7 +34,7 @@ public class Claw extends Subsystem {
   }
 
   public void toggleGrip(){
-    this.grip.set(this.grip.get());
+    this.grip.set(!this.grip.get());
   }
 
 
