@@ -16,6 +16,7 @@ import frc.robot.commands.SetBackClimber;
 import frc.robot.commands.SetBallState;
 import frc.robot.commands.SetClaw;
 import frc.robot.commands.SetElevator;
+import frc.robot.commands.SetElevatorSmartDashboard;
 import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.SetVacuumAngle;
 import frc.robot.commands.ToggleClaw;
@@ -66,26 +67,26 @@ public class OI {
 	}
 
 	public OI () {
-		this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
+		this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_LOW));
 		//this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
-		this.oButtonX.whenPressed(new SetElevator(RobotMap.ELEVATOR_LOW)); 
-		this.oButtonY.whenPressed(new SetElevator(RobotMap.ELEVATOR_MED)); 
-		this.oButtonB.whenPressed(new SetElevator(RobotMap.ELEVATOR_HIGH));
+		this.oButtonX.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
+		this.oButtonY.whenPressed(new SetElevator(RobotMap.ELEVATOR_HIGH)); 
+		this.oButtonB.whenPressed(new SetElevator(RobotMap.ELEVATOR_MED));
 		//this.oButtonX.whenPressed(new TurnToAngle(-45));
 		//this.oButtonX.whenPressed(new TurnToAngle(Sensors.ballReqester.getAngle()));
 		this.oButtonBack.whileHeld(new IncrementElevator(-RobotMap.ELEVATOR_INCREMENT));
 		this.oButtonStart.whileHeld(new IncrementElevator(RobotMap.ELEVATOR_INCREMENT));
-
-		this.oButtonRightBumper.whenPressed(new SetBallState(true));
-		this.oButtonLeftBumper.whenPressed(new SetBallState(false));
+		this.oButtonRightBumper.whenPressed(new SetElevatorSmartDashboard());
+		/* this.oButtonRightBumper.whenPressed(new SetBallState(true));
+		this.oButtonLeftBumper.whenPressed(new SetBallState(false)); */
 
 		if (Robot.vacuumMode) {
 			//this.oButtonLeftBumper.whenPressed(new SetVacuumAngle(45));
 			//this.oButtonRightBumper.whenPressed(new SetVacuumAngle(0));
 		}else{
-			this.oButtonLeftBumper.whenPressed(new SetClaw(false));
-			this.oButtonRightBumper.whenPressed(new SetClaw(true));
-			this.oButtonBack.whenPressed(new ToggleClaw());
+			this.oButtonLeftBumper.whenPressed(new ToggleClaw());
+			
+			
 		}
 
 		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));

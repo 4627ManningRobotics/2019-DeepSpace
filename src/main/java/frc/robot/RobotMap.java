@@ -108,10 +108,10 @@ public class RobotMap {
   public static final double ELEVATOR_INCREMENT = 0.5;
   public static final int ELEVATOR_PID_TIMEOUT = 30; //# of control loops
  
-  public static final double ELEVATOR_GROUND = 0;
-  public static final double ELEVATOR_LOW = 5;
-  public static final double ELEVATOR_MED = 10;
-  public static final double ELEVATOR_HIGH = 20;
+  public static final double ELEVATOR_GROUND = 1;
+  public static final double ELEVATOR_LOW = 10;
+  public static final double ELEVATOR_MED = 20;
+  public static final double ELEVATOR_HIGH = 30;
   public static final double ELEVATOR_BALL_OFFSET = 9;
 
   //Vacuum values
