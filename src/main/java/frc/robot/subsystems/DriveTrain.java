@@ -67,12 +67,12 @@ public class DriveTrain extends Subsystem {
     this.leftMotor1.configPeakCurrentLimit(RobotMap.CURRENT_LIMIT, 0); 
     this.leftMotor1.configPeakCurrentDuration(RobotMap.CURRENT_LIMIT_DURATION, 0);
     this.leftMotor1.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT_LIMIT, 0); 
-    this.leftMotor1.enableCurrentLimit(false);
+    this.leftMotor1.enableCurrentLimit(true);
 
     this.rightMotor1.configPeakCurrentLimit(RobotMap.CURRENT_LIMIT, 0); 
     this.rightMotor1.configPeakCurrentDuration(RobotMap.CURRENT_LIMIT_DURATION, 0);
     this.rightMotor1.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT_LIMIT, 0); 
-    this.rightMotor1.enableCurrentLimit(false);
+    this.rightMotor1.enableCurrentLimit(true);
     
   }
 
