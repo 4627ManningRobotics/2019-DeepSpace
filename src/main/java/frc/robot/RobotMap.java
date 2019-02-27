@@ -98,20 +98,21 @@ public class RobotMap {
   public static final double ELEVATOR_WINCH_RAD = 0.625;
   public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD * 2 * Math.PI;
   public static final double ELEVATOR_GEARING = 21;
-  public static final double ELEVATOR_MIN_POWER = -0.35;
-  public static final double ELEVATOR_MAX_POWER = 0.35;
-  public static final double ELEVATOR_P = 0.035;
-  public static final double ELEVATOR_I = 0.0006;
+  public static final double ELEVATOR_MIN_POWER = -0.6;
+  public static final double ELEVATOR_MAX_POWER = 0.6;
+  public static final double ELEVATOR_P = 0.055;
+  public static final double ELEVATOR_I = 0.0008;
   public static final double ELEVATOR_D = 0;
   public static final double ELEVATOR_IZONE = 0.5;
-  public static final double ELEVATOR_DEAD_ZONE = 0.0005;
+  public static final double ELEVATOR_DEAD_ZONE = 0.05;
   public static final double ELEVATOR_INCREMENT = 0.5;
   public static final int ELEVATOR_PID_TIMEOUT = 30; //# of control loops
  
   public static final double ELEVATOR_GROUND = 1;
   public static final double ELEVATOR_LOW = 10;
-  public static final double ELEVATOR_MED = 20;
-  public static final double ELEVATOR_HIGH = 30;
+  public static final double ELEVATOR_MED = 37.5;
+  public static final double ELEVATOR_HIGH = 65;
+  public static final double ELEVATOR_MAX = 66;
   public static final double ELEVATOR_BALL_OFFSET = 9;
 
   //Vacuum values
@@ -149,5 +150,6 @@ public class RobotMap {
   public static final double COMMAND_TIMEOUT = 5; //seconds
   public static final double MAX_INTAKE_SPEED = 0.7;
   public static final int GRIP_SOLENOID = 5;
+
 }
 

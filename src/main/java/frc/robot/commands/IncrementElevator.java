@@ -9,6 +9,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.robot.Utilities;
 
 public class IncrementElevator extends Command {
   double m_inc;
@@ -23,6 +25,7 @@ public class IncrementElevator extends Command {
   @Override
   protected void initialize() {
     double newSetpoint=Robot.elevator.getCurrentSetpoint() + m_inc;
+    newSetpoint = Utilities.constrain(newSetpoint, RobotMap.ELEVATOR_GROUND, RobotMap.ELEVATOR_MAX);
     Robot.elevator.setElevator(newSetpoint);
   }
 

@@ -49,7 +49,7 @@ public class Elevator extends Subsystem {
   }
 
   public double getPosition(){
-    return this.motor.getEncoder().getPosition();
+    return ((this.motor.getEncoder().getPosition()*2*RobotMap.ELEVATOR_WINCH_CIRC)/RobotMap.ELEVATOR_GEARING);
   }
 
   public void setPID(double P, double I, double D){
