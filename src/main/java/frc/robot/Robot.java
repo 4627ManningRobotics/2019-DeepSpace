@@ -202,6 +202,7 @@ public class Robot extends TimedRobot {
 
     //SmartDashboard.putBoolean("Compressor", false);
     SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
+		SmartDashboard.putNumber("set point", 10);
   }
 
   public void updateSmartDashboard(){

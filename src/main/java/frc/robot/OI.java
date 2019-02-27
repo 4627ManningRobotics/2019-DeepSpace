@@ -10,8 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.SetBackClimber;
+import frc.robot.commands.SetBallState;
 import frc.robot.commands.SetClaw;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetFrontClimber;
@@ -27,7 +29,7 @@ import frc.robot.subsystems.Sensors;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  XboxController driverController = new XboxController(RobotMap.DRIVER_CONTROLLER);
+  	XboxController driverController = new XboxController(RobotMap.DRIVER_CONTROLLER);
 	XboxController operatorController = new XboxController(RobotMap.OPERATOR_CONTROLLER);
 	
 	Button dButtonA = new JoystickButton(this.driverController, RobotMap.BUTTON_A);
@@ -47,9 +49,8 @@ public class OI {
 	Button oButtonRightBumper = new JoystickButton(this.operatorController, RobotMap.RIGHT_BUMPER);
 	Button oButtonLeftBumper = new JoystickButton(this.operatorController, RobotMap.LEFT_BUMPER);
 
-  public boolean getOperatorButton(int axis) {
+  	public boolean getOperatorButton(int axis) {
 		return this.operatorController.getRawButton(axis);
-		
 	}
 	
 	public boolean getDriverButton(int axis) {
@@ -65,14 +66,18 @@ public class OI {
 	}
 
 	public OI () {
-		//this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
-		this.oButtonA.whenPressed(new SetElevator(0)); 
-		this.oButtonB.whenPressed(new SetElevator(12)); 
-		this.oButtonY.whenPressed(new SetElevator(40));
+		this.oButtonA.whenPressed(new SetElevator(SmartDashboard.getNumber("set point", 10)));
+		//this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
+		this.oButtonX.whenPressed(new SetElevator(RobotMap.ELEVATOR_LOW)); 
+		this.oButtonY.whenPressed(new SetElevator(RobotMap.ELEVATOR_MED)); 
+		this.oButtonB.whenPressed(new SetElevator(RobotMap.ELEVATOR_HIGH));
 		//this.oButtonX.whenPressed(new TurnToAngle(-45));
-		this.oButtonX.whenPressed(new TurnToAngle(Sensors.ballReqester.getAngle()));
-		this.oButtonBack.whileHeld(new IncrementElevator(-1));
-		this.oButtonStart.whileHeld(new IncrementElevator(1));
+		//this.oButtonX.whenPressed(new TurnToAngle(Sensors.ballReqester.getAngle()));
+		this.oButtonBack.whileHeld(new IncrementElevator(-RobotMap.ELEVATOR_INCREMENT));
+		this.oButtonStart.whileHeld(new IncrementElevator(RobotMap.ELEVATOR_INCREMENT));
+
+		this.oButtonRightBumper.whenPressed(new SetBallState(true));
+		this.oButtonLeftBumper.whenPressed(new SetBallState(false));
 
 		if (Robot.vacuumMode) {
 			//this.oButtonLeftBumper.whenPressed(new SetVacuumAngle(45));
@@ -83,10 +88,10 @@ public class OI {
 			this.oButtonBack.whenPressed(new ToggleClaw());
 		}
 
-		this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
-		this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
-		this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
-		this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
+		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
+		//this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
+		//this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
+		//this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
 
 
 		//this.dButtonBack.whenPressed(new ZeroClimber(Dart.FRONT));

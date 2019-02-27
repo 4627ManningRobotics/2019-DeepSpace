@@ -21,15 +21,18 @@ public class SetElevator extends Command {
   private Utilities.counter counter;
 
   public SetElevator(double height) {
-    m_height=height;
-    counter = new Utilities.counter(RobotMap.ELEVATOR_PID_TIMEOUT);
-    requires(Robot.elevator);
+    this.m_height = height;
+    if(Robot.elevator.getBallState()){
+      this.m_height += RobotMap.ELEVATOR_BALL_OFFSET;
+    }
+    this.counter = new Utilities.counter(RobotMap.ELEVATOR_PID_TIMEOUT);
+    super.requires(Robot.elevator);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.elevator.setElevator(m_height);
+    Robot.elevator.setElevator(this.m_height);
   }
 
   // Called repeatedly when this Command is scheduled to run
