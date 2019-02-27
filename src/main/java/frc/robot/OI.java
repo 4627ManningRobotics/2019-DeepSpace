@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.SetBackClimber;
-import frc.robot.commands.SetBallState;
 import frc.robot.commands.SetClaw;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorSmartDashboard;
@@ -77,8 +76,6 @@ public class OI {
 		this.oButtonBack.whileHeld(new IncrementElevator(-RobotMap.ELEVATOR_INCREMENT));
 		this.oButtonStart.whileHeld(new IncrementElevator(RobotMap.ELEVATOR_INCREMENT));
 		this.oButtonRightBumper.whenPressed(new SetElevatorSmartDashboard());
-		/* this.oButtonRightBumper.whenPressed(new SetBallState(true));
-		this.oButtonLeftBumper.whenPressed(new SetBallState(false)); */
 
 		if (Robot.vacuumMode) {
 			//this.oButtonLeftBumper.whenPressed(new SetVacuumAngle(45));

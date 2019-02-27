@@ -24,7 +24,6 @@ public class Elevator extends Subsystem {
   private final CANPIDController pidController = new CANPIDController(motor);
 
   private double currentSetpoint;
-  private boolean isHoldingBall = false;
 
   public Elevator(){
     this.pidController.setOutputRange(RobotMap.ELEVATOR_MIN_POWER, RobotMap.ELEVATOR_MAX_POWER);
@@ -77,13 +76,4 @@ public class Elevator extends Subsystem {
 
     SmartDashboard.putNumber("elevator setpoint", this.getCurrentSetpoint());
   }
-
-  public boolean getBallState(){
-    return this.isHoldingBall;
-  }
-
-  public void setBallState(boolean state){
-    this.isHoldingBall = state;
-  }
-
 }

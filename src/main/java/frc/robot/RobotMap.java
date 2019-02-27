@@ -113,7 +113,6 @@ public class RobotMap {
   public static final double ELEVATOR_MED = 37.5;
   public static final double ELEVATOR_HIGH = 65;
   public static final double ELEVATOR_MAX = 66;
-  public static final double ELEVATOR_BALL_OFFSET = 9;
 
   //Vacuum values
   public static final double VACUUM_P_DOWN = 0.015;

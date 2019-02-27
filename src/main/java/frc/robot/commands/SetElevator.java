@@ -22,9 +22,6 @@ public class SetElevator extends Command {
 
   public SetElevator(double height) {
     this.m_height = height;
-    /* if(Robot.elevator.getBallState()){
-      this.m_height += RobotMap.ELEVATOR_BALL_OFFSET;
-    } */
     this.counter = new Utilities.counter(RobotMap.ELEVATOR_PID_TIMEOUT);
     super.requires(Robot.elevator);
   }
