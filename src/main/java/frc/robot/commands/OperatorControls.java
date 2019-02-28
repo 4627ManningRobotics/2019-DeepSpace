@@ -59,6 +59,16 @@ public class OperatorControls extends Command {
 
     }else{
       Robot.claw.setSpeed(Robot.oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER)-Robot.oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER));
+      if (Robot.oi.getOperatorPOV()==RobotMap.DPAD_UP){
+        double newSetpoint=Robot.elevator.getCurrentSetpoint() + RobotMap.ELEVATOR_INCREMENT;
+        newSetpoint = Utilities.constrain(newSetpoint, RobotMap.ELEVATOR_GROUND, RobotMap.ELEVATOR_MAX);
+        Robot.elevator.setElevator(newSetpoint);
+      }
+      if (Robot.oi.getOperatorPOV() == RobotMap.DPAD_DOWN){
+        double newSetpoint=Robot.elevator.getCurrentSetpoint() + -RobotMap.ELEVATOR_INCREMENT;
+        newSetpoint = Utilities.constrain(newSetpoint, RobotMap.ELEVATOR_GROUND, RobotMap.ELEVATOR_MAX);
+        Robot.elevator.setElevator(newSetpoint);  
+      }
     }
 
 

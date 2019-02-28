@@ -58,6 +58,10 @@ public class OI {
 	public double getDriverRawAxis(int axis) {
 		return this.driverController.getRawAxis(axis);
 	}
+	
+	public int getOperatorPOV(){
+		return this.operatorController.getPOV();
+	}
 
 	public OI () {
 		this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_LOW));
@@ -67,15 +71,16 @@ public class OI {
 		this.oButtonB.whenPressed(new SetElevator(RobotMap.ELEVATOR_MED));
 		//this.oButtonX.whenPressed(new TurnToAngle(-45));
 		//this.oButtonX.whenPressed(new TurnToAngle(Sensors.ballReqester.getAngle()));
-		this.oButtonBack.whileHeld(new IncrementElevator(-RobotMap.ELEVATOR_INCREMENT));
-		this.oButtonStart.whileHeld(new IncrementElevator(RobotMap.ELEVATOR_INCREMENT));
-		this.oButtonRightBumper.whenPressed(new SetElevatorSmartDashboard());
+		//this.oButtonBack.whileHeld(new IncrementElevator(-RobotMap.ELEVATOR_INCREMENT));
+		//this.oButtonStart.whileHeld(new IncrementElevator(RobotMap.ELEVATOR_INCREMENT));
+		this.oButtonBack.whenPressed(new SetElevatorSmartDashboard());
 
 		if (Robot.vacuumMode) {
 			//this.oButtonLeftBumper.whenPressed(new SetVacuumAngle(45));
 			//this.oButtonRightBumper.whenPressed(new SetVacuumAngle(0));
 		}else{
 			this.oButtonLeftBumper.whenPressed(new ToggleClaw());
+			this.oButtonRightBumper.whenPressed(new ToggleClaw());
 		}
 
 		this.dButtonA.whenPressed(new TurnToBall());
