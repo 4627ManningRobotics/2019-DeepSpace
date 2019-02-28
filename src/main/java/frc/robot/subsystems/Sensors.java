@@ -31,9 +31,10 @@ public class Sensors extends Subsystem {
 
   public static final BallRequester ballReqester = new BallRequester();
   public static final StripRequester stripReqester = new StripRequester();
+  public static final MouseRequester mouseReqester = new MouseRequester();
 
   private SerialPort RaspberryPi;
-  public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.stripReqester };
+  public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.stripReqester, Sensors.mouseReqester };
   protected PiSerialGetter getter;
   protected PiSerialSender sender;
   protected Thread serial_in;

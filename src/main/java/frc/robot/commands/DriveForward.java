@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.subsystems.Sensors;
 
 public class DriveForward extends PIDCommand {
 
@@ -61,7 +62,7 @@ public class DriveForward extends PIDCommand {
 
   @Override
   protected double returnPIDInput() {
-    return Robot.driveTrain.getDistance();
+    return Sensors.mouseReqester.getDistance();//Robot.driveTrain.getDistance();
   }
 
   @Override

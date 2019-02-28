@@ -40,6 +40,8 @@ public class Senses extends Command {
   protected void initialize() {
     Sensors.ballReqester.setRequesting(true);
     Sensors.stripReqester.setRequesting(true);
+    Sensors.stripReqester.setRequesting(true);
+    //requesting might be able to be turned on and off, untested for now
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -56,6 +58,8 @@ public class Senses extends Command {
         Sensors.ballReqester.setData(s);
       }else if(s.contains(Requester.STRIP)){
         Sensors.stripReqester.setData(s);
+      }else if(s.contains(Requester.MOUSE)){
+        Sensors.mouseReqester.setData(s);
       }
     }
   }
