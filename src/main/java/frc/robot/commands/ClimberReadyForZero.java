@@ -13,20 +13,19 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.Climber.Dart;
 
 public class ClimberReadyForZero extends Command {
-  Dart m_dart;
+  private Dart m_dart;
   public ClimberReadyForZero(Dart dart) {
-    m_dart=dart;
+    this.m_dart = dart;
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.climber);
+    super.requires(Robot.climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(m_dart==Dart.FRONT){
+    if(this.m_dart == Dart.FRONT){
       Robot.climber.setFront(1, RobotMap.CLIMBER_GROUND_SLOT);
     }else{
-    
       Robot.climber.setBack(1, RobotMap.CLIMBER_GROUND_SLOT);
     }
   }
@@ -39,7 +38,7 @@ public class ClimberReadyForZero extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (m_dart==Dart.FRONT){
+    if (this.m_dart == Dart.FRONT){
       return (Robot.climber.frontOnTarget()); 
     }else{
       return (Robot.climber.backOnTarget());

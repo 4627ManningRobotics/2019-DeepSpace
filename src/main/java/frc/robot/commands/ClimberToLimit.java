@@ -15,27 +15,27 @@ import frc.robot.subsystems.Climber.Dart;
 import frc.robot.subsystems.Climber.LimitSwitch;
 
 public class ClimberToLimit extends Command {
-  LimitSwitch m_switch;
-  Dart m_dart;
+  private LimitSwitch m_switch;
+  private Dart m_dart;
 
   public ClimberToLimit(Dart dart, LimitSwitch limit) {
-    m_switch=limit;
-    m_dart=dart;
+    this.m_switch = limit;
+    this.m_dart = dart;
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.climber);
+    super.requires(Robot.climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if (m_dart==Dart.FRONT){
-      if (m_switch==LimitSwitch.TOP){
+    if (this.m_dart == Dart.FRONT){
+      if (this.m_switch == LimitSwitch.TOP){
         Robot.climber.setFront(-10, RobotMap.CLIMBER_GROUND_SLOT);
       }else{
         Robot.climber.setFront(10, RobotMap.CLIMBER_GROUND_SLOT);
       }
     }else{
-      if (m_switch==LimitSwitch.TOP){
+      if (this.m_switch == LimitSwitch.TOP){
         Robot.climber.setBack(-10, RobotMap.CLIMBER_GROUND_SLOT);
       }else{
         Robot.climber.setBack(10, RobotMap.CLIMBER_GROUND_SLOT);
@@ -51,7 +51,7 @@ public class ClimberToLimit extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if ( (Robot.climber.getAppliedOutput(m_dart)==0) ){
+    if ( (Robot.climber.getAppliedOutput(this.m_dart) == 0) ){
       return true;
     } else {
       return false;
@@ -61,7 +61,7 @@ public class ClimberToLimit extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.climber.zeroEncoder(m_dart);
+    Robot.climber.zeroEncoder(this.m_dart);
   }
 
   // Called when another command which requires one or more of the same

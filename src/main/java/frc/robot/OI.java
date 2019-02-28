@@ -10,18 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.IncrementElevator;
-import frc.robot.commands.SetBackClimber;
-import frc.robot.commands.SetClaw;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorSmartDashboard;
-import frc.robot.commands.SetFrontClimber;
-import frc.robot.commands.SetVacuumAngle;
 import frc.robot.commands.ToggleClaw;
-import frc.robot.commands.TurnToAngle;
+import frc.robot.commands.TurnToBall;
 import frc.robot.commands.ZeroBothClimbers;
-import frc.robot.subsystems.Sensors;
 
 
 /**
@@ -82,9 +76,9 @@ public class OI {
 			//this.oButtonRightBumper.whenPressed(new SetVacuumAngle(0));
 		}else{
 			this.oButtonLeftBumper.whenPressed(new ToggleClaw());
-			
-			
 		}
+
+		this.dButtonA.whenPressed(new TurnToBall());
 
 		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
 		//this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));

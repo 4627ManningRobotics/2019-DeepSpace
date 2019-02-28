@@ -7,13 +7,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /*
  * This one's fairly self explanitory
  */
-public class ResetWrist extends Command {
+public class ResetWrist extends InstantCommand {
   public ResetWrist() {
     super.requires(Robot.vacuum);
   }
@@ -24,18 +24,7 @@ public class ResetWrist extends Command {
     Robot.vacuum.disable();
     Robot.vacuum.resetSensors();
   }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
-
+  
   // Called once after isFinished returns true
   @Override
   protected void end() {
@@ -46,6 +35,6 @@ public class ResetWrist extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.vacuum.enable();
+    this.end();
   }
 }
