@@ -202,7 +202,9 @@ public class Robot extends TimedRobot {
 
     //SmartDashboard.putBoolean("Compressor", false);
     SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
-		SmartDashboard.putNumber("set point", 10);
+    SmartDashboard.putNumber("set point", 10);
+    
+    SmartDashboard.putNumber("MICE!", Sensors.mouseReqester.getDistance());
   }
 
   public void updateSmartDashboard(){
@@ -233,5 +235,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(Robot.driveTrain);
     SmartDashboard.putNumber("ball Requester", Sensors.ballReqester.getAngle());
     SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
+    SmartDashboard.putNumber("MICE!", Sensors.mouseReqester.getDistance());
   }
 }

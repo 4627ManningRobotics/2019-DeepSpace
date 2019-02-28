@@ -74,13 +74,17 @@ public class Utilities {
 		valArr[0] = val;
 	}
 
-	public static class counter{
+	public static class Counter{
 		
 		private final int limit;
 		private int counts = 0;
 
-		public counter(int limit){
+		public Counter(int limit){
 			this.limit = limit;
+		}
+
+		public int getLimit(){
+			return this.limit;
 		}
 
 		public void count(){

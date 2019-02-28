@@ -12,17 +12,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Utilities;
+import frc.robot.Utilities.Counter;
 
 /*
  * Set the height of the elevator and check for changes to the PID value 
  */
 public class SetElevator extends Command {
   private double m_height;
-  private Utilities.counter counter;
+  private Counter counter;
 
   public SetElevator(double height) {
     this.m_height = height;
-    this.counter = new Utilities.counter(RobotMap.ELEVATOR_PID_TIMEOUT);
+    this.counter = new Counter(RobotMap.ELEVATOR_PID_TIMEOUT);
     super.requires(Robot.elevator);
   }
 

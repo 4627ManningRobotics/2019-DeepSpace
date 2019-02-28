@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Utilities;
+import frc.robot.Utilities.Counter;
 
 /*
  * Sets the vacuum PID to a setposition and adjusts the PID values
@@ -19,11 +20,11 @@ import frc.robot.Utilities;
 public class SetVacuumAngle extends Command {
 
   private double angle;
-  private final Utilities.counter counter;
+  private final Counter counter;
 
   public SetVacuumAngle(double angle) {
     this.angle = angle;
-    this.counter = new Utilities.counter(RobotMap.VACUUM_PID_TIMEOUT);
+    this.counter = new Counter(RobotMap.VACUUM_PID_TIMEOUT);
     super.requires(Robot.vacuum);
   }
 

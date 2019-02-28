@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Requesters.*;
+import frc.robot.Utilities.Counter;
 import frc.robot.subsystems.Sensors;
 
 /*
@@ -38,16 +39,15 @@ public class Senses extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Sensors.ballReqester.setRequesting(true);
-    Sensors.stripReqester.setRequesting(true);
-    Sensors.stripReqester.setRequesting(true);
-    //requesting might be able to be turned on and off, untested for now
+    Sensors.ballReqester.setRequesting(false);
+    Sensors.stripReqester.setRequesting(false);
+    Sensors.mouseReqester.setRequesting(true);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+    Sensors.mouseReqester.setRequesting(true);
     if(!this.inQueue.isEmpty()){ // If the queue is not empty
       String s = this.inQueue.remove(); // Get the least recent string
       Senses.recent = s;
