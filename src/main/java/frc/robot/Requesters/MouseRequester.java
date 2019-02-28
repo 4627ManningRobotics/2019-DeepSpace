@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MouseRequester extends Requester {
 
-    private double distance;
+    private double distance, offset;
 
     public MouseRequester(){
         super(Requester.MOUSE);
@@ -22,13 +22,15 @@ public class MouseRequester extends Requester {
                 //distance will never be - because it's actually displacment
             }
         } 
-        //SmartDashboard.putString("Strip data", this.X + ":" + this.Y + ":" + this.angle);
-
         sc.close();
     }
 
     public double getDistance(){
-        return this.distance;
+        return this.distance - this.offset;
+    }
+
+    public void zero_distance(){
+        this.offset = this.distance;
     }
 
 }
