@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Requesters.*;
-import frc.robot.Utilities.Counter;
 import frc.robot.subsystems.Sensors;
 
 /*
