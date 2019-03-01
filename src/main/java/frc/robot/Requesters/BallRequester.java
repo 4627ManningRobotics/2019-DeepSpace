@@ -7,7 +7,7 @@ public class BallRequester extends Requester {
     private double distance, angle;
 
     public BallRequester(){
-        super(Requester.BALL);
+        super(Requester.BALL, 2);
     }
 
     @Override

@@ -124,7 +124,7 @@ class PiSerialGetter implements Runnable {
       while (index != -1) { // Make sure delimiter is found
         newBuff = buffer.substring(index + 1); // Save the rest of the string discluding the delimiter
         message = buffer.substring(0, index); // Use the information up to the delimiter
-        SmartDashboard.putString("Serial Message", message);
+        //SmartDashboard.putString("Serial Message", message);
         buffer = newBuff; // reset the buffer to the new buffer
         this.inQueue.add(message); // add the chunk of information to the queue
         index = buffer.indexOf(this.DELIMITER); // find delimiter if one exists

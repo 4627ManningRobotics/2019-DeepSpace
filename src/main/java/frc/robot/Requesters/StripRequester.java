@@ -7,7 +7,7 @@ public class StripRequester extends Requester {
     private double X, Y, angle;
 
     public StripRequester(){
-        super(Requester.STRIP);
+        super(Requester.STRIP, 2);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class StripRequester extends Requester {
                 this.X = sc.nextDouble();
                 if(s.contains("-")){
                     this.X *= -1;
-                }
+                }  
             }else if(s.contains("Y")){
                 this.Y = sc.nextDouble();
                 if(s.contains("-")){
