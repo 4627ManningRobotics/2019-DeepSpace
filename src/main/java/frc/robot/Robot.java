@@ -7,6 +7,13 @@
 
 package frc.robot;
 
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -36,66 +43,62 @@ public class Robot extends TimedRobot {
   public static Claw claw;
   public static Vacuum vacuum;
   public static OI oi;
-	private static final Compressor comp = new Compressor(0);
-  //private Command dash = new DashboardData();
+  private static final Compressor comp = new Compressor(0);
+  // private Command dash = new DashboardData();
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
   /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
    */
   @Override
   public void robotInit() {
-    if(vacuumMode){
-       vacuum = new Vacuum();
-    }else{
+    if (vacuumMode) {
+      vacuum = new Vacuum();
+    } else {
       claw = new Claw();
       claw.setGrip(true);
     }
     Robot.oi = new OI();
     Robot.comp.setClosedLoopControl(true);
-    //this.chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    // this.chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", this.chooser); // this is the ONLY smart dashboard put that isn't a part of Dashboard Data
+    SmartDashboard.putData("Auto mode", this.chooser); // this is the ONLY smart dashboard put that isn't a part of
+                                                       // Dashboard Data
 
-    //this.dash.start();
-    //Scheduler.getInstance().add(new DashboardData());
+    // this.dash.start();
+    // Scheduler.getInstance().add(new DashboardData());
     CameraServer.getInstance().startAutomaticCapture();
-    
+
     this.initSmartDashboard();
-    
+
   }
 
   /**
-   * This function is called every robot packet, no matter the mode. Use
-   * this for items like diagnostics that you want ran during disabled,
-   * autonomous, teleoperated and test.
+   * This function is called every robot packet, no matter the mode. Use this for
+   * items like diagnostics that you want ran during disabled, autonomous,
+   * teleoperated and test.
    *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
+   * <p>
+   * This runs after the mode specific periodic functions, but before LiveWindow
+   * and SmartDashboard integrated updating.
    */
   @Override
   public void robotPeriodic() {
     updateSmartDashboard();
     /*
-    if(SmartDashboard.getBoolean("Compressor", false)){
-      if(!Robot.comp.enabled()){
-        Robot.comp.start();
-      }
-    }else{
-      if(Robot.comp.enabled()){
-        Robot.comp.stop();
-      }
-    }
-    */
+     * if(SmartDashboard.getBoolean("Compressor", false)){
+     * if(!Robot.comp.enabled()){ Robot.comp.start(); } }else{
+     * if(Robot.comp.enabled()){ Robot.comp.stop(); } }
+     */
   }
 
   /**
-   * This function is called once each time the robot enters Disabled mode.
-   * You can use it to reset any subsystem information you want to clear when
-   * the robot is disabled.
+   * This function is called once each time the robot enters Disabled mode. You
+   * can use it to reset any subsystem information you want to clear when the
+   * robot is disabled.
    */
   @Override
   public void disabledInit() {
@@ -109,24 +112,25 @@ public class Robot extends TimedRobot {
 
   /**
    * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString code to get the auto name from the text box below the Gyro
+   * between different autonomous modes using the dashboard. The sendable chooser
+   * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
+   * remove all of the chooser code and uncomment the getString code to get the
+   * auto name from the text box below the Gyro
    *
-   * <p>You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons
-   * to the switch structure below with additional strings & commands.
+   * <p>
+   * You can add additional auto modes by adding additional commands to the
+   * chooser code above (like the commented example) or additional comparisons to
+   * the switch structure below with additional strings & commands.
    */
   @Override
   public void autonomousInit() {
     this.autonomousCommand = chooser.getSelected();
 
     /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
+     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+     * switch(autoSelected) { case "My Auto": autonomousCommand = new
+     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
+     * ExampleCommand(); break; }
      */
 
     // schedule the autonomous command (example)
@@ -170,7 +174,7 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
-  public void initSmartDashboard(){
+  public void initSmartDashboard() {
     SmartDashboard.putNumber("P", Robot.elevator.getP());
     SmartDashboard.putNumber("I", Robot.elevator.getI());
     SmartDashboard.putNumber("D", Robot.elevator.getD());
@@ -185,14 +189,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Back raw position", Robot.climber.getBackRaw());
     SmartDashboard.putNumber("Back raw setpoint", Robot.climber.getBackRawSetpoint());
     SmartDashboard.putNumber("Back applied output", Robot.climber.getAppliedOutput(Dart.BACK));
-   
-    if(vacuumMode){
+
+    if (vacuumMode) {
       SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
       SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
       SmartDashboard.putNumber("wrist setpoint", Robot.vacuum.getSetpoint());
       SmartDashboard.putNumber("Vacuum motor current", Robot.vacuum.getVacCurrent());
       SmartDashboard.putNumber("Vacuum motor current average", 0);
-    }else {
+    } else {
 
     }
 
@@ -200,20 +204,20 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
-    //SmartDashboard.putBoolean("Compressor", false);
+    // SmartDashboard.putBoolean("Compressor", false);
     SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
     SmartDashboard.putNumber("set point", 10);
-    
+
     SmartDashboard.putNumber("MICE!", Sensors.mouseReqester.getDistance());
   }
 
-  public void updateSmartDashboard(){
-    if(vacuumMode){
+  public void updateSmartDashboard() {
+    if (vacuumMode) {
       SmartDashboard.putNumber("wrist angle", Robot.vacuum.getPosition());
       SmartDashboard.putNumber("wrist ticks", Robot.vacuum.getTicks());
       SmartDashboard.putNumber("wrist setpoint", Robot.vacuum.getSetpoint());
       SmartDashboard.putNumber("Vacuum motor current", Robot.vacuum.getVacCurrent());
-    }else{
+    } else {
 
     }
 
@@ -227,7 +231,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Back raw position", Robot.climber.getBackRaw());
     SmartDashboard.putNumber("Back raw setpoint", Robot.climber.getBackRawSetpoint());
     SmartDashboard.putNumber("Back applied output", Robot.climber.getAppliedOutput(Dart.BACK));
-    
+
     SmartDashboard.putNumber("elevator position", Robot.elevator.getPosition());
     SmartDashboard.putNumber("elevator setpoint", Robot.elevator.getCurrentSetpoint());
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
@@ -238,3 +242,4 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("MICE!", Sensors.mouseReqester.getDistance());
   }
 }
+

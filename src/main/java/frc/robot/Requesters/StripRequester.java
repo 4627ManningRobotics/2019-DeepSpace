@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class StripRequester extends Requester {
 
-    private double X, Y, angle;
+    private double X, Y, angle, relativeAngle;
 
     public StripRequester(){
         super(Requester.STRIP, 2);
@@ -13,7 +13,7 @@ public class StripRequester extends Requester {
     @Override
     protected void filterData(String data) {
         Scanner sc = new Scanner(data);
-        for(int i = 0; i < 3; i++){ // repeat for both x, y, and angle
+        for(int i = 0; i < 4; i++){ // repeat for both x, y, and angle
             sc.useDelimiter("\\d");
             String s = sc.next();
             sc.useDelimiter("[,}]");
@@ -32,6 +32,11 @@ public class StripRequester extends Requester {
                 if(s.contains("-")){
                     this.angle *= -1;
                 }
+            }else if(s.contains("REL")){
+                this.relativeAngle = sc.nextDouble();
+                if(s.contains("-")){
+                    this.relativeAngle *= -1;
+                }
             }
         } 
         sc.close();
@@ -47,5 +52,9 @@ public class StripRequester extends Requester {
 
     public double getAngle(){
         return this.angle;
+    }
+
+    public double getRelativeAngle(){
+        return this.relativeAngle;
     }
 }
