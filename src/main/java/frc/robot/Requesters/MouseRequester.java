@@ -7,7 +7,7 @@ public class MouseRequester extends Requester {
     private double distance, offset;
 
     public MouseRequester(){
-        super(Requester.MOUSE, 10);
+        super(Requester.MOUSE, 1);
     }
 
     @Override

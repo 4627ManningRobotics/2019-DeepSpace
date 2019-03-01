@@ -34,30 +34,34 @@ public abstract class Requester{
         return this.request;
     }
 
-    public synchronized void setRequesting(boolean reqesting){
-        if(this.counter.getLimit() < 1){
-            this.counter.count();
-            this.is_requesting = this.counter.isDoneCounting();
-            if(this.is_requesting){
-                this.counter.reset();
+    public void setRequesting(boolean requesting){
+        synchronized(this){
+            if(this.counter.getLimit() > 0){
+                if(requesting){
+                    this.counter.count();
+                    this.is_requesting = this.counter.isDoneCounting();
+                    if(this.is_requesting){
+                        this.counter.reset();
+                    }
+                }else{
+                    this.is_requesting = requesting;
+                    this.counter.reset();
+                }
+            }else{
+                this.is_requesting = requesting;
             }
-        }else{
-            this.is_requesting = reqesting;
         }
     }
 
     /*
      * Sets the data to be processed
      */
-    public synchronized void setData(String d){
-        if(this.counter.getLimit() < 1){
-            this.is_requesting = false;
-        }
+    public void setData(String d){
         this.data = d;
         this.filterData(this.data);
     }
 
-    public synchronized boolean isRequesting(){
+    public boolean isRequesting(){
         return this.is_requesting;
     }
 

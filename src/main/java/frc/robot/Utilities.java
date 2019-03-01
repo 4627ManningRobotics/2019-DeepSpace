@@ -91,6 +91,10 @@ public class Utilities {
 			this.counts += 1;
 		}
 
+		public int getCount(){
+			return this.counts;
+		}
+
 		public void reset(){
 			this.counts = 0;
 		}

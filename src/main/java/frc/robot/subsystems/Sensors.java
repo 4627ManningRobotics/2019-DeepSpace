@@ -34,7 +34,8 @@ public class Sensors extends Subsystem {
   public static final MouseRequester mouseReqester = new MouseRequester();
 
   private SerialPort RaspberryPi;
-  public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.stripReqester, Sensors.mouseReqester };
+  public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.stripReqester,
+      Sensors.mouseReqester };
   protected PiSerialGetter getter;
   protected PiSerialSender sender;
   protected Thread serial_in;
@@ -117,13 +118,13 @@ class PiSerialGetter implements Runnable {
     String newBuff;
     String message;
     while (true) {
-      in = serial_in.read(1024); // get serial information
+      in = this.serial_in.read(this.serial_in.getBytesReceived()); // get serial information
       buffer += new String(in); // convert serial data to string
       index = buffer.indexOf(this.DELIMITER); // find delimiter
       while (index != -1) { // Make sure delimiter is found
         newBuff = buffer.substring(index + 1); // Save the rest of the string discluding the delimiter
         message = buffer.substring(0, index); // Use the information up to the delimiter
-        //SmartDashboard.putString("Serial Message", message);
+        SmartDashboard.putString("Serial Message", message);
         buffer = newBuff; // reset the buffer to the new buffer
         this.inQueue.add(message); // add the chunk of information to the queue
         index = buffer.indexOf(this.DELIMITER); // find delimiter if one exists
@@ -151,8 +152,8 @@ class PiSerialSender implements Runnable {
     while (true) {
       for (i = 0; i < this.requesters.length; i++) {
         if (this.requesters[i].isRequesting()) {
-          //SmartDashboard.putString("Serial Out: ", this.requesters[i].getRequestType());
           this.serial.writeString(this.requesters[i].getRequestType() + "\n");
+          this.requesters[i].setRequesting(false);
         }
       }
     }
