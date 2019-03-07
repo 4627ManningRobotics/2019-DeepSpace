@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.BackToZero;
 import frc.robot.commands.Climb;
+import frc.robot.commands.SetBackClimber;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorSmartDashboard;
+import frc.robot.commands.SetFrontClimber;
 import frc.robot.commands.ToggleClaw;
 import frc.robot.commands.ZeroBothClimbers;
 
@@ -84,13 +86,13 @@ public class OI {
 		}
 
 
-		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
-		//this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
-		//this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
-		//this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
 
-		this.dButtonY.whenPressed(new Climb());
-		this.dButtonA.whenPressed(new BackToZero());
+		//this.dButtonY.whenPressed(new Climb());
+		//this.dButtonA.whenPressed(new BackToZero());
 
 		//this.dButtonBack.whenPressed(new ZeroClimber(Dart.FRONT));
 		this.dButtonBack.whenPressed(new ZeroBothClimbers());
