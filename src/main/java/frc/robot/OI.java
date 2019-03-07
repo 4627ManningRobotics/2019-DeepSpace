@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.BackToZero;
+import frc.robot.commands.Climb;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorSmartDashboard;
 import frc.robot.commands.ToggleClaw;
@@ -87,6 +89,8 @@ public class OI {
 		//this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
 		//this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
 
+		this.dButtonY.whenPressed(new Climb());
+		this.dButtonA.whenPressed(new BackToZero());
 
 		//this.dButtonBack.whenPressed(new ZeroClimber(Dart.FRONT));
 		this.dButtonBack.whenPressed(new ZeroBothClimbers());
