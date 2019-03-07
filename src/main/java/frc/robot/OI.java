@@ -66,9 +66,9 @@ public class OI {
 	}
 
 	public OI () {
-		this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_LOW));
-		//this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
 		this.oButtonX.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
+		this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_LOW));
+		this.oButtonRightBumper.whenPressed(new SetElevator(RobotMap.ELEVATOR_BAY));
 		this.oButtonY.whenPressed(new SetElevator(RobotMap.ELEVATOR_HIGH)); 
 		this.oButtonB.whenPressed(new SetElevator(RobotMap.ELEVATOR_MED));
 		//this.oButtonX.whenPressed(new TurnToAngle(-45));
@@ -82,7 +82,6 @@ public class OI {
 			//this.oButtonRightBumper.whenPressed(new SetVacuumAngle(0));
 		}else{
 			this.oButtonLeftBumper.whenPressed(new ToggleClaw());
-			this.oButtonRightBumper.whenPressed(new ToggleClaw());
 		}
 
 

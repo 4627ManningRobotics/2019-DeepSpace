@@ -114,6 +114,7 @@ public class RobotMap {
   public static final int ELEVATOR_PID_TIMEOUT = 30; //# of control loops
  
   public static final double ELEVATOR_GROUND = 1;
+  public static final double ELEVATOR_BAY = 15;
   public static final double ELEVATOR_LOW = 10;
   public static final double ELEVATOR_MED = 37.5;
   public static final double ELEVATOR_HIGH = 65;
