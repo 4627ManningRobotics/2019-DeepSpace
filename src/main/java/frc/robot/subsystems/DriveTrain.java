@@ -99,8 +99,4 @@ public class DriveTrain extends Subsystem {
       //this.rightMotor1.set(ControlMode.Current, RobotMap.CURRENT_LIMIT);
     //}
   }
-
-  public double getDistance(){
-    return distancePerPulse * (this.leftMotor1.getSelectedSensorPosition() + this.rightMotor1.getSelectedSensorPosition()) / 2d; 
-  }
 }

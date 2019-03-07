@@ -39,7 +39,6 @@ public class Robot extends TimedRobot {
   public static DriveTrain driveTrain = new DriveTrain();
   public static Climber climber = new Climber();
   public static Elevator elevator = new Elevator();
-  public static Sensors sensors = new Sensors();
   public static Claw claw;
   public static Vacuum vacuum;
   public static OI oi;
@@ -102,7 +101,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    Robot.sensors.stopAllRequests();
   }
 
   @Override
@@ -205,10 +203,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
     // SmartDashboard.putBoolean("Compressor", false);
-    SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
     SmartDashboard.putNumber("set point", 10);
 
-    SmartDashboard.putNumber("MICE!", Sensors.mouseReqester.getDistance());
   }
 
   public void updateSmartDashboard() {
@@ -237,9 +233,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
     SmartDashboard.putData(Robot.driveTrain);
-    SmartDashboard.putNumber("ball Requester", Sensors.ballReqester.getAngle());
-    SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
-    SmartDashboard.putNumber("MICE!", Sensors.mouseReqester.getDistance());
   }
 }
 
