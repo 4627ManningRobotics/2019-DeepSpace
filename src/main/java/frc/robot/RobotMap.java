@@ -138,18 +138,6 @@ public class RobotMap {
 
   //Command specific values
   
-  //TurnToAngle
-	public static final double TURN_P = 0.01;
-	public static final double TURN_I = 0.0002;
-  public static final double TURN_D = 0;
-  public static final double GYRO_GAY = 3;
-  public static final double MAX_TURN_SPEED = 0.5;
-  //DriveForward
-	public static final double DRIVE_P = 0.01;
-	public static final double DRIVE_I = 0.0002;
-  public static final double DRIVE_D = 0;
-  public static final double DRIVE_TOLLERANCE = 2;
-  public static final double MAX_DRIVE_SPEED = 0.75;
   //generic
   public static final double COMMAND_TIMEOUT = 5; //seconds
   public static final double MAX_INTAKE_SPEED = 0.7;
