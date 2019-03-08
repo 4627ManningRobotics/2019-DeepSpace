@@ -70,7 +70,11 @@ public class Robot extends TimedRobot {
 
     // this.dash.start();
     // Scheduler.getInstance().add(new DashboardData());
-    CameraServer.getInstance().startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
+
+    CameraThread ct = new CameraThread();
+    ct.setDaemon(true);
+    ct.start();
 
     this.initSmartDashboard();
 
@@ -242,6 +246,28 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("operator name", DriverStation.getInstance().getJoystickName(1));
     SmartDashboard.putBoolean("operator is box", DriverStation.getInstance().getJoystickIsXbox(1));
     SmartDashboard.putNumber("operator type", DriverStation.getInstance().getJoystickType(1));
+  }
+
+  class CameraThread extends Thread{
+
+    @Override
+    public void run(){
+      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+      camera.setResolution(320, 240);
+      camera.setFPS(20);
+
+      CvSink cvSink = CameraServer.getInstance().getVideo();
+      CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 320, 240);
+
+      Mat source = new Mat();
+      Mat output = new Mat();
+
+      while(!Thread.interrupted()){
+        cvSink.grabFrame(source);
+        Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+        outputStream.putFrame(output);
+      }
+    }
   }
 }
 
