@@ -95,6 +95,7 @@ public class RobotMap {
   public static final double CLIMBER_SAFE_LIMIT = 0.25;
   public static final double CLIMBER_ZERO = 0.0; //inches
   public static final double CLIMBER_LIFT = 5;
+  public static final double CLIMBER_BACK_LIFT = 5.25;
   public static final double CLIMBER_TOLLERANCE = 0.25;
   public static final double CLIMBER_INCHES_PER_ROTATON = 4.373 / 55.0;
 
@@ -109,11 +110,12 @@ public class RobotMap {
   public static final double ELEVATOR_D = 0;
   public static final double ELEVATOR_IZONE = 0.5;
   public static final double ELEVATOR_DEAD_ZONE = 0.05;
-  public static final double ELEVATOR_INCREMENT = 0.5;
+  public static final double ELEVATOR_INCREMENT = 1;
   public static final int ELEVATOR_PID_TIMEOUT = 30; //# of control loops
  
   public static final double ELEVATOR_GROUND = 1;
   public static final double ELEVATOR_LOW = 10;
+  public static final double ELEVATOR_BAY = 23.5;
   public static final double ELEVATOR_MED = 37.5;
   public static final double ELEVATOR_HIGH = 65;
   public static final double ELEVATOR_MAX = 66;

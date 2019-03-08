@@ -64,6 +64,8 @@ public class OI {
 	public OI () {
 		this.oButtonX.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
 		this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_LOW));
+		this.oButtonRightBumper.whenPressed(new SetElevator(RobotMap.ELEVATOR_BAY));
+
 		this.oButtonY.whenPressed(new SetElevator(RobotMap.ELEVATOR_HIGH)); 
 		this.oButtonB.whenPressed(new SetElevator(RobotMap.ELEVATOR_MED));
 		//this.oButtonX.whenPressed(new TurnToAngle(-45));
@@ -83,7 +85,7 @@ public class OI {
 		this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
 		this.dButtonB.whenPressed(new SetBackClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
 		this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
-		this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_BACK_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
 
 		//this.dButtonY.whenPressed(new Climb());
 		//this.dButtonA.whenPressed(new BackToZero());
