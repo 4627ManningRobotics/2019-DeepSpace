@@ -85,16 +85,15 @@ public class OI {
 			this.oButtonLeftBumper.whenPressed(new ToggleClaw());
 		}
 
-
 		this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
-		this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
-		this.dButtonB.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonB.whenPressed(new SetBackClimber(RobotMap.CLIMBER_ZERO, RobotMap.CLIMBER_GROUND_SLOT));
+		this.dButtonX.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
 		this.dButtonY.whenPressed(new SetBackClimber(RobotMap.CLIMBER_LIFT, RobotMap.CLIMBER_GROUND_SLOT));
 
 		//this.dButtonY.whenPressed(new Climb());
 		//this.dButtonA.whenPressed(new BackToZero());
 
 		//this.dButtonBack.whenPressed(new ZeroClimber(Dart.FRONT));
-		this.dButtonBack.whenPressed(new ZeroBothClimbers());
+		//this.dButtonBack.whenPressed(new ZeroBothClimbers());
 	}
 }

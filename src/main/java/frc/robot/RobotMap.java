@@ -67,7 +67,7 @@ public class RobotMap {
 
   //driver limitations and values
   public static final double MAX_SPEED = 0.95; // 0-1, max speed
-  public static final double RAMP_RATE = 0; //time in seconds for the motor to reach max speed
+  public static final double RAMP_RATE = 0.075; //time in seconds for the motor to reach max speed
   public static final double TURNING_RATE = 0.7;
   public static final int CURRENT_LIMIT = 35;
   public static final int CONTINUOUS_CURRENT_LIMIT = 30;
@@ -77,7 +77,7 @@ public class RobotMap {
 	public static final int ENCODER_GEAR_RATIO = 3;
 
   //climber values
-  public static final double CLIMBER_MAX_SPEED = 0.2; //0 - 1
+  public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
   public static final int CLIMBER_GROUND_SLOT = 0;
   public static final int CLIMBER_LIFT_SLOT = 1;
   public static final double CLIMBER_FRONT_GROUND_P = 0.05;
@@ -103,9 +103,9 @@ public class RobotMap {
   public static final double ELEVATOR_WINCH_RAD = 0.625;
   public static final double ELEVATOR_WINCH_CIRC = ELEVATOR_WINCH_RAD * 2 * Math.PI;
   public static final double ELEVATOR_GEARING = 21;
-  public static final double ELEVATOR_MIN_POWER = -0.5;
-  public static final double ELEVATOR_MAX_POWER = 0.5;
-  public static final double ELEVATOR_P = 0.055;
+  public static final double ELEVATOR_MIN_POWER = -0.9;
+  public static final double ELEVATOR_MAX_POWER = 0.9;
+  public static final double ELEVATOR_P = 0.06;
   public static final double ELEVATOR_I = 0.0008;
   public static final double ELEVATOR_D = 0;
   public static final double ELEVATOR_IZONE = 0.5;
@@ -142,7 +142,7 @@ public class RobotMap {
   //generic
   public static final double COMMAND_TIMEOUT = 5; //seconds
   public static final double MAX_INTAKE_SPEED = 0.7;
-  public static final int GRIP_SOLENOID = 5;
+  public static final int GRIP_SOLENOID = 7;
 
 }
 

@@ -16,6 +16,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -58,7 +59,7 @@ public class Robot extends TimedRobot {
       vacuum = new Vacuum();
     } else {
       claw = new Claw();
-      claw.setGrip(true);
+      claw.setGrip(false);
     }
     Robot.oi = new OI();
     Robot.comp.setClosedLoopControl(true);
@@ -72,6 +73,7 @@ public class Robot extends TimedRobot {
     CameraServer.getInstance().startAutomaticCapture();
 
     this.initSmartDashboard();
+
 
   }
 
@@ -205,6 +207,9 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putBoolean("Compressor", false);
     SmartDashboard.putNumber("set point", 10);
 
+    SmartDashboard.putString("operator name", DriverStation.getInstance().getJoystickName(1));
+    SmartDashboard.putBoolean("operator is box", DriverStation.getInstance().getJoystickIsXbox(1));
+    SmartDashboard.putNumber("operator type", DriverStation.getInstance().getJoystickType(1));
   }
 
   public void updateSmartDashboard() {
@@ -233,6 +238,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
     SmartDashboard.putData(Robot.driveTrain);
+    
+    SmartDashboard.putString("operator name", DriverStation.getInstance().getJoystickName(1));
+    SmartDashboard.putBoolean("operator is box", DriverStation.getInstance().getJoystickIsXbox(1));
+    SmartDashboard.putNumber("operator type", DriverStation.getInstance().getJoystickType(1));
   }
 }
 

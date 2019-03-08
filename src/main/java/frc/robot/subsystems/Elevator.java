@@ -32,6 +32,8 @@ public class Elevator extends Subsystem {
     this.pidController.setD(RobotMap.ELEVATOR_D);
     this.pidController.setIZone(RobotMap.ELEVATOR_IZONE);
     this.motor.setSmartCurrentLimit(RobotMap.CURRENT_LIMIT);
+
+    this.setElevator(0);
   }
 
   @Override
