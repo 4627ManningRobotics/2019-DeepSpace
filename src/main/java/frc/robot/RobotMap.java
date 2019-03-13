@@ -77,7 +77,7 @@ public class RobotMap {
 	public static final int ENCODER_GEAR_RATIO = 3;
 
   //climber values
-  public static final double CLIMBER_MAX_SPEED = 0.5; //0 - 1
+  public static final double CLIMBER_MAX_SPEED = 0.65; //0 - 1
   public static final int CLIMBER_GROUND_SLOT = 0;
   public static final int CLIMBER_LIFT_SLOT = 1;
   public static final double CLIMBER_FRONT_GROUND_P = 0.05;
