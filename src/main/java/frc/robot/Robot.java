@@ -251,9 +251,8 @@ class CameraThread extends Thread {
   @Override
   public void run() {
 
-    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    camera.setResolution(320, 240);
-    camera.setFPS(20);
+    CameraServer.getInstance().startAutomaticCapture();
+    CameraServer.getInstance().removeServer("Camera0");
 
     CvSink cvSink = CameraServer.getInstance().getVideo();
     CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 320, 240);
