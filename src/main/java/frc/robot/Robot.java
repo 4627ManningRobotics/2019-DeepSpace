@@ -50,13 +50,13 @@ public class Robot extends TimedRobot {
   SendableChooser<Command> chooser = new SendableChooser<>();
 
   
-  UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+  private UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 
-  //CvSink cvSink = CameraServer.getInstance().getVideo();
-  //CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 320, 240);
+  private CvSink cvSink = CameraServer.getInstance().getVideo();
+  private CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 320, 240);
 
-  //Mat source = new Mat();
-  //Mat output = new Mat();
+  private Mat source = new Mat();
+  private Mat output = new Mat();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -81,8 +81,8 @@ public class Robot extends TimedRobot {
     // Scheduler.getInstance().add(new DashboardData());
     //CameraServer.getInstance().startAutomaticCapture();
 
-    camera.setResolution(320, 240);
-    camera.setFPS(20);
+    this.camera.setResolution(320, 240);
+    this.camera.setFPS(20);
 
     this.initSmartDashboard();
 
@@ -101,9 +101,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     updateSmartDashboard();
-    //this.cvSink.grabFrame(source);
-    //Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-    //this.outputStream.putFrame(output);
+    this.cvSink.grabFrame(source);
+    Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+    this.outputStream.putFrame(output);
     /*
      * if(SmartDashboard.getBoolean("Compressor", false)){
      * if(!Robot.comp.enabled()){ Robot.comp.start(); } }else{
