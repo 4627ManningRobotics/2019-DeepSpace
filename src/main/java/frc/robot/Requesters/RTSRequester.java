@@ -2,12 +2,12 @@ package frc.robot.Requesters;
 
 import java.util.Scanner;
 
-public class StripRequester extends Requester {
+public class RTSRequester extends Requester {
 
-    private double X, Y, angle, relativeAngle;
+    private double X, Y, angle;
 
-    public StripRequester(){
-        super(Requester.STRIP, 2);
+    public RTSRequester(){
+        super(Requester.RTS, 2);
     }
 
     @Override
@@ -32,11 +32,6 @@ public class StripRequester extends Requester {
                 if(s.contains("-")){
                     this.angle *= -1;
                 }
-            }else if(s.contains("REL")){
-                this.relativeAngle = sc.nextDouble();
-                if(s.contains("-")){
-                    this.relativeAngle *= -1;
-                }
             }
         } 
         sc.close();
@@ -52,9 +47,5 @@ public class StripRequester extends Requester {
 
     public double getAngle(){
         return this.angle;
-    }
-
-    public double getRelativeAngle(){
-        return this.relativeAngle;
     }
 }

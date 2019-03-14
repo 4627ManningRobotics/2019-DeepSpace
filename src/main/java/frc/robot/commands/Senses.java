@@ -39,16 +39,17 @@ public class Senses extends Command {
   @Override
   protected void initialize() {
     Sensors.ballReqester.setRequesting(true);
-    Sensors.stripReqester.setRequesting(true);
-    Sensors.mouseReqester.setRequesting(true);
+    Sensors.rtsReqester.setRequesting(true);
+    Sensors.rtrReqester.setRequesting(true);
+    Sensors.mouseReqester.setRequesting(false);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Sensors.ballReqester.setRequesting(true);
-    Sensors.stripReqester.setRequesting(true);
-    Sensors.mouseReqester.setRequesting(true);
+    Sensors.rtsReqester.setRequesting(true);
+    Sensors.rtrReqester.setRequesting(true);
     if(!this.inQueue.isEmpty()){ // If the queue is not empty
       String s = this.inQueue.remove(); // Get the least recent string
       Senses.recent = s;
@@ -57,8 +58,10 @@ public class Senses extends Command {
       // Check recent for each string
       if(s.contains(Requester.BALL)) {
         Sensors.ballReqester.setData(s);
-      }else if(s.contains(Requester.STRIP)){
-        Sensors.stripReqester.setData(s);
+      }else if(s.contains(Requester.RTS)){
+        Sensors.rtsReqester.setData(s);
+      }else if(s.contains(Requester.RTR)){
+        Sensors.rtrReqester.setData(s);
       }else if(s.contains(Requester.MOUSE)){
         Sensors.mouseReqester.setData(s);
       }

@@ -10,7 +10,8 @@ public abstract class Requester{
   
     // All known keys
     public static final String BALL = "BALL";
-    public static final String STRIP = "STRIP";
+    public static final String RTS = "RTS";
+    public static final String RTR = "RTR";
     public static final String MOUSE = "MOUSE";
 
     private final String request;

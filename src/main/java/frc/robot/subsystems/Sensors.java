@@ -30,12 +30,13 @@ import frc.robot.commands.Senses;
 public class Sensors extends Subsystem {
 
   public static final BallRequester ballReqester = new BallRequester();
-  public static final StripRequester stripReqester = new StripRequester();
+  public static final RTSRequester rtsReqester = new RTSRequester();
+  public static final RTRRequester rtrReqester = new RTRRequester();
   public static final MouseRequester mouseReqester = new MouseRequester();
 
   private SerialPort RaspberryPi;
-  public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.stripReqester,
-      Sensors.mouseReqester };
+  public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.rtsReqester, 
+    Sensors.rtrReqester, Sensors.mouseReqester };
   protected PiSerialGetter getter;
   protected PiSerialSender sender;
   protected Thread serial_in;
