@@ -15,6 +15,7 @@ import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorSmartDashboard;
 import frc.robot.commands.ToggleClaw;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToBall;
 import frc.robot.commands.ZeroBothClimbers;
 
@@ -70,7 +71,9 @@ public class OI {
 		this.oButtonX.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
 		this.oButtonY.whenPressed(new SetElevator(RobotMap.ELEVATOR_HIGH)); 
 		this.oButtonB.whenPressed(new SetElevator(RobotMap.ELEVATOR_MED));
-		//this.oButtonX.whenPressed(new TurnToAngle(-45));
+
+		this.oButtonStart.whenPressed(new TurnToAngle(-45));
+		
 		//this.oButtonX.whenPressed(new TurnToAngle(Sensors.ballReqester.getAngle()));
 		//this.oButtonBack.whileHeld(new IncrementElevator(-RobotMap.ELEVATOR_INCREMENT));
 		//this.oButtonStart.whileHeld(new IncrementElevator(RobotMap.ELEVATOR_INCREMENT));
