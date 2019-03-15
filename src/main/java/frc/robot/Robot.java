@@ -254,10 +254,10 @@ class CameraThread extends Thread {
   public void run() {
 
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 20));
+    camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 160, 120, 20));
 
     CvSink cvSink = CameraServer.getInstance().getVideo();
-    CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 320, 240);
+    CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 160, 120);
 
     Mat source = new Mat();
     Mat output = new Mat();
