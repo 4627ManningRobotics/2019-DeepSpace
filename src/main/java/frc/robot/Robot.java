@@ -71,8 +71,10 @@ public class Robot extends TimedRobot {
     // this.dash.start();
     // Scheduler.getInstance().add(new DashboardData());
     // CameraServer.getInstance().startAutomaticCapture();
-
-    (new CameraThread()).start();
+    
+    Thread c = new CameraThread();
+    c.setDaemon(true);
+    c.start();
 
     this.initSmartDashboard();
 
