@@ -253,8 +253,8 @@ class CameraThread extends Thread {
   @Override
   public void run() {
 
-    CameraServer.getInstance().startAutomaticCapture();
-    CameraServer.getInstance().removeServer("Camera0");
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 20));
 
     CvSink cvSink = CameraServer.getInstance().getVideo();
     CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 320, 240);
@@ -262,6 +262,7 @@ class CameraThread extends Thread {
     Mat source = new Mat();
     Mat output = new Mat();
 
+    camera.close();
     while(!Thread.interrupted()){
       cvSink.grabFrame(source);
       Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
