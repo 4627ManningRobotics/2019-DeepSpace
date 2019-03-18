@@ -7,8 +7,12 @@
 
 package frc.robot;
 
+import java.awt.Color;
+
 import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.core.Point;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -254,18 +258,23 @@ class CameraThread extends Thread {
   public void run() {
 
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 160, 120, 20));
+    camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 360, 240, 20));
 
     CvSink cvSink = CameraServer.getInstance().getVideo();
-    CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 160, 120);
+    CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 360, 240);
 
     Mat source = new Mat();
     Mat output = new Mat();
+
+    int height = 3;
+    Point a = new Point(0, 239 - height);
+    Point b = new Point(159, 239 - height - 3);
 
     camera.close();
     while(!Thread.interrupted()){
       cvSink.grabFrame(source);
       Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+      Imgproc.rectangle(output, a, b, new Scalar(130));
       outputStream.putFrame(output);
     }
 
