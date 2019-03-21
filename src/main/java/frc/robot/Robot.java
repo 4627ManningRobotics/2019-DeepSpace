@@ -268,13 +268,13 @@ class CameraThread extends Thread {
 
     int height = 3;
     Point a = new Point(0, 239 - height);
-    Point b = new Point(159, 239 - height - 3);
+    Point b = new Point(359, 239 - height);
 
     camera.close();
     while(!Thread.interrupted()){
       cvSink.grabFrame(source);
       Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-      Imgproc.rectangle(output, a, b, new Scalar(130));
+      Imgproc.line(output, a, b, new Scalar(0), 1);
       outputStream.putFrame(output);
     }
 
