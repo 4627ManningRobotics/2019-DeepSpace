@@ -74,6 +74,14 @@ public class Utilities {
 		valArr[0] = val;
 	}
 
+	public static double metersToInches(double meters){
+		return meters * 39.3701;
+	}
+
+	public static double inchesToMeters(double inches){
+		return inches * 0.0254;
+	}
+
 	public static class Counter{
 		
 		private final int limit;

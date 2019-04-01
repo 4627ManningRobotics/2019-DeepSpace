@@ -8,6 +8,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
+import frc.robot.Robot;
+import frc.robot.Utilities;
+import frc.robot.subsystems.Sensors;
 
 public class GoToStrip extends CommandGroup {
   /**
@@ -31,5 +35,13 @@ public class GoToStrip extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+    super.addSequential(new TurnToAngle(Sensors.rtrReqester.getAngle()));
+    super.addSequential(new WaitCommand(0.25));
+    super.addSequential(new StoreAngle( Math.atan2(Sensors.rtsReqester.getY() / 2d, Sensors.rtsReqester.getX()) + Sensors.rtsReqester.getAngle()));
+    super.addSequential(new TurnToAngle( Sensors.rtsReqester.getAngle() - Math.atan2(Sensors.rtsReqester.getY() / 2d, Sensors.rtsReqester.getX())));
+    super.addSequential(new DriveForward(Utilities.metersToInches(Math.sqrt( (Sensors.rtsReqester.getY() / 2d) * (Sensors.rtsReqester.getY() / 2d) + Sensors.rtsReqester.getX() * Sensors.rtsReqester.getX()))));
+    super.addSequential(new TurnToAngle(Robot.sensors.getRotation()));
+    super.addSequential(new WaitCommand(0.25));
+    super.addSequential(new DriveForward(Utilities.metersToInches(Sensors.rtsReqester.getY())));
   }
 }

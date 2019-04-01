@@ -7,8 +7,12 @@
 
 package frc.robot;
 
+import java.awt.Color;
+
 import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.core.Point;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -16,6 +20,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -34,7 +39,7 @@ import frc.robot.subsystems.Climber.Dart;
 public class Robot extends TimedRobot {
 
   public static boolean vacuumMode = false;
-  public static boolean jankMode = false;
+  public static boolean jankMode = true;
 
   public static DriveTrain driveTrain = new DriveTrain();
   public static Climber climber = new Climber();
@@ -59,7 +64,7 @@ public class Robot extends TimedRobot {
       vacuum = new Vacuum();
     } else {
       claw = new Claw();
-      claw.setGrip(true);
+      claw.setGrip(false);
     }
     Robot.oi = new OI();
     Robot.comp.setClosedLoopControl(true);
@@ -70,7 +75,11 @@ public class Robot extends TimedRobot {
 
     // this.dash.start();
     // Scheduler.getInstance().add(new DashboardData());
-    CameraServer.getInstance().startAutomaticCapture();
+    // CameraServer.getInstance().startAutomaticCapture();
+    
+    Thread c = new CameraThread();
+    c.setDaemon(true);
+    c.start();
 
     this.initSmartDashboard();
 
@@ -102,7 +111,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    Robot.sensors.stopAllRequests();
   }
 
   @Override
@@ -205,10 +213,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
     // SmartDashboard.putBoolean("Compressor", false);
-    SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
     SmartDashboard.putNumber("set point", 10);
 
-    SmartDashboard.putNumber("MICE!", Sensors.mouseReqester.getDistance());
+    SmartDashboard.putString("operator name", DriverStation.getInstance().getJoystickName(1));
+    SmartDashboard.putBoolean("operator is box", DriverStation.getInstance().getJoystickIsXbox(1));
+    SmartDashboard.putNumber("operator type", DriverStation.getInstance().getJoystickType(1));
   }
 
   public void updateSmartDashboard() {
@@ -237,9 +246,38 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("elevator output value", Robot.elevator.getAppliedOutput());
 
     SmartDashboard.putData(Robot.driveTrain);
-    SmartDashboard.putNumber("ball Requester", Sensors.ballReqester.getAngle());
-    SmartDashboard.putNumber("Gyro", Robot.sensors.getRotation());
-    SmartDashboard.putNumber("MICE!", Sensors.mouseReqester.getDistance());
+
+    SmartDashboard.putString("operator name", DriverStation.getInstance().getJoystickName(1));
+    SmartDashboard.putBoolean("operator is box", DriverStation.getInstance().getJoystickIsXbox(1));
+    SmartDashboard.putNumber("operator type", DriverStation.getInstance().getJoystickType(1));
   }
 }
 
+class CameraThread extends Thread {
+
+  @Override
+  public void run() {
+
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 360, 240, 20));
+
+    CvSink cvSink = CameraServer.getInstance().getVideo();
+    CvSource outputStream = CameraServer.getInstance().putVideo("the working one", 360, 240);
+
+    Mat source = new Mat();
+    Mat output = new Mat();
+
+    int height = 3;
+    Point a = new Point(0, 239 - height);
+    Point b = new Point(359, 239 - height);
+
+    camera.close();
+    while(!Thread.interrupted()){
+      cvSink.grabFrame(source);
+      Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+      Imgproc.line(output, a, b, new Scalar(0), 1);
+      outputStream.putFrame(output);
+    }
+
+  }
+}

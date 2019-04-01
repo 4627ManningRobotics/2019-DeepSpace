@@ -46,6 +46,6 @@ public class RTSRequester extends Requester {
     }
 
     public double getAngle(){
-        return this.angle;
+        return Math.toDegrees(this.angle);
     }
 }

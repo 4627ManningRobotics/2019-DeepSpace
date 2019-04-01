@@ -34,6 +34,8 @@ public class Sensors extends Subsystem {
   public static final RTRRequester rtrReqester = new RTRRequester();
   public static final MouseRequester mouseReqester = new MouseRequester();
 
+  private double storedAngle;
+
   private SerialPort RaspberryPi;
   public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.rtsReqester, 
     Sensors.rtrReqester, Sensors.mouseReqester };
@@ -46,6 +48,8 @@ public class Sensors extends Subsystem {
   private double[] gyroRotation = new double[3];
 
   public Sensors() {
+
+    this.storedAngle = 0;
 
     this.RaspberryPi = null;
     this.getter = null;
@@ -91,6 +95,14 @@ public class Sensors extends Subsystem {
     for (Requester r : this.requests) {
       r.setRequesting(false);
     }
+  }
+
+  public void setStoredAngle(double angle){
+    this.storedAngle = angle;
+  }
+
+  public double getStoredAngle(){
+    return this.storedAngle;
   }
 
 }
