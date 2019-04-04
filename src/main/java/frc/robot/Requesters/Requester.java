@@ -13,6 +13,7 @@ public abstract class Requester{
     public static final String RTS = "RTS";
     public static final String RTR = "RTR";
     public static final String MOUSE = "MOUSE";
+    public static final String LIGHT = "LIGHT";
 
     private final String request;
     private boolean is_requesting = false;

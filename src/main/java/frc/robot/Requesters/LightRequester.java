@@ -7,7 +7,7 @@ public class LightRequester extends Requester {
     private boolean state = false, requestedState = false;
 
     public LightRequester(){
-        super(Requester.BALL, 2);
+        super(Requester.LIGHT, 0);
     }
 
     @Override
