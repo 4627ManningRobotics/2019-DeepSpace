@@ -38,7 +38,7 @@ public class GoToStrip extends CommandGroup {
     super.addSequential(new FaceStrips());
     super.addSequential(new WaitCommand(0.2));
     //super.addSequential(new StoreAngle( Math.atan2(Sensors.rtsReqester.getY() / 2d, Sensors.rtsReqester.getX()) + Sensors.rtsReqester.getAngle()));
-    super.addSequential(new StoreAngle(90 - Math.atan2(Sensors.rtsReqester.getY() / 2d, Sensors.rtsReqester.getX())));
+    super.addSequential(new StoreAngle(Math.atan2(Sensors.rtsReqester.getY() / 2d, Sensors.rtsReqester.getX()) - 90));
     super.addSequential(new TurnToAngle( Sensors.rtsReqester.getAngle() - Math.atan2(Sensors.rtsReqester.getY() / 2d, Sensors.rtsReqester.getX())));
     super.addSequential(new DriveForward(Utilities.metersToInches(Math.sqrt( (Sensors.rtsReqester.getY() / 2d) * (Sensors.rtsReqester.getY() / 2d) + Sensors.rtsReqester.getX() * Sensors.rtsReqester.getX()))));
     super.addSequential(new TurnToAngle(Robot.sensors.getRotation()));
