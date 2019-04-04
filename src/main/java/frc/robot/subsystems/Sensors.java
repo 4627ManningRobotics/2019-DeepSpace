@@ -164,7 +164,12 @@ class PiSerialSender implements Runnable {
     int i;
     while (true) {
       for (i = 0; i < this.requesters.length; i++) {
-        if (this.requesters[i].isRequesting()) {
+        if(this.requesters[i] instanceof LightRequester){
+          LightRequester lr = (LightRequester) this.requesters[i];
+          if(lr.isRequesting() != lr.getState()){
+            this.serial.writeString(lr.getRequestType() + ", " + lr.isRequesting() + "\n");
+          }
+        }else if(this.requesters[i].isRequesting()) {
           this.serial.writeString(this.requesters[i].getRequestType() + "\n");
           this.requesters[i].setRequesting(false);
         }
