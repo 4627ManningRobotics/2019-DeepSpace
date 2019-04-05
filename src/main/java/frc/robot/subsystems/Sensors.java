@@ -13,11 +13,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SerialPort.Parity;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
 import frc.robot.Requesters.*;
 import frc.robot.commands.Senses;
 
@@ -33,13 +35,14 @@ public class Sensors extends Subsystem {
   public static final RTSRequester rtsReqester = new RTSRequester();
   public static final RTRRequester rtrReqester = new RTRRequester();
   public static final MouseRequester mouseReqester = new MouseRequester();
-  public static final LightRequester lightRequester = new LightRequester();
+
+  private final Solenoid light = new Solenoid(RobotMap.LIGHT_SOLENOID);
 
   private double storedAngle;
 
   private SerialPort RaspberryPi;
   public final Requester[] requests = new Requester[] { Sensors.ballReqester, Sensors.rtsReqester, 
-    Sensors.rtrReqester, Sensors.mouseReqester, Sensors.lightRequester };
+    Sensors.rtrReqester, Sensors.mouseReqester};
   protected PiSerialGetter getter;
   protected PiSerialSender sender;
   protected Thread serial_in;
@@ -106,6 +109,9 @@ public class Sensors extends Subsystem {
     return this.storedAngle;
   }
 
+  public void setLight(boolean state){
+    this.light.set(state);
+  }
 }
 
 /*
@@ -165,12 +171,7 @@ class PiSerialSender implements Runnable {
     int i;
     while (true) {
       for (i = 0; i < this.requesters.length; i++) {
-        if(this.requesters[i] instanceof LightRequester){
-          LightRequester lr = (LightRequester) this.requesters[i];
-          if(lr.isRequesting() != lr.getState()){
-            this.serial.writeString(lr.getRequestType() + ", " + lr.isRequesting() + "\n");
-          }
-        }else if(this.requesters[i].isRequesting()) {
+        if(this.requesters[i].isRequesting()) {
           this.serial.writeString(this.requesters[i].getRequestType() + "\n");
           this.requesters[i].setRequesting(false);
         }

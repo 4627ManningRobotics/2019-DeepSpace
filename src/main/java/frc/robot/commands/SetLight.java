@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.subsystems.Sensors;
 
 /**
@@ -30,7 +31,7 @@ public class SetLight extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Sensors.lightRequester.setRequesting(this.state);
+    Robot.sensors.setLight(this.state);
   }
 
 }

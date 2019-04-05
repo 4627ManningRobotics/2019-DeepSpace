@@ -155,5 +155,8 @@ public class RobotMap {
   public static final double MAX_INTAKE_SPEED = 0.7;
   public static final int GRIP_SOLENOID = 5;
 
+  //misc
+  public static final int LIGHT_SOLENOID = 0;
+
 }
 
