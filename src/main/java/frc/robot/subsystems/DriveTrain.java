@@ -101,6 +101,14 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getDistance(){
-    return distancePerPulse * (this.leftMotor1.getSelectedSensorPosition() + this.rightMotor1.getSelectedSensorPosition()) / 2d; 
+    return distancePerPulse * (this.getLeftTicks() + this.getRightTicks()) / 2d; 
+  }
+
+  public double getLeftTicks(){
+    return this.leftMotor1.getSelectedSensorPosition();
+  }
+
+  public double getRightTicks(){
+    return this.rightMotor1.getSelectedSensorPosition();
   }
 }

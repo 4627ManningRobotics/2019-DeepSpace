@@ -14,6 +14,7 @@ import frc.robot.commands.DriveForward;
 import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorSmartDashboard;
+import frc.robot.commands.SetLight;
 import frc.robot.commands.ToggleClaw;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToBall;
@@ -33,7 +34,7 @@ public class OI {
 	Button dButtonX = new JoystickButton(this.driverController, RobotMap.BUTTON_X);
 	Button dButtonY = new JoystickButton(this.driverController, RobotMap.BUTTON_Y);
 	Button dButtonBack = new JoystickButton(this.driverController, RobotMap.BACK_BUTTON);
-	Button dStartButton = new JoystickButton(this.driverController, RobotMap.START_BUTTON);
+	Button dButtonStart = new JoystickButton(this.driverController, RobotMap.START_BUTTON);
 	
 	Button oButtonA = new JoystickButton(this.operatorController, RobotMap.BUTTON_A);
 	Button oButtonB = new JoystickButton(this.operatorController, RobotMap.BUTTON_B);
@@ -72,12 +73,17 @@ public class OI {
 		this.oButtonY.whenPressed(new SetElevator(RobotMap.ELEVATOR_HIGH)); 
 		this.oButtonB.whenPressed(new SetElevator(RobotMap.ELEVATOR_MED));
 
-		this.oButtonStart.whenPressed(new TurnToAngle(-45));
+		//this.oButtonStart.whenPressed(new TurnToAngle(-45));
 		
+		//this.oButtonStart.whenPressed(new SetLight(true));
+		//this.oButtonBack.whenPressed(new SetLight(false));
+
+		this.dButtonStart.whenPressed(new DriveForward(10));
+
 		//this.oButtonX.whenPressed(new TurnToAngle(Sensors.ballReqester.getAngle()));
 		//this.oButtonBack.whileHeld(new IncrementElevator(-RobotMap.ELEVATOR_INCREMENT));
 		//this.oButtonStart.whileHeld(new IncrementElevator(RobotMap.ELEVATOR_INCREMENT));
-		this.oButtonBack.whenPressed(new SetElevatorSmartDashboard());
+		//this.oButtonBack.whenPressed(new SetElevatorSmartDashboard());
 
 		if (Robot.vacuumMode) {
 			//this.oButtonLeftBumper.whenPressed(new SetVacuumAngle(45));
