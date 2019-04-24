@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.DriveForward;
@@ -67,6 +68,11 @@ public class OI {
 	}
 
 	public OI () {
+		this.driverController.setRumble(RumbleType.kRightRumble, 1);
+		this.driverController.setRumble(RumbleType.kLeftRumble, 1);
+		this.operatorController.setRumble(RumbleType.kRightRumble, 1);
+		this.operatorController.setRumble(RumbleType.kLeftRumble, 1);
+
 		this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_LOW));
 		//this.oButtonA.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
 		this.oButtonX.whenPressed(new SetElevator(RobotMap.ELEVATOR_GROUND)); 
@@ -77,8 +83,6 @@ public class OI {
 		
 		//this.oButtonStart.whenPressed(new SetLight(true));
 		//this.oButtonBack.whenPressed(new SetLight(false));
-
-		this.dButtonStart.whenPressed(new DriveForward(10));
 
 		//this.oButtonX.whenPressed(new TurnToAngle(Sensors.ballReqester.getAngle()));
 		//this.oButtonBack.whileHeld(new IncrementElevator(-RobotMap.ELEVATOR_INCREMENT));
@@ -94,7 +98,7 @@ public class OI {
 		}
 
 		this.dButtonA.whenPressed(new TurnToBall());
-		this.dButtonX.whenPressed(new DriveForward(10));
+		this.dButtonX.whenPressed(new DriveForward(30));
 
 		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
 		//this.dButtonX.whenPressed(new SetBackClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));

@@ -28,6 +28,9 @@ public class DriveForward extends PIDCommand {
   protected void initialize() {
     super.setSetpoint(this.distance);
     super.setTimeout(RobotMap.COMMAND_TIMEOUT);
+    this.getPIDController().reset();
+    this.getPIDController().enable();
+    Robot.driveTrain.resetEncoders();
     Sensors.mouseReqester.zero_distance();
   }
 

@@ -39,7 +39,7 @@ import frc.robot.subsystems.Climber.Dart;
 public class Robot extends TimedRobot {
 
   public static boolean vacuumMode = false;
-  public static boolean jankMode = true;
+  public static boolean jankMode = false;
 
   public static DriveTrain driveTrain = new DriveTrain();
   public static Climber climber = new Climber();
@@ -250,6 +250,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("operator name", DriverStation.getInstance().getJoystickName(1));
     SmartDashboard.putBoolean("operator is box", DriverStation.getInstance().getJoystickIsXbox(1));
     SmartDashboard.putNumber("operator type", DriverStation.getInstance().getJoystickType(1));
+
+    SmartDashboard.putNumber("Left Drive Ticks", Robot.driveTrain.getLeftTicks());
+    SmartDashboard.putNumber("Right Drive Ticks", Robot.driveTrain.getRightTicks());
+    SmartDashboard.putNumber("Drive Distance", Robot.driveTrain.getDistance());
   }
 }
 

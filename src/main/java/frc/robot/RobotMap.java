@@ -145,11 +145,11 @@ public class RobotMap {
   public static final double GYRO_GAY = 3;
   public static final double MAX_TURN_SPEED = 0.5;
   //DriveForward
-	public static final double DRIVE_P = 0.1;
-	public static final double DRIVE_I = 0.02;
-  public static final double DRIVE_D = 0;
-  public static final double DRIVE_TOLLERANCE = 1;
-  public static final double MAX_DRIVE_SPEED = 0.75;
+	public static final double DRIVE_P = 0.02;
+	public static final double DRIVE_I = 0.00;
+  public static final double DRIVE_D = 0.1;
+  public static final double DRIVE_TOLLERANCE = 0.5;
+  public static final double MAX_DRIVE_SPEED = 0.9;
   //generic
   public static final double COMMAND_TIMEOUT = 5; //seconds
   public static final double MAX_INTAKE_SPEED = 0.7;

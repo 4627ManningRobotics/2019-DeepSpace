@@ -29,8 +29,11 @@ public class DriveTrain extends Subsystem {
   private  VictorSPX rightMotor2 = null;
   private  TalonSRX rightMotor3 = null;
 
-  private final double distancePerPulse = (2 * RobotMap.WHEEL_DIAMETER) / 
-  (RobotMap.ENCODER_PULSES_PER_REVOLUTION / RobotMap.ENCODER_GEAR_RATIO);
+  private final double distancePerPulse = (2.0 * RobotMap.WHEEL_DIAMETER * RobotMap.ENCODER_GEAR_RATIO) / 
+  (RobotMap.ENCODER_PULSES_PER_REVOLUTION);
+
+  private int leftOffset = 0;
+  private int rightOffset = 0;
 
   public DriveTrain() {
 
@@ -104,11 +107,17 @@ public class DriveTrain extends Subsystem {
     return distancePerPulse * (this.getLeftTicks() + this.getRightTicks()) / 2d; 
   }
 
-  public double getLeftTicks(){
-    return this.leftMotor1.getSelectedSensorPosition();
+  public int getLeftTicks(){
+    return this.leftMotor1.getSelectedSensorPosition() - this.leftOffset;
   }
 
-  public double getRightTicks(){
-    return this.rightMotor1.getSelectedSensorPosition();
+  public int getRightTicks(){
+    return this.rightMotor1.getSelectedSensorPosition() - this.rightOffset;
   }
+
+  public void resetEncoders(){
+    this.leftOffset = this.leftMotor1.getSelectedSensorPosition();
+    this.rightOffset = this.rightMotor1.getSelectedSensorPosition();
+  }
+  
 }
