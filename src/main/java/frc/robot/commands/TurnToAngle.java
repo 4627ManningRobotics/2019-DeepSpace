@@ -21,7 +21,8 @@ public class TurnToAngle extends PIDCommand {
   public TurnToAngle(double angle) {
     super(RobotMap.TURN_P, RobotMap.TURN_I, RobotMap.TURN_D);
     super.requires(Robot.driveTrain);
-    m_angle = angle;
+    this.m_angle = angle;
+    System.out.println(this.m_angle);
   }
 
   // Called just before this Command runs the first time

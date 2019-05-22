@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Senses;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Climber.Dart;
 
@@ -254,6 +255,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Left Drive Ticks", Robot.driveTrain.getLeftTicks());
     SmartDashboard.putNumber("Right Drive Ticks", Robot.driveTrain.getRightTicks());
     SmartDashboard.putNumber("Drive Distance", Robot.driveTrain.getDistance());
+
+    SmartDashboard.putString("Recent Vision String", Senses.recent);
   }
 }
 

@@ -33,7 +33,7 @@ public class FaceStrips extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
     super.addSequential(new SetLight(true));
-    super.addSequential(new WaitCommand(0.2));
+    super.addSequential(new WaitCommand(1));
     super.addSequential(new TurnToAngle(Sensors.rtrReqester.getAngle()));
     super.addSequential(new SetLight(false));
   }

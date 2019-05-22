@@ -7,7 +7,7 @@ public class BallRequester extends Requester {
     private double distance, angle;
 
     public BallRequester(){
-        super(Requester.BALL, 2);
+        super(Requester.BALL, 3);
     }
 
     @Override
@@ -17,13 +17,13 @@ public class BallRequester extends Requester {
             sc.useDelimiter("\\d");
             String s = sc.next();
             sc.useDelimiter("[,}]");
-            if(s.contains("Y")){
+            if(s.contains("Distance")){
                 this.distance = sc.nextDouble();
                 if(s.contains("-")){
                     this.distance *= -1;
                 }
             }else if(s.contains("Angle")){
-                this.angle = sc.nextDouble();
+                this.angle = Math.toDegrees(sc.nextDouble());
                 if(s.contains("-")){
                     this.angle *= -1;
                 }

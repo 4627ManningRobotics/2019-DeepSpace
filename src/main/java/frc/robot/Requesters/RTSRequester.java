@@ -7,7 +7,7 @@ public class RTSRequester extends Requester {
     private double X, Y, angle;
 
     public RTSRequester(){
-        super(Requester.RTS, 2);
+        super(Requester.RTS, 4);
     }
 
     @Override

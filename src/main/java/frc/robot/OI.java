@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.DriveForward;
+import frc.robot.commands.GoToStrip;
 import frc.robot.commands.IncrementElevator;
 import frc.robot.commands.SetElevator;
 import frc.robot.commands.SetElevatorSmartDashboard;
@@ -97,7 +98,7 @@ public class OI {
 			this.oButtonRightBumper.whenPressed(new ToggleClaw());
 		}
 
-		this.dButtonA.whenPressed(new TurnToBall());
+		this.dButtonA.whenPressed(new GoToStrip());
 		this.dButtonX.whenPressed(new DriveForward(30));
 
 		//this.dButtonA.whenPressed(new SetFrontClimber(RobotMap.CLIMBER_GROUND, RobotMap.CLIMBER_GROUND_SLOT));
