@@ -86,9 +86,11 @@ public class Utilities {
 		
 		private final int limit;
 		private int counts = 0;
+		private Func function;
 
-		public Counter(int limit){
+		public Counter(int limit, Func func){
 			this.limit = limit;
+			this.function = func;
 		}
 
 		public int getLimit(){
@@ -96,7 +98,12 @@ public class Utilities {
 		}
 
 		public void count(){
-			this.counts += 1;
+			if(!this.isDoneCounting()){
+				this.counts += 1;
+				this.function.calc();
+			}else{
+				this.reset();
+			}
 		}
 
 		public int getCount(){
@@ -111,5 +118,11 @@ public class Utilities {
 			return this.counts > this.limit;
 		}
 
+	}
+
+	@FunctionalInterface
+	public static interface Func{
+		
+		void calc();
 	}
 }

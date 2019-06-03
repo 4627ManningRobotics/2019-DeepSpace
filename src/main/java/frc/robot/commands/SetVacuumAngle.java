@@ -19,11 +19,15 @@ import frc.robot.Utilities.Counter;
 public class SetVacuumAngle extends Command {
 
   private double angle;
+  private boolean isDone;
   private final Counter counter;
 
   public SetVacuumAngle(double angle) {
     this.angle = angle;
-    this.counter = new Counter(RobotMap.VACUUM_PID_TIMEOUT);
+    this.isDone = false;
+    this.counter = new Counter(RobotMap.VACUUM_PID_TIMEOUT, () -> {
+      this.isDone = true;
+    });
     super.requires(Robot.vacuum);
   }
 
@@ -54,7 +58,7 @@ public class SetVacuumAngle extends Command {
     }else{
       this.counter.reset();
     }
-    return false;
+    return this.isDone;
   }
 
   // Called once after isFinished returns true

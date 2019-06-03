@@ -7,7 +7,7 @@ public class RTRRequester extends Requester {
     private double angle;
 
     public RTRRequester(){
-        super(Requester.RTR, 4);
+        super(4);
     }
 
     @Override
@@ -30,5 +30,15 @@ public class RTRRequester extends Requester {
 
     public double getAngle(){
         return Math.toDegrees(this.angle);
+    }
+
+    @Override
+    public String getRequestMessage() {
+        return "RTR";
+    }
+
+    @Override
+    public String getRequestType() {
+        return "RTR";
     }
 }

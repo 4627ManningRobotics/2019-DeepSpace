@@ -7,7 +7,7 @@ public class BallRequester extends Requester {
     private double distance, angle;
 
     public BallRequester(){
-        super(Requester.BALL, 3);
+        super(3);
     }
 
     @Override
@@ -40,5 +40,15 @@ public class BallRequester extends Requester {
 
     public double getAngle(){
         return this.angle;
+    }
+
+    @Override
+    public String getRequestMessage() {
+        return "BALL";
+    }
+
+    @Override
+    public String getRequestType() {
+        return "BALL";
     }
 }

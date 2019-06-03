@@ -7,7 +7,7 @@ public class MouseRequester extends Requester {
     private double distance, offset;
 
     public MouseRequester(){
-        super(Requester.MOUSE, 5);
+        super(5);
     }
 
     @Override
@@ -31,6 +31,16 @@ public class MouseRequester extends Requester {
 
     public void zero_distance(){
         this.offset = this.distance;
+    }
+
+    @Override
+    public String getRequestMessage() {
+        return "Mouse";
+    }
+
+    @Override
+    public String getRequestType() {
+        return "Mouse";
     }
 
 }

@@ -23,47 +23,40 @@ import frc.robot.subsystems.Sensors;
 public class Senses extends Command {
 
   // the continual stream of information
-  private Queue<String> inQueue = new LinkedBlockingQueue<String>();
+  private Queue<String> inQueue;
   public static String recent;
 
   // The requester objects to be referenced by other commands
 
- public Senses(Queue<String> q) {
+ public Senses() {
     // Use requires() here to declare subsystem dependencies
     super.requires(Robot.sensors);
-    this.inQueue = q;
+    this.inQueue = Requester.inQueue;
     Senses.recent = "";
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Sensors.ballReqester.setRequesting(true);
-    Sensors.rtsReqester.setRequesting(true);
-    Sensors.rtrReqester.setRequesting(true);
-    Sensors.mouseReqester.setRequesting(false);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Sensors.ballReqester.setRequesting(true);
-    Sensors.rtsReqester.setRequesting(true);
-    Sensors.rtrReqester.setRequesting(true);
-    if(!this.inQueue.isEmpty()){ // If the queue is not empty
+    Sensors.ballReqester.request(true);
+    Sensors.rtsReqester.request(true);
+    Sensors.rtrReqester.request(true);
+
+    while(!this.inQueue.isEmpty()){ // If the queue is not empty
       String s = this.inQueue.remove(); // Get the least recent string
       Senses.recent = s;
       //SmartDashboard.putString("Senses recent", Senses.recent);
 
       // Check recent for each string
-      if(s.contains(Requester.BALL)) {
-        Sensors.ballReqester.setData(s);
-      }else if(s.contains(Requester.RTS)){
-        Sensors.rtsReqester.setData(s);
-      }else if(s.contains(Requester.RTR)){
-        Sensors.rtrReqester.setData(s);
-      }else if(s.contains(Requester.MOUSE)){
-        Sensors.mouseReqester.setData(s);
+      for(Requester r: Requester.getAllRequesters()){
+        if(s.contains(r.getRequestType())){
+          r.setData(s);
+        }
       }
     }
   }
