@@ -1,4 +1,8 @@
 package frc.robot;
+
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.util.SortedVector.Comparator;
+
 /**
  * Utilities is designed to be a class for generic methods used across the 
  * various commands. Not all methods will be used each year.
@@ -82,15 +86,18 @@ public class Utilities {
 		return inches * 0.0254;
 	}
 
+	/**
+	 * The counter is responsible for counting up to a limit and the executing a function.
+	 */
 	public static class Counter{
 		
 		private final int limit;
 		private int counts = 0;
-		private Func function;
+		private final Runnable runner;
 
-		public Counter(int limit, Func func){
+		public Counter(int limit, Runnable runner){
 			this.limit = limit;
-			this.function = func;
+			this.runner = runner;
 		}
 
 		public int getLimit(){
@@ -100,7 +107,7 @@ public class Utilities {
 		public void count(){
 			if(!this.isDoneCounting()){
 				this.counts += 1;
-				this.function.calc();
+				this.runner.run();
 			}else{
 				this.reset();
 			}
@@ -119,10 +126,5 @@ public class Utilities {
 		}
 
 	}
-
-	@FunctionalInterface
-	public static interface Func{
-		
-		void calc();
-	}
+	
 }

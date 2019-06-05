@@ -26,6 +26,7 @@ public class TurnToAngle extends PIDCommand {
   }
 
   // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
     this.setpoint = Robot.sensors.getRotation() + m_angle;
 
@@ -43,21 +44,25 @@ public class TurnToAngle extends PIDCommand {
     this.pidController.enable();
   }
 
+  @Override
   protected void execute(){
     SmartDashboard.putNumber("PID OUT", this.pidController.get());
   }
   // Make this return true when this Command no longer needs to run execute()
+  @Override
   protected boolean isFinished() {
     return super.isTimedOut() || this.pidController.onTarget();
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
     this.pidController.disable();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {
     this.end();
   }

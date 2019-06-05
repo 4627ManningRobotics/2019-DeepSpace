@@ -23,7 +23,7 @@ public class BallRequester extends Requester {
                     this.distance *= -1;
                 }
             }else if(s.contains("Angle")){
-                this.angle = Math.toDegrees(sc.nextDouble());
+                this.angle = sc.nextDouble();
                 if(s.contains("-")){
                     this.angle *= -1;
                 }
@@ -39,7 +39,7 @@ public class BallRequester extends Requester {
     }
 
     public double getAngle(){
-        return this.angle;
+        return Math.toDegrees(this.angle);
     }
 
     @Override
